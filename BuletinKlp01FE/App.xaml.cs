@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BuletinKlp01FE.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,7 @@ namespace BuletinKlp01FE
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new SignupPage();
         }
 
         protected override void OnStart()
