@@ -30,6 +30,16 @@ namespace BuletinKlp01FE.Views
             Entry_Password.Completed += (s, e) => SignInProcedure(s, e);
         }
 
+        protected override void OnAppearing()
+        {
+            string token = Preferences.Get("token", "");
+            if (token != "")
+            {
+                Application.Current.MainPage = new MainPage();
+                return;
+            }
+        }
+
         void RedirectToSignupPageTrigger(object sender, EventArgs e)
         {
             Application.Current.MainPage = new SignupPage();
@@ -37,60 +47,69 @@ namespace BuletinKlp01FE.Views
 
         async void SignInProcedure(object sender, EventArgs e)
         {
-            string username = Entry_Username.Text;
-            string password = Entry_Password.Text;
-
-            if (username == null || password == null)
-            {
-                DependencyService.Get<IMessage>().ShortAlert("Input not valid");
-                return;
-            }
-
-            if (username == "" || password == "")
-            {
-                DependencyService.Get<IMessage>().ShortAlert("Input not valid");
-                return;
-            }
-
             Button button = sender as Button;
-            button.Text = "Please wait...";
-
-            HttpClient client = new HttpClient();
-
-            var content = new StringContent(JsonConvert.SerializeObject(new {  username, password }), Encoding.UTF8, "application/json");
-            string weburl = Constants.LOGIN_END_POINT;
-            HttpResponseMessage httpResponseMessage = await client.PostAsync(weburl, content);
-
-            if (httpResponseMessage.IsSuccessStatusCode)
+            try
             {
-                string token = "";
-                foreach (var header in httpResponseMessage.Headers)
+                string username = Entry_Username.Text;
+                string password = Entry_Password.Text;
+
+                if (username == null || password == null)
                 {
-                    if (header.Key.ToLower() == "authorization")
-                    {
-                        token = header.Value.First();
-                        break;
-                    }
+                    DependencyService.Get<IMessage>().ShortAlert("Input not valid");
+                    return;
                 }
 
-                if (token == "")
+                if (username == "" || password == "")
                 {
-                    DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
+                    DependencyService.Get<IMessage>().ShortAlert("Input not valid");
+                    return;
+                }
+
+                button.Text = "Please wait...";
+
+                HttpClient client = new HttpClient();
+
+                var content = new StringContent(JsonConvert.SerializeObject(new { username, password }), Encoding.UTF8, "application/json");
+                string weburl = Constants.LOGIN_END_POINT;
+                HttpResponseMessage httpResponseMessage = await client.PostAsync(weburl, content);
+
+                if (httpResponseMessage.IsSuccessStatusCode)
+                {
+                    string token = "";
+                    foreach (var header in httpResponseMessage.Headers)
+                    {
+                        if (header.Key.ToLower() == "authorization")
+                        {
+                            token = header.Value.First();
+                            break;
+                        }
+                    }
+
+                    if (token == "")
+                    {
+                        DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
+                    }
+                    else
+                    {
+                        // TODO: Save token && redirect to home
+                        Preferences.Set("token", token);
+                        Application.Current.MainPage = new MainPage();
+                    }
+
                 }
                 else
                 {
-                    // TODO: Save token && redirect to home
-                    Preferences.Set("token", token);
-                    Application.Current.MainPage = new MainPage();
+                    DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
                 }
 
+                button.Text = "Login";
             }
-            else
+            catch (Exception ex)
             {
-                DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
+                button.Text = "Login";
+                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                Console.WriteLine(ex.Message);
             }
-
-            button.Text = "Login";
         }
     }
 }

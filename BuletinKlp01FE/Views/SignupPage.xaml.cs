@@ -86,10 +86,9 @@ namespace BuletinKlp01FE.Views
             catch (Exception ex)
             {
                 button.Text = "Register";
-                Console.WriteLine("Something wrong!");
+                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
             }
-
             
         }
     }
