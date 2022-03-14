@@ -47,9 +47,7 @@
                                 <StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <customattr:CustomEntry Placeholder="Email" PlaceholderColor="#BFBFBF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryEmail" Keyboard="Email">
-                                            <customattr:CustomEntry.Behaviors>
-                                                <xct:EmailValidationBehavior  InvalidStyle="{StaticResource InvalidStyle}" />
-                                            </customattr:CustomEntry.Behaviors>
+                                            
                                         </customattr:CustomEntry>
                                         <Frame BackgroundColor="AliceBlue" HeightRequest="0" WidthRequest="0" HorizontalOptions="Start">
 
@@ -75,7 +73,11 @@
                             <!-- Already have an account-->
                             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                                 <Label Text="Already have an account? "/>
-                                <Label Text="Sign in" TextColor="#3F72AF" FontAttributes="Bold" />
+                                <Label Text="Sign in" TextColor="#3F72AF" FontAttributes="Bold" >
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="RedirectToLoginPageTrigger"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </StackLayout>
                         </StackLayout>
                         
