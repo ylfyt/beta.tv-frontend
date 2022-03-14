@@ -81,6 +81,7 @@ namespace BuletinKlp01FE.Views
                 {
                     // TODO: Save token && redirect to home
                     Preferences.Set("token", token);
+                    Application.Current.MainPage = new MainPage();
                 }
 
             }

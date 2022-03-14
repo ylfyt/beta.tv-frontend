@@ -11,6 +11,7 @@ using BuletinKlp01FE.Models;
 using Newtonsoft.Json;
 using BuletinKlp01FE.Services;
 using BuletinKlp01FE.Utils;
+using Xamarin.Essentials;
 
 namespace BuletinKlp01FE.Views
 {
@@ -55,9 +56,24 @@ namespace BuletinKlp01FE.Views
                         button.Text = "Register";
                         return;
                     }
-                    // TODO: Redirect to home
-                    DependencyService.Get<IMessage>().ShortAlert("Success");
-                    button.Text = "Register";
+
+                    string token = "";
+                    foreach (var header in response.Headers)
+                    {
+                        if (header.Key.ToLower() == "authorization")
+                        {
+                            token = header.Value.First();
+                            break;
+                        }
+                    }
+                    if (token == "")
+                    {
+                        DependencyService.Get<IMessage>().ShortAlert("Something wrong...");
+                        return;
+                    }
+                    // TODO: Save token && redirect to home
+                    Preferences.Set("token", token);
+                    Application.Current.MainPage = new MainPage();
                     return;
                 }
                 else
