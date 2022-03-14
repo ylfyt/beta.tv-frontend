@@ -47,9 +47,7 @@
                                 <StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <customattr:CustomEntry Placeholder="Email" PlaceholderColor="#BFBFBF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryEmail" Keyboard="Email">
-                                            <customattr:CustomEntry.Behaviors>
-                                                <xct:EmailValidationBehavior  InvalidStyle="{StaticResource InvalidStyle}" />
-                                            </customattr:CustomEntry.Behaviors>
+                                            
                                         </customattr:CustomEntry>
                                         <Frame BackgroundColor="AliceBlue" HeightRequest="0" WidthRequest="0" HorizontalOptions="Start">
 
