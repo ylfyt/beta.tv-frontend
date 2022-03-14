@@ -6,7 +6,11 @@ using BuletinKlp01FE.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
-
+using Newtonsoft.Json;
+using System.Text;
+using System.Linq;
+using BuletinKlp01FE.Services;
+using BuletinKlp01FE.Utils;
 
 namespace BuletinKlp01FE.Views
 {
@@ -33,62 +37,54 @@ namespace BuletinKlp01FE.Views
 
             if (username == null || password == null)
             {
+                DependencyService.Get<IMessage>().ShortAlert("Input not valid");
                 return;
             }
 
             if (username == "" || password == "")
             {
+                DependencyService.Get<IMessage>().ShortAlert("Input not valid");
                 return;
             }
 
-           
-                Token token = await App.RestService.Login(username, password);
+            Button button = sender as Button;
+            button.Text = "Please wait...";
 
-                if (token.access_token != "")
+            HttpClient client = new HttpClient();
+
+            var content = new StringContent(JsonConvert.SerializeObject(new {  username, password }), Encoding.UTF8, "application/json");
+            string weburl = Constants.LOGIN_END_POINT;
+            HttpResponseMessage httpResponseMessage = await client.PostAsync(weburl, content);
+
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                string token = "";
+                foreach (var header in httpResponseMessage.Headers)
                 {
-                   // App.UserDatabase.SaveUser(user);
-                    //App.TokenDatabase.SaveToken(token);
-                    
-                    await DisplayAlert("Login", token.access_token, "Ok");
-                    Preferences.Set("token", token.access_token);
-                    //TO DO: REDIRECT TO HOMEPAGE
-                    if (Device.OS == TargetPlatform.Android)
+                    if (header.Key.ToLower() == "authorization")
                     {
-                        await DisplayAlert("Great", "You can quit now", "I might");
+                        token = header.Value.First();
+                        break;
                     }
-                    /*else if (Device.OS == TargetPlatform.iOS)
-                    {
-                        
-                    }
-                    else
-                    {
-                        
-                    }*/
-                } 
+                }
+
+                if (token == "")
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
+                }
                 else
                 {
-                    await DisplayAlert("Empty", "Login information is incorrect", "Ok");
+                    // TODO: Save token && redirect to home
+                    Preferences.Set("token", token);
                 }
-            
-            
-            /*await DisplayAlert("Jalan", "Login jalan", "Ok");
-            var client = new HttpClient();
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync("http://10.0.2.2:5000/WeatherForecast");
-                response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
-                // Above three lines can be replaced with new helper method below
-                // string responseBody = await client.GetStringAsync(uri);
 
-                await DisplayAlert("Login", responseBody, "Ok");
             }
-            catch (HttpRequestException er)
+            else
             {
-                await DisplayAlert("Error", er.Message, "Ok");
-                Console.WriteLine("\nException Caught!");
-                //Console.WriteLine("Message");
-            }*/
+                DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
+            }
+
+            button.Text = "Login";
         }
     }
 }

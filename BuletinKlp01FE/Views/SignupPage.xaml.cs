@@ -10,6 +10,7 @@ using System.Net.Http;
 using BuletinKlp01FE.Models;
 using Newtonsoft.Json;
 using BuletinKlp01FE.Services;
+using BuletinKlp01FE.Utils;
 
 namespace BuletinKlp01FE.Views
 {
@@ -38,7 +39,7 @@ namespace BuletinKlp01FE.Views
                     var content1 = new StringContent(JsonConvert.SerializeObject(new { name = user.Name, username = user.Username, email = user.Email, password = user.Password }), Encoding.UTF8, "application/json");
 
                     var content = new FormUrlEncodedContent(postData);
-                    string weburl = "http://10.0.2.2:5000/api/User/register";
+                    string weburl = Constants.REGISTER_END_POINT;
                     client.BaseAddress = new Uri(weburl);
 
                     var response = await client.PostAsync("", content1);

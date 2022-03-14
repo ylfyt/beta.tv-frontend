@@ -46,7 +46,7 @@
                                               HorizontalOptions="End"/>-->
                     </Grid>
                     <Entry x:Name="Entry_Password" Margin="0,5,0,0" Placeholder="Password"
-                           HeightRequest="40"/>
+                           HeightRequest="40" IsPassword="True" />
                     <Button Text="Login"
                             BackgroundColor="#3F72AF"
                             TextColor="White"
