@@ -30,6 +30,11 @@ namespace BuletinKlp01FE.Views
             Entry_Password.Completed += (s, e) => SignInProcedure(s, e);
         }
 
+        void RedirectToSignupPageTrigger(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new SignupPage();
+        }
+
         async void SignInProcedure(object sender, EventArgs e)
         {
             string username = Entry_Username.Text;

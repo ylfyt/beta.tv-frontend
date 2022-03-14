@@ -22,6 +22,11 @@ namespace BuletinKlp01FE.Views
             InitializeComponent();
         }
 
+        public void RedirectToLoginPageTrigger(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new LoginPage();
+        }
+
         public async void Button_Clicked(object sender, EventArgs e)
         {
             Button button = sender as Button;

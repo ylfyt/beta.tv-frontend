@@ -47,16 +47,8 @@
                     </Grid>
                     <Entry x:Name="Entry_Password" Margin="0,5,0,0" Placeholder="Password"
                            HeightRequest="40" IsPassword="True" />
-                    <Button Text="Login"
-                            BackgroundColor="#3F72AF"
-                            TextColor="White"
-                            FontSize="12"
-                            HeightRequest="30"
-                            WidthRequest="100"
-                            HorizontalOptions="Center"
-                            Margin="0,30,0,0"
-                            Padding="-5"
-                            Clicked="SignInProcedure"/>
+                    
+                    <Button Text="Login" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="10,40,10,0" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="SignInProcedure" x:Name="LoginButton"/>
                     <Label HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Start"
                            Padding="0,10,0,0"
@@ -66,7 +58,11 @@
                                 <FormattedString.Spans>
                                     <Span Text="Don't have an account? "/>
                                     <Span Text="Sign up"
-                                          TextColor="#3F72AF"/>
+                                          TextColor="#3F72AF" FontAttributes="Bold">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="RedirectToSignupPageTrigger"/>
+                                        </Span.GestureRecognizers>
+                                    </Span>
                                 </FormattedString.Spans>
                             </FormattedString>
                         </Label.FormattedText>
