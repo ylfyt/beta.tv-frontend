@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using BuletinKlp01FE.Data;
-using BuletinKlp01FE.Models;
 using BuletinKlp01FE.Utils;
 using BuletinKlp01FE.Views;
 using Xamarin.Forms;

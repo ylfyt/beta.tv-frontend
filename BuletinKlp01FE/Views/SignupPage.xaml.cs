@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Net.Http;
 using BuletinKlp01FE.Models;
 using Newtonsoft.Json;
-using BuletinKlp01FE.Services;
-using BuletinKlp01FE.Utils;
 using Xamarin.Essentials;
+
+using BuletinKlp01FE.Utils;
+using BuletinKlp01FE.Services;
 
 namespace BuletinKlp01FE.Views
 {

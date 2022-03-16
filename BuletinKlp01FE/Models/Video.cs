@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BuletinKlp01FE.Models
+﻿namespace BuletinKlp01FE.Models
 {
     public class Video
     {
