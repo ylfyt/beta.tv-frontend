@@ -28,6 +28,11 @@ namespace BuletinKlp01FE.Views
             Application.Current.MainPage = new LoginPage();
         }
 
+        private void RedirectToHome()
+        {
+            Application.Current.MainPage = new NavigationPage(new MainPage());
+        }
+
         public async void Button_Clicked(object sender, EventArgs e)
         {
             Button button = sender as Button;
@@ -73,7 +78,7 @@ namespace BuletinKlp01FE.Views
                     }
                     // TODO: Save token && redirect to home
                     Preferences.Set("token", token);
-                    Application.Current.MainPage = new MainPage();
+                    RedirectToHome();
                     return;
                 }
                 else

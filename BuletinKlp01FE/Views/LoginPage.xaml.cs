@@ -35,9 +35,14 @@ namespace BuletinKlp01FE.Views
             string token = Preferences.Get("token", "");
             if (token != "")
             {
-                Application.Current.MainPage = new MainPage();
+                RedirectToHome();
                 return;
             }
+        }
+
+        private void RedirectToHome()
+        {
+            Application.Current.MainPage = new NavigationPage(new MainPage());
         }
 
         void RedirectToSignupPageTrigger(object sender, EventArgs e)
@@ -93,7 +98,7 @@ namespace BuletinKlp01FE.Views
                     {
                         // TODO: Save token && redirect to home
                         Preferences.Set("token", token);
-                        Application.Current.MainPage = new MainPage();
+                        RedirectToHome();
                     }
 
                 }
