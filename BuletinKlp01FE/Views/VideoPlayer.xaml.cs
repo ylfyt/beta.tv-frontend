@@ -1,4 +1,5 @@
-﻿using BuletinKlp01FE.Services;
+﻿using BuletinKlp01FE.Models;
+using BuletinKlp01FE.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,21 @@ namespace BuletinKlp01FE.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class VideoPlayer : ContentPage
     {
-        public VideoPlayer()
+        private readonly Video _video;
+        public VideoPlayer(Video video)
         {
             InitializeComponent();
-            PlayVideo();
+            _video = video;
+            LoadVideo();
+        }
+
+        private void LoadVideo()
+        {
+            categoryText.Text = "#" + _video.Category;
+            titleText.Text = _video.Title;
+            sourceText.Text = _video.ChannelName;
+            authorNameText.Text = _video.NewsAuthorName;
+            descriptionText.Text = _video.Description;
         }
 
         public async void PlayVideo()
