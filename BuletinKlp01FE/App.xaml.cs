@@ -24,7 +24,7 @@ namespace BuletinKlp01FE
         {
             InitializeComponent();
 
-            MainPage = new LoginPage();
+            MainPage = new VideoPlayer();
         }
 
         protected override void OnStart()
