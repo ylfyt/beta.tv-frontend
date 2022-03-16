@@ -31,6 +31,7 @@ namespace BuletinKlp01FE.Views
             sourceText.Text = _video.ChannelName;
             authorNameText.Text = _video.NewsAuthorName;
             descriptionText.Text = _video.Description;
+            this.Title = "Video";
         }
 
         public async void PlayVideo()
