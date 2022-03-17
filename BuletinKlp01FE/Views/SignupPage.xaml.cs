@@ -32,13 +32,13 @@ namespace BuletinKlp01FE.Views
         {
             Button button = sender as Button;
             try
-            { 
+            {
                 User user = new User(SignupEntryName.Text, SignupEntryUsername.Text, SignupEntryEmail.Text, SignupEntryPassword.Text);
 
                 button.Text = "Please Wait...";
 
-                if (user.IsInputValid())    
-                {   
+                if (user.IsInputValid())
+                {
                     var client = new HttpClient();
                     var postData = new List<KeyValuePair<string, string>>();
 
@@ -81,7 +81,7 @@ namespace BuletinKlp01FE.Views
                     button.Text = "Register";
                     DependencyService.Get<IMessage>().ShortAlert("Input not valid");
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace BuletinKlp01FE.Views
                 DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
             }
-            
+
         }
     }
 }

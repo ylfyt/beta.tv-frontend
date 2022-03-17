@@ -26,10 +26,10 @@ namespace BuletinKlp01FE.Data
         {
             List<KeyValuePair<string, string>> postData = new List<KeyValuePair<string, string>>();
 
-            var content = new StringContent(JsonConvert.SerializeObject(new {  username, password }), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(new { username, password }), Encoding.UTF8, "application/json");
             string weburl = "http://10.0.2.2:5000/api/User/login";
             HttpResponseMessage httpResponseMessage = await client.PostAsync(weburl, content);
-            Token token; 
+            Token token;
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 string temp = "";
@@ -42,7 +42,8 @@ namespace BuletinKlp01FE.Data
                     }
                 }
                 token = new Token() { access_token = temp };
-            } else
+            }
+            else
             {
                 token = new Token() { access_token = "" };
             }

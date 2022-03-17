@@ -47,7 +47,7 @@
                     </Grid>
                     <Entry x:Name="Entry_Password" Margin="0,5,0,0" Placeholder="Password"
                            HeightRequest="40" IsPassword="True" />
-                    
+
                     <Button Text="Login" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="10,40,10,0" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="SignInProcedure" x:Name="LoginButton"/>
                     <Label HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Start"
@@ -71,7 +71,7 @@
                         </Label.GestureRecognizers>-->
                     </Label>
                 </StackLayout>
-                
+
             </Frame>
         </StackLayout>
 

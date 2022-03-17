@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BuletinKlp01FE.HomePage">
+             x:Class="BuletinKlp01FE.Views.Homepage"
+             Title="Beta.TV">
     <ContentPage.Content>
         <StackLayout Margin="0">
             <Grid>
@@ -21,8 +22,8 @@
                 <Label Text="Welcome to Beta.TV!" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="4" HorizontalOptions="Center"></Label>
                 <Button Text="Search Here" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4"
                         HorizontalOptions="FillAndExpand"/>
-                   
-                <!--
+
+                <!-- navbar -->
                 <Rectangle Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Stroke="#CCCCCC" StrokeThickness='1.5' RadiusX="15" RadiusY="15" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="370" HeightRequest="70"/>
 
                 <ImageButton x:Name="HomePic" Grid.Row="7" Grid.Column="0" AnchorX="0.8" Source="{Binding HomePicSource}" Grid.ColumnSpan="1" ScaleX="0.4" ScaleY="0.4" Clicked="HomePic_OnClicked" BackgroundColor="Transparent"/>
@@ -32,7 +33,7 @@
                 <ImageButton x:Name="SubPic" Grid.Row="7" Grid.Column="2" AnchorX="0.35" Source="{Binding SubPicSource}" Grid.ColumnSpan="1" ScaleX="0.4" ScaleY="0.4" Clicked="SubPic_OnClicked" BackgroundColor="Transparent"/>
 
                 <ImageButton x:Name="ProfilePic" Grid.Row="7" Grid.Column="3" AnchorX="0.2" Source="{Binding ProfilePicSource}" Grid.ColumnSpan="1" ScaleX="0.4" ScaleY="0.4" Clicked="ProfilePic_OnClicked" BackgroundColor="Transparent"/>
-                -->
+
             </Grid>
         </StackLayout>
     </ContentPage.Content>

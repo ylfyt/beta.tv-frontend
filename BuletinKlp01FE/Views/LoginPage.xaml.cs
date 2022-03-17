@@ -45,8 +45,17 @@ namespace BuletinKlp01FE.Views
             Application.Current.MainPage = new SignupPage();
         }
 
-        async void SignInProcedure(object sender, EventArgs e)
+        /*async*/ void SignInProcedure(object sender, EventArgs e)
         {
+            // coba2
+            Application.Current.MainPage = new NavigationPage(new Homepage())
+            {
+                BarTextColor = Color.FromHex("#3F72AF"),
+                BarBackgroundColor = Color.White,
+            };
+
+            // asli - ingat y sebenarnya ini async
+            /*
             Button button = sender as Button;
             try
             {
@@ -93,7 +102,10 @@ namespace BuletinKlp01FE.Views
                     {
                         // TODO: Save token && redirect to home
                         Preferences.Set("token", token);
-                        Application.Current.MainPage = new MainPage();
+                        Application.Current.MainPage = new NavigationPage (new Homepage()){
+                            BarTextColor = Color.FromHex("#3F72AF"),
+                            BarBackgroundColor = Color.White,
+                        };
                     }
 
                 }
@@ -110,6 +122,7 @@ namespace BuletinKlp01FE.Views
                 DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
             }
+            */
         }
     }
 }
