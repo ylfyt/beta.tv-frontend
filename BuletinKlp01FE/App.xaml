@@ -10,6 +10,7 @@
             <Style x:Key="InvalidStyle" TargetType="Entry">
                 <Setter Property="TextColor" Value="Red"/>
             </Style>
+            <Color x:Key="Color0">#3F72AF</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
