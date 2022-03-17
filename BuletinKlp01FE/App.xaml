@@ -3,13 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BuletinKlp01FE.App">
     <Application.Resources>
-        <ResourceDictionary>
-            <Style TargetType="Label">
-                <Setter Property="FontFamily" Value="tim" />
-            </Style>
-            <Style x:Key="InvalidStyle" TargetType="Entry">
-                <Setter Property="TextColor" Value="Red"/>
-            </Style>
-        </ResourceDictionary>
+
     </Application.Resources>
 </Application>
