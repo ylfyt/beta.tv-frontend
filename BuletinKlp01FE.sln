@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuletinKlp01FE.Android", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuletinKlp01FE.iOS", "BuletinKlp01FE.iOS\BuletinKlp01FE.iOS.csproj", "{344A1383-FF8F-407D-9360-1CAA1E66A678}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuletinKlp01FE", "BuletinKlp01FE\BuletinKlp01FE.csproj", "{C44246B5-CC2E-4463-A89D-41506302E5E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuletinKlp01FE", "BuletinKlp01FE\BuletinKlp01FE.csproj", "{C44246B5-CC2E-4463-A89D-41506302E5E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

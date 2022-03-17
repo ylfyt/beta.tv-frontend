@@ -66,14 +66,23 @@
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.8.116</Version>
     </PackageReference>
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.4</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.CommunityToolkit">
       <Version>1.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomRenderer\MyEntryRenderer.cs" />
+    <Compile Include="CustomRender\MyEntryRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,7 +109,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\checklist.png" />
+    <AndroidResource Include="Resources\drawable\bx_search.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuletinKlp01FE\BuletinKlp01FE.csproj">
@@ -109,45 +118,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\key.png" />
+    <AndroidResource Include="Resources\drawable\Banki1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\name.png" />
+    <AndroidResource Include="Resources\drawable\carbon_home.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\username.png" />
+    <AndroidResource Include="Resources\drawable\ic_sharp_subscriptions.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\email.png" />
+    <AndroidResource Include="Resources\drawable\Vector_blue.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\key.png" />
+    <AndroidResource Include="Resources\drawable\bx_search_blue.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\name.png" />
+    <AndroidResource Include="Resources\drawable\carbon_home_blue.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\username.png" />
+    <AndroidResource Include="Resources\drawable\ic_sharp_subscriptions_blue.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\email.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\key.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\name.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\username.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\email.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResourceAnalysisConfig Include="Resources\xml\network_security_config.xml">
-      <SubType>Designer</SubType>
-    </AndroidResourceAnalysisConfig>
+    <AndroidResource Include="Resources\drawable\Vector.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\padlock.png" />
