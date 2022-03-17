@@ -47,9 +47,7 @@
                                 <StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <customattr:CustomEntry Placeholder="Email" PlaceholderColor="#BFBFBF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryEmail" Keyboard="Email">
-                                            <customattr:CustomEntry.Behaviors>
-                                                <xct:EmailValidationBehavior  InvalidStyle="{StaticResource InvalidStyle}" />
-                                            </customattr:CustomEntry.Behaviors>
+                                            
                                         </customattr:CustomEntry>
                                         <Frame BackgroundColor="AliceBlue" HeightRequest="0" WidthRequest="0" HorizontalOptions="Start">
 
@@ -71,11 +69,15 @@
                             </StackLayout>
                             
                             <!-- Register button -->
-                            <Button Text="Register" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="10,40,10,0" HorizontalOptions="Center" Padding="30,0,30,0" Clicked="Button_Clicked"/>
+                            <Button Text="Register" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="10,40,10,0" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="Button_Clicked" x:Name="RegisterButton"/>
                             <!-- Already have an account-->
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, 20, 0, 0">
                                 <Label Text="Already have an account? "/>
-                                <Label Text="Sign in" TextColor="#3F72AF" FontAttributes="Bold"/>
+                                <Label Text="Sign in" TextColor="#3F72AF" FontAttributes="Bold" >
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="RedirectToLoginPageTrigger"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </StackLayout>
                         </StackLayout>
                         

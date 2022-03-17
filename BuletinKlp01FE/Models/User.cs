@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,9 +23,15 @@ namespace BuletinKlp01FE.Models
             this.Password = pass;
         }
 
-        public bool isInputValid()
+        public bool IsInputValid()
         {
-            return (!this.Username.Equals("") && !this.Name.Equals("") && !this.Email.Equals("") && !this.Password.Equals(""));
+
+            if (Username == null || Name == null || Email == null || Password == null)
+            {
+                return false;
+            }
+
+            return (Username != "" && !Name.Equals("") && !Email.Equals("") && !Password.Equals(""));
         }
     }
 }
