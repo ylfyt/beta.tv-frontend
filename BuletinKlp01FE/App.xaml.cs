@@ -1,4 +1,4 @@
-﻿using BuletinKlp01FE.Data;
+﻿//using BuletinKlp01FE.Data;
 using BuletinKlp01FE.Views;
 using System;
 using Xamarin.Forms;
@@ -8,12 +8,12 @@ namespace BuletinKlp01FE
 {
     public partial class App : Application
     {
-        public static RestService RestService;
+        //public static RestService RestService;
         public App()
         {
             InitializeComponent();
 
-            MainPage = new SignupPage();
+            MainPage = new NavigationPage(new Profile());
         }
 
         protected override void OnStart()
