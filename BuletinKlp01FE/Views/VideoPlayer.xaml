@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BuletinKlp01FE.Views.VideoPlayer"
+             >
+    <StackLayout>
+        <WebView Source="https://www.youtube.com/embed/_tEw-Him7ho" HeightRequest="235" />
+        <Label Text="#Politics #News" FontSize="Small" TextColor="#3F72AF" Margin="10, 0, 10, 0" x:Name="categoryText" />
+        <Label Text="Tutorial Xamarin untuk Pemula" FontSize="Medium" TextColor="Black" Margin="10,0,10,10" x:Name="titleText" />
+        <BoxView HeightRequest="1" Color="Black" />
+        <StackLayout Padding="10, 10, 10, 10" >
+            <FlexLayout >
+                <Label Text="Source: " TextColor="Black" FontSize="Small" />
+                <Label Text="CNN Indonesia" TextColor="Black" FontSize="Small" x:Name="sourceText"/>
+            </FlexLayout>
+            <FlexLayout>
+                <Label Text="Author: " FontSize="Small" />
+                <Label Text="Budi Santoso" FontAttributes="Italic"  FontSize="Small" x:Name="authorNameText"/>
+            </FlexLayout>
+            <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet augue ultricies sapien faucibus commodo. Duis ultricies, mauris et rhoncus scelerisque, enim augue varius velit, at sollicitudin arcu diam at lectus. &#10;&#10;Curabitur orci lacus, elementum ut maximus at, mollis ut felis. Vestibulum placerat velit placerat dui rhoncus imperdiet. Morbi a dui sit amet massa ultrices condimentum quis a dolor. Ut vel ex sem. Cras laoreet leo vitae finibus convallis. Suspendisse nec tortor in nisl ullamcorper porttitor sed id nunc. &#10;&#10;Ut vitae pellentesque felis, a accumsan turpis. Pellentesque sit amet sem tincidunt, viverra neque sit amet, consequat arcu. Etiam elementum felis sed lorem sollicitudin, quis luctus orci semper. Nam maximus convallis tortor ac dapibus. Donec molestie erat a semper suscipit." TextColor="Black" FontSize="Small" x:Name="descriptionText" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

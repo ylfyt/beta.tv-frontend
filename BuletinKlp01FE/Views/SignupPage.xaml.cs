@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Net.Http;
 using BuletinKlp01FE.Models;
 using Newtonsoft.Json;
-using BuletinKlp01FE.Services;
-using BuletinKlp01FE.Utils;
 using Xamarin.Essentials;
+
+using BuletinKlp01FE.Utils;
+using BuletinKlp01FE.Services;
 
 namespace BuletinKlp01FE.Views
 {
@@ -26,6 +25,11 @@ namespace BuletinKlp01FE.Views
         public void RedirectToLoginPageTrigger(object sender, EventArgs e)
         {
             Application.Current.MainPage = new LoginPage();
+        }
+
+        private void RedirectToHome()
+        {
+            Application.Current.MainPage = new NavigationPage(new MainPage());
         }
 
         public async void Button_Clicked(object sender, EventArgs e)
@@ -73,7 +77,7 @@ namespace BuletinKlp01FE.Views
                     }
                     // TODO: Save token && redirect to home
                     Preferences.Set("token", token);
-                    Application.Current.MainPage = new MainPage();
+                    RedirectToHome();
                     return;
                 }
                 else

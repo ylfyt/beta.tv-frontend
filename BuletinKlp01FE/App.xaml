@@ -4,6 +4,10 @@
              x:Class="BuletinKlp01FE.App">
     <Application.Resources>
         <ResourceDictionary>
+            <Style TargetType="NavigationPage" >
+                <Setter Property="BarBackgroundColor" Value="#FFFFFF"/>
+                <Setter Property="BarTextColor" Value="Black" />
+            </Style>
             <Style TargetType="Label">
                 <Setter Property="FontFamily" Value="tim" />
             </Style>
