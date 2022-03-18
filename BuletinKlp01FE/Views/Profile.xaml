@@ -7,7 +7,7 @@
              xmlns:viewmodels="clr-namespace:BuletinKlp01FE.ViewModels"
              xmlns:model="clr-namespace:BuletinKlp01FE.Models"
              x:DataType="viewmodels:UserBookmarkViewModel"
-             Background="white">
+             >
     <ContentPage.BindingContext>
         <viewmodels:UserBookmarkViewModel/>
     </ContentPage.BindingContext>
@@ -35,7 +35,7 @@
                                     <Frame>
                                         <StackLayout Orientation="Horizontal" >
                                             <Image Source="sampleVideo" WidthRequest="100"/>
-                                            <StackLayout>
+                                            <StackLayout Margin="10,0,0,0">
                                                 <Label VerticalOptions="Center" FontSize="Small" Text="{Binding Name}" TextColor="black"/>
                                                 <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding Channel}" TextColor="black"/>
                                             </StackLayout>
@@ -48,7 +48,7 @@
                 </ListView>
             </StackLayout>
             <!-- menu pengaturan -->
-            <StackLayout x:Name="pengaturan"  Margin="30,0,40,0" IsVisible="false">
+            <StackLayout x:Name="pengaturan"  Margin="30,0,40,20" IsVisible="false" Padding="0,10,0,0">
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
                     <CI:CircleImage WidthRequest="60" HeightRequest="60" Aspect="AspectFill" Source="userprofile"/>
                     <Label Text="Ubah foto profil" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
@@ -58,14 +58,14 @@
                     <Frame CornerRadius="30" BackgroundColor="#C4C4C4" Padding="15">
                         <Image WidthRequest="30" HeightRequest="30" Aspect="AspectFit"  Source="checklist"/>
                     </Frame>
-                    <Label Text="Perbarui data diri" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="10,0,20,0"/>
+                    <Label Text="Perbarui data diri" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
                     <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="25" HeightRequest="25" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="UbahDataDiriClicked"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
                     <Frame CornerRadius="30" BackgroundColor="#C4C4C4" Padding="15">
                         <Image BackgroundColor="Transparent" WidthRequest="25" HeightRequest="25" Aspect="AspectFit"  Source="padlock"/>
                     </Frame>
-                    <Label Text="Ubah kata sandi" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="10,0,20,0"/>
+                    <Label Text="Ubah kata sandi" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
                     <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="25" HeightRequest="25" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="EditPasswordClicked"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
@@ -77,6 +77,20 @@
                 </StackLayout>
                 
             </StackLayout>
+            <!-- navbar -->
+            <Frame HeightRequest="70" BorderColor="#CCCCCC" CornerRadius="15" Margin="10,0,10,5">
+                <Grid>
+                    <Grid ColumnDefinitions="*,*,*,*" Margin="0"/>
+
+                    <ImageButton x:Name="HomePic" Grid.Row="0" Grid.Column="0" AnchorX="0.8" Source="carbon_home" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" Clicked="HomePic_OnClicked" BackgroundColor="Transparent" HeightRequest="70"/>
+
+                    <ImageButton x:Name="SearchPic" Grid.Row="0" Grid.Column="1" AnchorX="0.55" Source="bx_search" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" Clicked="SearchPic_OnClicked" BackgroundColor="Transparent"/>
+
+                    <ImageButton x:Name="SubPic" Grid.Row="0" Grid.Column="2" AnchorX="0.35" Source="ic_sharp_subscriptions" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" Clicked="SubPic_OnClicked" BackgroundColor="Transparent"/>
+
+                    <ImageButton x:Name="ProfilePic" Grid.Row="0" Grid.Column="3" AnchorX="0.2" Source="Vector_blue" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" BackgroundColor="Transparent"/>
+                </Grid>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -95,13 +95,6 @@ namespace BuletinKlp01FE.Views
             {
                 throw ex;
             }
-            /*if (homePicSource == homeBlack)
-            {
-                homePicSource = homeBlue;
-                searchPicSource = searchBlack;
-                subPicSource = subBlack;
-                profilePicSource = profileBlack;
-            }*/
         }
         private void SearchPic_OnClicked(object sender, EventArgs e)
         {
@@ -113,13 +106,6 @@ namespace BuletinKlp01FE.Views
             {
                 throw ex;
             }
-            /*if (searchPicSource == searchBlack)
-            {
-                searchPicSource = searchBlue;
-                homePicSource = homeBlack;
-                subPicSource = subBlack;
-                profilePicSource = profileBlack;
-            }*/
         }
         private void SubPic_OnClicked(object sender, EventArgs e)
         {
@@ -131,31 +117,22 @@ namespace BuletinKlp01FE.Views
             {
                 throw ex;
             }
-            /*if (subPicSource == subBlack)
-            {
-                subPicSource = subBlue;
-                homePicSource = homeBlack;
-                searchPicSource = searchBlack;
-                profilePicSource = profileBlack;
-            }*/
         }
         private void ProfilePic_OnClicked(object sender, EventArgs e)
         {
             try
             {
-                Navigation.PushAsync(new MainPage());
+                //Navigation.PushAsync(new Profile());
+                Application.Current.MainPage = new NavigationPage(new Profile())
+                {
+                    BarTextColor = Color.FromHex("#3F72AF"),
+                    BarBackgroundColor = Color.White,
+                };
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            /*if (profilePicSource == profileBlack)
-            {
-                profilePicSource = profileBlue;
-                homePicSource = homeBlack;
-                searchPicSource = searchBlack;
-                subPicSource = subBlack;
-            }*/
         }
     }
 }

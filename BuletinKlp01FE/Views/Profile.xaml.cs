@@ -75,5 +75,45 @@ namespace BuletinKlp01FE.Views
             }
         }
 
+        // for navbar
+        private void HomePic_OnClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                //Navigation.PushAsync(new MainPage());
+                Application.Current.MainPage = new NavigationPage(new Homepage())
+                {
+                    BarTextColor = Color.FromHex("#3F72AF"),
+                    BarBackgroundColor = Color.White,
+                };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private void SearchPic_OnClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                Navigation.PushAsync(new MainPage());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private void SubPic_OnClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                Navigation.PushAsync(new MainPage());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
