@@ -1,5 +1,9 @@
 ﻿using System;
-using Xamarin.Essentials;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 using BuletinKlp01FE.Models;
@@ -31,15 +35,9 @@ namespace BuletinKlp01FE
             await Navigation.PushAsync(new VideoPlayer(video));
         }
 
-        protected override void OnAppearing()
+        private void Button_Clicked(object sender, EventArgs e)
         {
-            string token = Preferences.Get("token", "");
-            if (token == "")
-            {
-                DependencyService.Get<IMessage>().ShortAlert("Token not found");
-                return;
-            }
-            DependencyService.Get<IMessage>().ShortAlert(token);
+            Navigation.PushAsync(new HomePage());
         }
     }
 }
