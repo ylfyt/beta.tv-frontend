@@ -13,13 +13,13 @@ namespace BuletinKlp01FE.ViewModels
         {
             Beritasaya = new ObservableRangeCollection<Video>();
 
-            Beritasaya.Add(new Video { Name = "tutorial xamarin nomor 1 cepat", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "hihihiahiha ihaiasihdiehi csdcudg web", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "contoh video", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "contoh video", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "contoh video", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "contoh video", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "contoh video", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
+            Beritasaya.Add(new Video { Title = "tutorial xamarin nomor 1 cepat", ChannelName = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
+            Beritasaya.Add(new Video { Title = "hihihiahiha ihaiasihdiehi csdcudg web", ChannelName = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
+            Beritasaya.Add(new Video { Title = "contoh video", ChannelName = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
+            Beritasaya.Add(new Video { Title = "contoh video", ChannelName = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
+            Beritasaya.Add(new Video { Title = "contoh video", ChannelName = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
+            Beritasaya.Add(new Video { Title = "contoh video", ChannelName = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
+            Beritasaya.Add(new Video { Title = "contoh video", ChannelName = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
 
         }
     }

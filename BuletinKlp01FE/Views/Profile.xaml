@@ -36,8 +36,8 @@
                                         <StackLayout Orientation="Horizontal" >
                                             <Image Source="sampleVideo" WidthRequest="100"/>
                                             <StackLayout Margin="10,0,0,0">
-                                                <Label VerticalOptions="Center" FontSize="Small" Text="{Binding Name}" TextColor="black"/>
-                                                <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding Channel}" TextColor="black"/>
+                                                <Label VerticalOptions="Center" FontSize="Small" Text="{Binding Title}" TextColor="black"/>
+                                                <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding ChannelName}" TextColor="black"/>
                                             </StackLayout>
                                         </StackLayout>
                                     </Frame>
