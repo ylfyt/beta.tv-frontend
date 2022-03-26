@@ -9,6 +9,7 @@ namespace BuletinKlp01FE.Utils
         public static string BASE_URL { get; } = "http://10.0.2.2:5000/api";
         public static string LOGIN_END_POINT { get; } = BASE_URL + "/User/login";
         public static string REGISTER_END_POINT { get; } = BASE_URL + "/User/register";
+        public static string SEARCH_VIDEO_ENDPOINT { get; } = BASE_URL + "/video/search";
         public static string NotInternetText { get; } = "No internet, please reconnect!";
     }
 }

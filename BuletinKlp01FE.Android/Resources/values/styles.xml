@@ -14,5 +14,7 @@
     <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
     <!--<item name="colorAccent">#FF4081</item>-->
+	  <item name="android:elevation">4dp</item>
+	  <item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
   </style>
 </resources>

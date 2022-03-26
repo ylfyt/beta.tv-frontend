@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BuletinKlp01FE.Data;
 using BuletinKlp01FE.Utils;
 using BuletinKlp01FE.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BuletinKlp01FE
@@ -23,8 +24,7 @@ namespace BuletinKlp01FE
         public App()
         {
             InitializeComponent();
-
-            MainPage = new LoginPage();
+            MainPage = new NavigationPage(new SearchVideo());
         }
 
         protected override void OnStart()

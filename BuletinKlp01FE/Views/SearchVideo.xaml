@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:customattr="clr-namespace:BuletinKlp01FE.Views.CustomRenderer" x:DataType="customattr:CustomEntry"
+             x:Class="BuletinKlp01FE.Views.SearchVideo"
+             Title="Pencarian"
+             >
+    <ContentPage.Content>
+        <StackLayout Padding="12">
+            <StackLayout Orientation="Horizontal" >
+                <Frame CornerRadius="15" HorizontalOptions="FillAndExpand" Padding="4" HeightRequest="40">
+                    <customattr:CustomEntry Placeholder="Cari video" PlaceholderColor="#BFBFBF" TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="QueryTextInput" />
+                </Frame>
+                <ImageButton Source="search_icon.png" BackgroundColor="Transparent" Padding="4" WidthRequest="40" HeightRequest="40" VerticalOptions="CenterAndExpand" Margin="5,0,0,0" Clicked="SearchButtonClicked" x:Name="SearchButton" />
+            </StackLayout>
+            <Label Text="Pencarian" x:Name="MessageText" />
+            <StackLayout>
+
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

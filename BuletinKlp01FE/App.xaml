@@ -6,7 +6,8 @@
         <ResourceDictionary>
             <Style TargetType="NavigationPage" >
                 <Setter Property="BarBackgroundColor" Value="#FFFFFF"/>
-                <Setter Property="BarTextColor" Value="Black" />
+                <Setter Property="BarTextColor" Value="#3F72AF" />
+                
             </Style>
             <Style TargetType="Label">
                 <Setter Property="FontFamily" Value="tim" />
