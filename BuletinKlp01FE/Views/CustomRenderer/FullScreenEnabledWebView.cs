@@ -62,12 +62,14 @@
             };
             
             DependencyService.Get<IOrientationService>().Landscape();
+            DependencyService.Get<IStatusBar>().HideStatusBar();
             await Application.Current.MainPage.Navigation.PushModalAsync(page);
         }
 
         private static async Task DefaultExitAsync()
         {
             DependencyService.Get<IOrientationService>().Portrait();
+            DependencyService.Get<IStatusBar>().ShowStatusBar();
             await Application.Current.MainPage.Navigation.PopModalAsync();
         }
     }
