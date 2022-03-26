@@ -6,6 +6,7 @@ using BuletinKlp01FE.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -92,8 +93,10 @@ namespace BuletinKlp01FE.Views
 
                 responseVideo.Data?.Videos.ForEach(video =>
                 {
+                    var dt = DateTimeOffset.FromUnixTimeSeconds(int.Parse(video.CreateAt)).LocalDateTime;
+
                     video.ChannelName = video.ChannelName;
-                    video.VideoInfo = video.ChannelName + " • " + video.CreateAt;
+                    video.VideoInfo = video.ChannelName + " • " + dt.ToString("MMMM dd, yyyy");
                     video.ThumbnailSource = ImageSource.FromUri(new Uri(video.ThumbnailUrl));
                 });
 
