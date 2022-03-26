@@ -18,7 +18,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Frame CornerRadius="7" BackgroundColor="White" Padding="0" Margin="0,0,0,10" MinimumHeightRequest="275" >
+                                <Frame CornerRadius="7" BackgroundColor="White" Padding="0" Margin="0,0,0,10" MinimumHeightRequest="275" BorderColor="LightGray">
                                     <StackLayout Orientation="Vertical" HeightRequest="275">
                                         <Image Source="{Binding ThumbnailSource}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                         <StackLayout Orientation="Vertical" Padding="10,0,10,10" >
