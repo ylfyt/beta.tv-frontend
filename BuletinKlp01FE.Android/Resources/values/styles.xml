@@ -16,5 +16,6 @@
     <!--<item name="colorAccent">#FF4081</item>-->
 	  <item name="android:elevation">4dp</item>
 	  <item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
+	  <item name="android:colorActivatedHighlight">@android:color/transparent</item>
   </style>
 </resources>

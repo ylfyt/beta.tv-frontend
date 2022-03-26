@@ -7,9 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -41,9 +42,10 @@ namespace BuletinKlp01FE.Views
             VideosListView.ItemsSource = temp;
         }
 
-        public async void VideoSelected(object sender, SelectedItemChangedEventArgs e)
+        public async void VideoSelected(object sender, ItemTappedEventArgs e)
         {
-            var video = e.SelectedItem as Video;
+            var video = e.Item as Video;
+            
             if (video == null)
             {
                 Console.WriteLine("Something wrong!!");
@@ -69,8 +71,16 @@ namespace BuletinKlp01FE.Views
 
                 VideosListView.ItemsSource = null;
 
-                HttpClient client = new HttpClient();
+                var token = Preferences.Get("token", "");
+                if (token == "")
+                {
+                    MessageText.Text = "Please, Login first!!";
+                    SearchButton.Source = "search_icon.png";
+                    return;
+                }
 
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", token);
                 var content = new StringContent(JsonConvert.SerializeObject(new { query = QueryTextInput.Text }), Encoding.UTF8, "application/json");
                 string weburl = Constants.SEARCH_VIDEO_ENDPOINT;
                 var httpResponseMessage = await client.PostAsync(weburl, content);
@@ -87,7 +97,7 @@ namespace BuletinKlp01FE.Views
 
                 if (!responseVideo.Success)
                 {
-                    MessageText.Text = "Something wrong";
+                    MessageText.Text = "Gagal mendapatkan video!!";
                     SearchButton.Source = "search_icon.png";
                     return;
                 }
