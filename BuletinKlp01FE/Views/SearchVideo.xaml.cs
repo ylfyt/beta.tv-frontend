@@ -1,4 +1,6 @@
-﻿using BuletinKlp01FE.Utils;
+﻿using BuletinKlp01FE.Dtos;
+using BuletinKlp01FE.Dtos.video;
+using BuletinKlp01FE.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -41,7 +43,21 @@ namespace BuletinKlp01FE.Views
                 var httpResponseMessage = await client.PostAsync(weburl, content);
 
                 string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-                Console.WriteLine(responseBody);
+                var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataVideos>>(responseBody);
+
+                if (responseVideo == null)
+                {
+                    MessageText.Text = "Something wrong";
+                    SearchButton.Source = "search_icon.png";
+                    return;
+                }
+
+                if (!responseVideo.Success)
+                {
+                    MessageText.Text = "Something wrong";
+                    SearchButton.Source = "search_icon.png";
+                    return;
+                }
 
                 MessageText.Text = "Hasil Pencarian";
                 SearchButton.Source = "search_icon.png";
