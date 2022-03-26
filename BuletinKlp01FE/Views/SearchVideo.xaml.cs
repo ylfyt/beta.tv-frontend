@@ -26,8 +26,8 @@ namespace BuletinKlp01FE.Views
             InitializeComponent();
 
             List<Video> temp = new();
-
             VideosListView.ItemsSource = temp;
+            QueryTextInput.Focus();
         }
 
         public async void VideoSelected(object sender, ItemTappedEventArgs e)

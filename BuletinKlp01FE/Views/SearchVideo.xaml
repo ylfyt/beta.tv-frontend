@@ -12,7 +12,7 @@
                 </Frame>
                 <ImageButton Source="search_icon.png" BackgroundColor="Transparent" Padding="4" WidthRequest="40" HeightRequest="40" VerticalOptions="CenterAndExpand" Margin="5,0,0,0" Clicked="SearchButtonClicked" x:Name="SearchButton" />
             </StackLayout>
-            <Label Text="Pencarian Populer" x:Name="MessageText" FontSize="Medium" TextColor="#3F72AF" Margin="0,5,0,5" />
+            <Label Text="History Pencarian :" x:Name="MessageText" FontSize="Medium" TextColor="#3F72AF" Margin="0,5,0,5" />
             <StackLayout VerticalOptions="FillAndExpand">
                 <ListView x:Name="VideosListView" HasUnevenRows="True" ItemTapped="VideoSelected">
                     <ListView.ItemTemplate>

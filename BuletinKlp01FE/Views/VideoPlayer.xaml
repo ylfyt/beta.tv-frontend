@@ -4,34 +4,26 @@
              x:Class="BuletinKlp01FE.Views.VideoPlayer"
              >
     <StackLayout>
-        <WebView Source="https://www.youtube.com/embed/_tEw-Him7ho" HeightRequest="235" />
-        <Label Text="#Politics #News" FontSize="Small" TextColor="#3F72AF" Margin="10, 0, 10, 0" x:Name="categoryText" />
-        <Label Text="Tutorial Xamarin untuk Pemula" FontSize="Medium" TextColor="Black" Margin="10,0,10,10" x:Name="titleText" />
-        <BoxView HeightRequest="1" Color="Black" />
-        <StackLayout Padding="10, 10, 10, 10" >
-            <FlexLayout >
-                <Label Text="Source: " TextColor="Black" FontSize="Small" />
-                <Label Text="CNN Indonesia" TextColor="Black" FontSize="Small" x:Name="sourceText"/>
-            </FlexLayout>
-            <FlexLayout>
-                <Label Text="Author: " FontSize="Small" />
-                <Label Text="Budi Santoso" FontAttributes="Italic"  FontSize="Small" x:Name="authorNameText"/>
-            </FlexLayout>
-            <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet augue ultricies sapien faucibus commodo. Duis ultricies, mauris et rhoncus scelerisque, enim augue varius velit, at sollicitudin arcu diam at lectus. &#10;&#10;Curabitur orci lacus, elementum ut maximus at, mollis ut felis. Vestibulum placerat velit placerat dui rhoncus imperdiet. Morbi a dui sit amet massa ultrices condimentum quis a dolor. Ut vel ex sem. Cras laoreet leo vitae finibus convallis. Suspendisse nec tortor in nisl ullamcorper porttitor sed id nunc. &#10;&#10;Ut vitae pellentesque felis, a accumsan turpis. Pellentesque sit amet sem tincidunt, viverra neque sit amet, consequat arcu. Etiam elementum felis sed lorem sollicitudin, quis luctus orci semper. Nam maximus convallis tortor ac dapibus. Donec molestie erat a semper suscipit." TextColor="Black" FontSize="Small" x:Name="descriptionText" />
+        <StackLayout MinimumHeightRequest="400" >
+            <WebView Grid.Row="0" Source="https://www.youtube.com/embed/_tEw-Him7ho" HeightRequest="233"  x:Name="VideoWebView" />
+            <Label Text="#Politics #News" FontSize="Small" TextColor="#3F72AF" Margin="10, 0, 10, 0" x:Name="categoryText" />
+            <Label Text="Tutorial Xamarin untuk Pemula" FontSize="Medium" TextColor="Black" Margin="10,0,10,10" x:Name="titleText" />
         </StackLayout>
-        <!-- navbar -->
-        <Frame HeightRequest="70" BorderColor="#CCCCCC" CornerRadius="15" Margin="10,0,10,5">
-            <Grid>
-                <Grid ColumnDefinitions="*,*,*,*" Margin="0"/>
-
-                <ImageButton x:Name="HomePic" Grid.Row="0" Grid.Column="0" AnchorX="0.8" Source="carbon_home_blue" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" Clicked="HomePic_OnClicked" BackgroundColor="Transparent" HeightRequest="70"/>
-
-                <ImageButton x:Name="SearchPic" Grid.Row="0" Grid.Column="1" AnchorX="0.55" Source="bx_search" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" Clicked="SearchPic_OnClicked" BackgroundColor="Transparent"/>
-
-                <ImageButton x:Name="SubPic" Grid.Row="0" Grid.Column="2" AnchorX="0.35" Source="ic_sharp_subscriptions" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" Clicked="SubPic_OnClicked" BackgroundColor="Transparent"/>
-
-                <ImageButton x:Name="ProfilePic" Grid.Row="0" Grid.Column="3" AnchorX="0.2" Source="Vector" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" BackgroundColor="Transparent"/>
-            </Grid>
-        </Frame>
+        <BoxView HeightRequest="1" Color="Black" />
+        <StackLayout Padding="10, 10, 10, 10">
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Source: " TextColor="#3F72AF" FontSize="Small" />
+                        <Label Text="CNN Indonesia" TextColor="#3F72AF" FontSize="Small" x:Name="sourceText"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Author: " FontSize="Small" />
+                        <Label Text="Budi Santoso" FontAttributes="Italic"  FontSize="Small" x:Name="authorNameText"/>
+                    </StackLayout>
+                    <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet augue ultricies sapien faucibus commodo. Duis ultricies, mauris et rhoncus scelerisque, enim augue varius velit, at sollicitudin arcu diam at lectus. &#10;&#10;Curabitur orci lacus, elementum ut maximus at, mollis ut felis. Vestibulum placerat velit placerat dui rhoncus imperdiet. Morbi a dui sit amet massa ultrices condimentum quis a dolor. Ut vel ex sem. Cras laoreet leo vitae finibus convallis. Suspendisse nec tortor in nisl ullamcorper porttitor sed id nunc. &#10;&#10;Ut vitae pellentesque felis, a accumsan turpis. Pellentesque sit amet sem tincidunt, viverra neque sit amet, consequat arcu. Etiam elementum felis sed lorem sollicitudin, quis luctus orci semper. Nam maximus convallis tortor ac dapibus. Donec molestie erat a semper suscipit." TextColor="Black" FontSize="Small" x:Name="descriptionText" />
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
     </StackLayout>
 </ContentPage>
