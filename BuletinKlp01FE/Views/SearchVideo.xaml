@@ -20,7 +20,7 @@
                             <ViewCell>
                                 <Frame CornerRadius="7" HorizontalOptions="FillAndExpand" BackgroundColor="White" Padding="0" Margin="0,0,0,10" >
                                     <StackLayout Orientation="Vertical" >
-                                        <Image Source="thumbnail1.png" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" />
+                                        <Image Source="{Binding ThumbnailSource}" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" />
                                         <StackLayout Orientation="Horizontal" Padding="10,0,10,10">
                                             <Frame Padding="0" CornerRadius="20" HeightRequest="40" WidthRequest="40" Margin="0,0,10,0" VerticalOptions="Center">
                                                 <Image Source="carbon_home_blue.png" HeightRequest="40" WidthRequest="40" />

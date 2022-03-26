@@ -92,9 +92,11 @@ namespace BuletinKlp01FE.Views
 
                 responseVideo.Data?.Videos.ForEach(video =>
                 {
-                    video.ChannelName = video.Id;
-                    video.VideoInfo = video.ChannelName + " • " + 1231230 + " • " + DateTime.Today;
+                    video.ChannelName = video.ChannelName;
+                    video.VideoInfo = video.ChannelName + " • " + video.CreateAt;
+                    video.ThumbnailSource = ImageSource.FromUri(new Uri(video.ThumbnailUrl));
                 });
+
 
                 VideosListView.ItemsSource = responseVideo.Data?.Videos;
 
