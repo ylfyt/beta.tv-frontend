@@ -25,14 +25,18 @@ namespace BuletinKlp01FE.Views
             else
             {
                 var temp = "";
-                _video.Categories.ForEach(cat => temp += $"#{cat} ");
+                _video.Categories.ForEach(cat =>
+                {
+                    cat = cat.Length == 1 ? cat.ToUpper() : (char.ToUpper(cat[0]) + cat[1..]);
+                    temp += $"#{cat}  ";
+                });
                 categoryText.Text = temp;
             }
 
-            titleText.Text = _video.AuthorTitle;
+            titleText.Text = _video.Title;
             sourceText.Text = _video.ChannelName;
             authorNameText.Text = _video.AuthorName;
-            descriptionText.Text = _video.AuthorDescription;
+            descriptionText.Text = _video.Description;
             VideoWebView.Source = _video.Url;
             this.Title = "Video";
         }
