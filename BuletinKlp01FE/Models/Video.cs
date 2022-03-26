@@ -9,6 +9,7 @@
         public string Description { get; set; } = string.Empty;
         public string NewsAuthorName { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
+        public string VideoInfo { get; set; } = string.Empty;
 
         public string ToString()
         {
