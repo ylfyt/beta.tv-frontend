@@ -1,6 +1,7 @@
 ﻿using BuletinKlp01FE.Dtos;
 using BuletinKlp01FE.Dtos.video;
 using BuletinKlp01FE.Models;
+using BuletinKlp01FE.Services;
 using BuletinKlp01FE.Utils;
 using Newtonsoft.Json;
 using System;
@@ -23,21 +24,7 @@ namespace BuletinKlp01FE.Views
         {
             InitializeComponent();
 
-            List<Video> temp = new()
-            {
-                new Video()
-                {
-                    Title = "Coba 1",
-                    ChannelName = "Nature Channel" ,
-                    VideoInfo = "Nature Channel • 2.3M Views • 9 Month ago"
-                },
-                new Video()
-                {
-                    Title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque quis pellentesque turpis. Donec justo quam, iaculis id elit sed, eg",
-                    ChannelName = "Lorem",
-                    VideoInfo = "Nature Channel • 2.3M Views • 9 Month ago"
-                }
-            };
+            List<Video> temp = new();
 
             VideosListView.ItemsSource = temp;
         }
@@ -59,28 +46,24 @@ namespace BuletinKlp01FE.Views
         {
             try
             {
-                SearchButton.Source = "search_icon_primary.png";
-                MessageText.Text = "Loading...";
+                SetUI(true, "Loading...", false);
 
                 if (QueryTextInput.Text == null || QueryTextInput.Text == "")
-                {
-                    MessageText.Text = "Input not valid";
-                    SearchButton.Source = "search_icon.png";
+                { 
+                    SetUI(false, "Tolong masukan kata pencarian!");
                     return;
                 }
 
                 VideosListView.ItemsSource = null;
 
-                var token = Preferences.Get("token", "");
-                if (token == "")
+
+                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
+                if (client == null)
                 {
-                    MessageText.Text = "Please, Login first!!";
-                    SearchButton.Source = "search_icon.png";
+                    SetUI(false, "Silahkan login terlebih dahulu");
                     return;
                 }
 
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", token);
                 var content = new StringContent(JsonConvert.SerializeObject(new { query = QueryTextInput.Text }), Encoding.UTF8, "application/json");
                 string weburl = Constants.SEARCH_VIDEO_ENDPOINT;
                 var httpResponseMessage = await client.PostAsync(weburl, content);
@@ -90,15 +73,20 @@ namespace BuletinKlp01FE.Views
 
                 if (responseVideo == null)
                 {
-                    MessageText.Text = "Something wrong";
-                    SearchButton.Source = "search_icon.png";
+                    SetUI(false, "Gagal mendapatkan video!");
                     return;
                 }
 
                 if (!responseVideo.Success)
                 {
-                    MessageText.Text = "Gagal mendapatkan video!!";
-                    SearchButton.Source = "search_icon.png";
+                    SetUI(false, "Gagal mendapatkan video!");
+                    Console.WriteLine(responseBody);
+                    return;
+                }
+
+                if (responseVideo.Data?.Videos.Count == 0)
+                {
+                    SetUI(false, "Tidak ada video yang ditemukan!");
                     return;
                 }
 
@@ -110,16 +98,35 @@ namespace BuletinKlp01FE.Views
 
                 VideosListView.ItemsSource = responseVideo.Data?.Videos;
 
-                MessageText.Text = "Hasil Pencarian";
-                SearchButton.Source = "search_icon.png";
+                SetUI(false, "Hasil pencarian: ", false);
             }
             catch (Exception ex)
             {
-                MessageText.Text = "Something wrong";
-                SearchButton.Source = "search_icon.png";
+                SetUI(false, "Gagal mendapatkan video!");
                 Console.WriteLine(ex.Message);
             }
             
+        }
+
+        public void SetUI(bool fetching, string message, bool error = true)
+        {
+            MessageText.Text = message;
+            if (error)
+            {
+                MessageText.TextColor = Color.Orange;
+            }
+            else
+            {
+                MessageText.TextColor = Color.FromHex("#3F72AF");
+            }
+            if (fetching)
+            {
+                SearchButton.Source = "search_icon_primary.png";
+            }
+            else
+            {
+                SearchButton.Source = "search_icon.png";
+            }
         }
     }
 }
