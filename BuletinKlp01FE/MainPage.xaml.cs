@@ -37,7 +37,7 @@ namespace BuletinKlp01FE
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new HomePage());
+            Navigation.PushAsync(new PageWithNav());
         }
     }
 }

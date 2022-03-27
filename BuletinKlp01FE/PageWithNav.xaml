@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+            xmlns:local="clr-namespace:BuletinKlp01FE.Views"
+            x:Class="BuletinKlp01FE.PageWithNav"
+            SelectedTabColor="Blue">
+  <!--Pages can be added as references or inline
+  <ContentPage Title="Tab 1" />
+  <ContentPage Title="Tab 2" />
+  <ContentPage Title="Tab 3" />-->
+
+    <NavigationPage Title="Home" IconImageSource="carbon_home.png">
+        <x:Arguments>
+            <local:Homepage />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Search" IconImageSource="bx_search.png">
+        <x:Arguments>
+            <local:SearchPage />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Subscription" IconImageSource="ic_sharp_subscriptions.png">
+        <x:Arguments>
+            <local:VideoPlayer />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Profile" IconImageSource="Vector.png">
+        <x:Arguments>
+            <local:Profile />
+        </x:Arguments>
+    </NavigationPage>
+</TabbedPage>
