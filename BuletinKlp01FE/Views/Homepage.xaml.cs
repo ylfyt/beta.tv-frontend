@@ -110,6 +110,7 @@ namespace BuletinKlp01FE.Views
         }
         private void SubPic_OnClicked(object sender, EventArgs e)
         {
+            /*
             var video = new Video
             {
                 Id = "_tEw-Him7ho",
@@ -129,6 +130,7 @@ namespace BuletinKlp01FE.Views
             {
                 throw ex;
             }
+            */
         }
         private void ProfilePic_OnClicked(object sender, EventArgs e)
         {
