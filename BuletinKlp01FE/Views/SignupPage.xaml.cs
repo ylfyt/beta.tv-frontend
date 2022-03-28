@@ -27,11 +27,6 @@ namespace BuletinKlp01FE.Views
             Application.Current.MainPage = new LoginPage();
         }
 
-        private void RedirectToHome()
-        {
-            Application.Current.MainPage = new NavigationPage(new SearchVideo());
-        }
-
         public bool IsValidInput()
         {
             string Name = SignupEntryName.Text;
@@ -95,7 +90,7 @@ namespace BuletinKlp01FE.Views
                 }
 
                 Preferences.Set("token", token);
-                RedirectToHome();
+                Redirects.ToHomePage();
             }
             catch (Exception ex)
             {

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -71,7 +66,8 @@ namespace BuletinKlp01FE.Views
             var answer = await DisplayAlert("Logout", "Apa anda yakin untuk keluar?", "Ya", "Tidak");
             if (answer)
             {
-                Application.Current.MainPage = new LoginPage();
+                // TODO: Logout user using httpclient
+                // Redirects.ToLoginPage();
             }
         }
     }

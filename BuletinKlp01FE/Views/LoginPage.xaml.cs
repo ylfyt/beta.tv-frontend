@@ -32,7 +32,7 @@ namespace BuletinKlp01FE.Views
             string token = Preferences.Get("token", "");
             if (token != "")
             {
-                RedirectToHomePage();
+                Redirects.ToHomePage();
                 return;
             }
         }
@@ -101,7 +101,7 @@ namespace BuletinKlp01FE.Views
                 }
                 
                 Preferences.Set("token", token);
-                RedirectToHomePage();
+                Redirects.ToHomePage();
 
             }
             catch (Exception ex)
