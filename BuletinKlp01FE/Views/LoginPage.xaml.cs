@@ -8,6 +8,8 @@ using System.Text;
 using System.Linq;
 using BuletinKlp01FE.Services;
 using BuletinKlp01FE.Utils;
+using BuletinKlp01FE.Dtos;
+using BuletinKlp01FE.Dtos.user;
 
 namespace BuletinKlp01FE.Views
 {
@@ -74,35 +76,27 @@ namespace BuletinKlp01FE.Views
 
                 var content = new StringContent(JsonConvert.SerializeObject(new { username, password }), Encoding.UTF8, "application/json");
                 string weburl = Constants.LOGIN_END_POINT;
+
                 HttpResponseMessage httpResponseMessage = await client.PostAsync(weburl, content);
-
-                if (!httpResponseMessage.IsSuccessStatusCode)
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
-                    button.Text = "Login";
-                    return;
-                }
-
-                string token = "";
-                foreach (var header in httpResponseMessage.Headers)
-                {
-                    if (header.Key.ToLower() == "authorization")
-                    {
-                        token = header.Value.First();
-                        break;
-                    }
-                }
-
-                if (token == "")
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
-                    button.Text = "Login";
-                    return;
-                }
+                var responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                var responseDto = JsonConvert.DeserializeObject<ResponseDto<DataUser>>(responseBody);
                 
-                Preferences.Set("token", token);
-                Redirects.ToHomePage();
+                if (responseDto == null || !(responseDto.Success))
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
+                    button.Text = "Login";
+                    return;
+                }
 
+                if (responseDto.Data?.token == "")
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
+                    button.Text = "Login";
+                    return;
+                }
+
+                Preferences.Set("token", responseDto.Data?.token);
+                Redirects.ToHomePage();
             }
             catch (Exception ex)
             {

@@ -11,6 +11,8 @@ using Xamarin.Essentials;
 
 using BuletinKlp01FE.Utils;
 using BuletinKlp01FE.Services;
+using BuletinKlp01FE.Dtos;
+using BuletinKlp01FE.Dtos.user;
 
 namespace BuletinKlp01FE.Views
 {
@@ -62,34 +64,19 @@ namespace BuletinKlp01FE.Views
 
                 var content = new FormUrlEncodedContent(postData);
                 string weburl = Constants.REGISTER_END_POINT;
-                client.BaseAddress = new Uri(weburl);
 
-                var response = await client.PostAsync("", content1);
-                string responseBody = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
+                var response = await client.PostAsync(weburl, content1);
+                var responseBody = await response.Content.ReadAsStringAsync();
+                var responseDto = JsonConvert.DeserializeObject<ResponseDto<DataUser>>(responseBody);
+
+                if (responseDto == null || !(responseDto.Success) || responseDto.Data?.token == "")
                 {
-                    DependencyService.Get<IMessage>().ShortAlert("Failed to register!");
-                    button.Text = "Register";
+                    DependencyService.Get<IMessage>().ShortAlert("Register failed!");
+                    button.Text = "Login";
                     return;
                 }
 
-                string token = "";
-                foreach (var header in response.Headers)
-                {
-                    if (header.Key.ToLower() == "authorization")
-                    {
-                        token = header.Value.First();
-                        break;
-                    }
-                }
-                if (token == "")
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Failed to register!");
-                    button.Text = "Register";
-                    return;
-                }
-
-                Preferences.Set("token", token);
+                Preferences.Set("token", responseDto.Data?.token);
                 Redirects.ToHomePage();
             }
             catch (Exception ex)
