@@ -29,63 +29,73 @@ namespace BuletinKlp01FE.Views
 
         private void RedirectToHome()
         {
-            Application.Current.MainPage = new NavigationPage(new MainPage());
+            Application.Current.MainPage = new NavigationPage(new SearchVideo());
+        }
+
+        public bool IsValidInput()
+        {
+            string Name = SignupEntryName.Text;
+            string Username = SignupEntryUsername.Text;
+            string Email = SignupEntryEmail.Text;
+            string Password = SignupEntryPassword.Text;
+            if (Username == null || Name == null || Email == null || Password == null)
+            {
+                return false;
+            }
+
+            return (Username != "" && !Name.Equals("") && !Email.Equals("") && !Password.Equals(""));
         }
 
         public async void Button_Clicked(object sender, EventArgs e)
         {
-            Button button = sender as Button;
+            Button button = (sender as Button)!;
             try
             {
-                User user = new User(SignupEntryName.Text, SignupEntryUsername.Text, SignupEntryEmail.Text, SignupEntryPassword.Text);
-
                 button.Text = "Please Wait...";
 
-                if (user.IsInputValid())
-                {
-                    var client = new HttpClient();
-                    var postData = new List<KeyValuePair<string, string>>();
-
-                    var content1 = new StringContent(JsonConvert.SerializeObject(new { name = user.Name, username = user.Username, email = user.Email, password = user.Password }), Encoding.UTF8, "application/json");
-
-                    var content = new FormUrlEncodedContent(postData);
-                    string weburl = Constants.REGISTER_END_POINT;
-                    client.BaseAddress = new Uri(weburl);
-
-                    var response = await client.PostAsync("", content1);
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        DependencyService.Get<IMessage>().ShortAlert("Gagal");
-                        button.Text = "Register";
-                        return;
-                    }
-
-                    string token = "";
-                    foreach (var header in response.Headers)
-                    {
-                        if (header.Key.ToLower() == "authorization")
-                        {
-                            token = header.Value.First();
-                            break;
-                        }
-                    }
-                    if (token == "")
-                    {
-                        DependencyService.Get<IMessage>().ShortAlert("Something wrong...");
-                        return;
-                    }
-                    // TODO: Save token && redirect to home
-                    Preferences.Set("token", token);
-                    RedirectToHome();
-                    return;
-                }
-                else
+                if (!IsValidInput())
                 {
                     button.Text = "Register";
                     DependencyService.Get<IMessage>().ShortAlert("Input not valid");
+                    return;
                 }
 
+                var client = HttpClientGetter.GetHttpClient();
+                var postData = new List<KeyValuePair<string, string>>();
+
+                var content1 = new StringContent(JsonConvert.SerializeObject(new { name = SignupEntryName.Text, username = SignupEntryUsername.Text, email = SignupEntryEmail.Text, password = SignupEntryPassword.Text }), Encoding.UTF8, "application/json");
+
+                var content = new FormUrlEncodedContent(postData);
+                string weburl = Constants.REGISTER_END_POINT;
+                client.BaseAddress = new Uri(weburl);
+
+                var response = await client.PostAsync("", content1);
+                string responseBody = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to register!");
+                    button.Text = "Register";
+                    return;
+                }
+
+                string token = "";
+                foreach (var header in response.Headers)
+                {
+                    if (header.Key.ToLower() == "authorization")
+                    {
+                        token = header.Value.First();
+                        break;
+                    }
+                }
+                if (token == "")
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to register!");
+                    button.Text = "Register";
+                    return;
+                }
+
+                Preferences.Set("token", token);
+                RedirectToHome();
             }
             catch (Exception ex)
             {

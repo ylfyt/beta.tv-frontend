@@ -15,30 +15,24 @@
         <StackLayout Margin="0,-50,0,0">
             <Frame Margin="20,0,20,0"
                    CornerRadius="10"
-                   HeightRequest="350"
                    HorizontalOptions="FillAndExpand"
                    VerticalOptions="Center">
                 <StackLayout>
-                    <Label Text="Login"
-                           HorizontalTextAlignment="Center"
-                           TextColor="#3F72AF"
-                           FontSize="Large"
-                           Margin="0,0,0,30"
-                           />
-                    <StackLayout Margin="0,0,0,10">
+                    <StackLayout Margin="0,20,0,20" HorizontalOptions="CenterAndExpand">
+                        <Label Text="Login" TextColor="#3F72AF" FontSize="Large" FontAttributes="Bold"/>
+                    </StackLayout>
+                    <StackLayout>
                         <CusEnt:CustomEntry Placeholder="Username" PlaceholderColor="#BFBFBF" TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="Entry_Username"/>
                         <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
                     </StackLayout>
-                    <StackLayout Margin="0,0,0,10">
+                    <StackLayout>
                         <CusEnt:CustomEntry Placeholder="Password" PlaceholderColor="#BFBFBF" TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="Entry_Password" IsPassword="True"/>
                         <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
                     </StackLayout>
-
-                    <Button Text="Login" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="10,40,10,0" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="SignInProcedure" x:Name="LoginButton"/>
+                    <Button Text="Login" Margin="0,40,0,0" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="SignInProcedure" x:Name="LoginButton"/>
                     <Label HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Start"
-                           Padding="0,10,0,0"
-                           Margin='0,5,0,0'>
+                           Margin='0,20,0,20'>
                         <Label.FormattedText>
                             <FormattedString>
                                 <FormattedString.Spans>

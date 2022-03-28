@@ -2,89 +2,73 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:customattr="clr-namespace:BuletinKlp01FE.Views.CustomRenderer"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             x:Class="BuletinKlp01FE.Views.SignupPage">
+             x:Class="BuletinKlp01FE.Views.SignupPage"
+             >
 
-    <ContentPage.Content>
-        <StackLayout>
-            <Grid>
-                <StackLayout Padding="0" Margin="0,-50,0,0" >
-                    <Frame BackgroundColor="#3F72AF" HeightRequest="200" HorizontalOptions="FillAndExpand" CornerRadius="50" >
+    <StackLayout>
+        <Grid HeightRequest="230" >
+            <Frame Grid.Row="0" BackgroundColor="#3F72AF" CornerRadius="30" Margin="0,-35,0,0"/>
+            <Frame Grid.Row="0" WidthRequest="80" HeightRequest="80" CornerRadius="40" Padding="0" Margin="0,0,0,20" HorizontalOptions="Center" VerticalOptions="Center">
+                <Image Source="logo.png" WidthRequest="80" HeightRequest="80" VerticalOptions="Center" HorizontalOptions="Center" />
+            </Frame>
+        </Grid>
+        <StackLayout Margin="0,-50,0,0">
+            <Frame Margin="20,0,20,0"
+                   CornerRadius="10"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"
+                   >
+                <StackLayout>
+                    <!-- "Register" text -->
+                    <StackLayout Margin="0,20,0,20" HorizontalOptions="CenterAndExpand">
+                        <Label Text="Register" TextColor="#3F72AF" FontSize="Large" FontAttributes="Bold"/>
+                    </StackLayout>
 
-                    </Frame>
-                </StackLayout>
-
-                <StackLayout Margin="20,100,20,0">
-                    <Frame BackgroundColor="white" HasShadow="True" HeightRequest="450" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                    <StackLayout>
+                        <!-- name -->
                         <StackLayout>
-                            <!-- "Register" text -->
-                            <StackLayout Margin="0,15,0,0" HorizontalOptions="CenterAndExpand">
-                                <Label Text="Register" TextColor="#3F72AF" FontSize="Large" FontAttributes="Bold"/>
+                            <StackLayout Orientation="Horizontal">
+                                <customattr:CustomEntry Placeholder="Name"  TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryName" />
                             </StackLayout>
-
-                            <StackLayout Margin="0,35,0,0">
-                                <!-- name -->
-                                <StackLayout>
-                                    <StackLayout Orientation="Horizontal">
-                                        <customattr:CustomEntry Placeholder="Name" PlaceholderColor="#BFBFBF" TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryName" />
-                                        <Frame BackgroundColor="AliceBlue" HeightRequest="0" WidthRequest="0" HorizontalOptions="Start">
-
-                                        </Frame>
-                                    </StackLayout>
-                                    <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
-                                </StackLayout>
-                                <!-- username -->
-                                <StackLayout>
-                                    <StackLayout Orientation="Horizontal">
-                                        <customattr:CustomEntry Placeholder="Username" PlaceholderColor="#BFBFBF" TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryUsername"/>
-                                        <Frame BackgroundColor="AliceBlue" HeightRequest="0" WidthRequest="0" HorizontalOptions="Start">
-
-                                        </Frame>
-                                    </StackLayout>
-                                    <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
-                                </StackLayout>
-                                <!-- email -->
-                                <StackLayout>
-                                    <StackLayout Orientation="Horizontal">
-                                        <customattr:CustomEntry Placeholder="Email" PlaceholderColor="#BFBFBF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryEmail" Keyboard="Email">
-
-                                        </customattr:CustomEntry>
-                                        <Frame BackgroundColor="AliceBlue" HeightRequest="0" WidthRequest="0" HorizontalOptions="Start">
-
-                                        </Frame>
-                                    </StackLayout>
-                                    <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
-                                </StackLayout>
-                                <!-- password -->
-                                <StackLayout>
-                                    <StackLayout Orientation="Horizontal">
-                                        <customattr:CustomEntry Placeholder="Password" IsPassword="True" PlaceholderColor="#BFBFBF" TextColor="#3F72AF" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryPassword"/>
-                                        <Frame BackgroundColor="AliceBlue" HeightRequest="0" WidthRequest="0" HorizontalOptions="Start">
-
-                                        </Frame>
-                                    </StackLayout>
-                                    <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
-                                </StackLayout>
-
+                            <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <!-- username -->
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <customattr:CustomEntry Placeholder="Username"  TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryUsername"/>
                             </StackLayout>
-
-                            <!-- Register button -->
-                            <Button Text="Register" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="10,40,10,0" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="Button_Clicked" x:Name="RegisterButton"/>
-                            <!-- Already have an account-->
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, 20, 0, 0">
-                                <Label Text="Already have an account? "/>
-                                <Label Text="Sign in" TextColor="#3F72AF" FontAttributes="Bold" >
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="RedirectToLoginPageTrigger"/>
-                                    </Label.GestureRecognizers>
-                                </Label>
+                            <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <!-- email -->
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <customattr:CustomEntry Placeholder="Email" TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryEmail" Keyboard="Email"/>
                             </StackLayout>
+                            <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <!-- password -->
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <customattr:CustomEntry Placeholder="Password" IsPassword="True"  TextColor="#3F72AF" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryPassword"/>
+                            </StackLayout>
+                            <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
                         </StackLayout>
 
+                    </StackLayout>
 
-                    </Frame>
+                    <!-- Register button -->
+                    <Button Text="Register" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="0,40,0,0" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="Button_Clicked" x:Name="RegisterButton"/>
+                    <!-- Already have an account-->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, 20, 0, 20">
+                        <Label Text="Already have an account? "/>
+                        <Label Text="Sign in" TextColor="#3F72AF" FontAttributes="Bold" >
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="RedirectToLoginPageTrigger"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
                 </StackLayout>
-            </Grid>
+            </Frame>
         </StackLayout>
-    </ContentPage.Content>
+    </StackLayout>
 </ContentPage>
