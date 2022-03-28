@@ -9,11 +9,13 @@ namespace BuletinKlp01FE.Droid.Services
 {
     public class OrientationService : IOrientationService
     {
+        [System.Obsolete]
         public void Landscape()
         {
             ((Activity)Forms.Context).RequestedOrientation = ScreenOrientation.Landscape;
         }
 
+        [System.Obsolete]
         public void Portrait()
         {
             ((Activity)Forms.Context).RequestedOrientation = ScreenOrientation.Portrait;

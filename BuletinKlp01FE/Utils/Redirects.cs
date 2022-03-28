@@ -8,7 +8,7 @@ namespace BuletinKlp01FE.Utils
     {
         public static void ToHomePage()
         {
-            Application.Current.MainPage = new NavigationPage(new Profile());
+            Application.Current.MainPage = new NavigationPage(new SearchVideo());
         }
 
         public static void ToLoginPage()

@@ -16,6 +16,7 @@ namespace BuletinKlp01FE.Droid.Services
 
         #region IStatusBar implementation
 
+        [System.Obsolete]
         public void HideStatusBar()
         {
             var activity = (Activity)Forms.Context;
@@ -25,6 +26,7 @@ namespace BuletinKlp01FE.Droid.Services
             activity.Window.Attributes = attrs;
         }
 
+        [System.Obsolete]
         public void ShowStatusBar()
         {
             var activity = (Activity)Forms.Context;
