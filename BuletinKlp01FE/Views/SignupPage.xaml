@@ -7,7 +7,7 @@
 
     <StackLayout>
         <Grid HeightRequest="230" >
-            <Frame Grid.Row="0" BackgroundColor="#3F72AF" CornerRadius="30" Margin="0,-35,0,0"/>
+            <Frame Grid.Row="0" BackgroundColor="{x:DynamicResource Color0}" CornerRadius="30" Margin="0,-35,0,0"/>
             <Frame Grid.Row="0" WidthRequest="80" HeightRequest="80" CornerRadius="40" Padding="0" Margin="0,0,0,20" HorizontalOptions="Center" VerticalOptions="Center">
                 <Image Source="logo.png" WidthRequest="80" HeightRequest="80" VerticalOptions="Center" HorizontalOptions="Center" />
             </Frame>
@@ -21,47 +21,47 @@
                 <StackLayout>
                     <!-- "Register" text -->
                     <StackLayout Margin="0,20,0,20" HorizontalOptions="CenterAndExpand">
-                        <Label Text="Register" TextColor="#3F72AF" FontSize="Large" FontAttributes="Bold"/>
+                        <Label Text="Register" TextColor="{x:DynamicResource Color0}" FontSize="Large" FontAttributes="Bold"/>
                     </StackLayout>
 
                     <StackLayout>
                         <!-- name -->
                         <StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <customattr:CustomEntry Placeholder="Name"  TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryName" />
+                                <customattr:CustomEntry Placeholder="Name"  TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryName" />
                             </StackLayout>
-                            <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
+                            <BoxView BackgroundColor="{x:DynamicResource Color0}" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
                         </StackLayout>
                         <!-- username -->
                         <StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <customattr:CustomEntry Placeholder="Username"  TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryUsername"/>
+                                <customattr:CustomEntry Placeholder="Username"  TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryUsername"/>
                             </StackLayout>
-                            <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
+                            <BoxView BackgroundColor="{x:DynamicResource Color0}" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
                         </StackLayout>
                         <!-- email -->
                         <StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <customattr:CustomEntry Placeholder="Email" TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryEmail" Keyboard="Email"/>
+                                <customattr:CustomEntry Placeholder="Email" TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryEmail" Keyboard="Email"/>
                             </StackLayout>
-                            <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
+                            <BoxView BackgroundColor="{x:DynamicResource Color0}" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
                         </StackLayout>
                         <!-- password -->
                         <StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <customattr:CustomEntry Placeholder="Password" IsPassword="True"  TextColor="#3F72AF" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryPassword"/>
+                                <customattr:CustomEntry Placeholder="Password" IsPassword="True"  TextColor="{x:DynamicResource Color0}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="SignupEntryPassword"/>
                             </StackLayout>
-                            <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
+                            <BoxView BackgroundColor="{x:DynamicResource Color0}" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
                         </StackLayout>
 
                     </StackLayout>
 
                     <!-- Register button -->
-                    <Button Text="Register" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="0,40,0,0" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="Button_Clicked" x:Name="RegisterButton"/>
+                    <Button Text="Register" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="0,40,0,0" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="Button_Clicked" x:Name="RegisterButton"/>
                     <!-- Already have an account-->
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, 20, 0, 20">
                         <Label Text="Already have an account? "/>
-                        <Label Text="Sign in" TextColor="#3F72AF" FontAttributes="Bold" >
+                        <Label Text="Sign in" TextColor="{x:DynamicResource Color0}" FontAttributes="Bold" >
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="RedirectToLoginPageTrigger"/>
                             </Label.GestureRecognizers>

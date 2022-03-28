@@ -7,7 +7,7 @@
 
     <StackLayout>
         <Grid HeightRequest="230" >
-            <Frame Grid.Row="0" BackgroundColor="#3F72AF" CornerRadius="30" Margin="0,-35,0,0"/>
+            <Frame Grid.Row="0" BackgroundColor="{x:DynamicResource Color0}" CornerRadius="30" Margin="0,-35,0,0"/>
             <Frame Grid.Row="0" WidthRequest="80" HeightRequest="80" CornerRadius="40" Padding="0" Margin="0,0,0,20" HorizontalOptions="Center" VerticalOptions="Center">
                 <Image Source="logo.png" WidthRequest="80" HeightRequest="80" VerticalOptions="Center" HorizontalOptions="Center" />
             </Frame>
@@ -19,17 +19,17 @@
                    VerticalOptions="Center">
                 <StackLayout>
                     <StackLayout Margin="0,20,0,20" HorizontalOptions="CenterAndExpand">
-                        <Label Text="Login" TextColor="#3F72AF" FontSize="Large" FontAttributes="Bold"/>
+                        <Label Text="Login" TextColor="{x:DynamicResource Color0}" FontSize="Large" FontAttributes="Bold"/>
                     </StackLayout>
                     <StackLayout>
-                        <CusEnt:CustomEntry Placeholder="Username" PlaceholderColor="#BFBFBF" TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="Entry_Username"/>
-                        <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
+                        <CusEnt:CustomEntry Placeholder="Username" PlaceholderColor="#BFBFBF" TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="Entry_Username"/>
+                        <BoxView BackgroundColor="{x:DynamicResource Color0}" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
                     </StackLayout>
                     <StackLayout>
-                        <CusEnt:CustomEntry Placeholder="Password" PlaceholderColor="#BFBFBF" TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="Entry_Password" IsPassword="True"/>
-                        <BoxView BackgroundColor="#3F72AF" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
+                        <CusEnt:CustomEntry Placeholder="Password" PlaceholderColor="#BFBFBF" TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="Entry_Password" IsPassword="True"/>
+                        <BoxView BackgroundColor="{x:DynamicResource Color0}" HeightRequest="1" Margin="0,-7,0,0" VerticalOptions="EndAndExpand"/>
                     </StackLayout>
-                    <Button Text="Login" Margin="0,40,0,0" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="SignInProcedure" x:Name="LoginButton"/>
+                    <Button Text="Login" Margin="0,40,0,0" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  Clicked="SignInProcedure" x:Name="LoginButton"/>
                     <Label HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Start"
                            Margin='0,20,0,20'>
@@ -38,7 +38,7 @@
                                 <FormattedString.Spans>
                                     <Span Text="Don't have an account? "/>
                                     <Span Text="Sign up"
-                                          TextColor="#3F72AF" FontAttributes="Bold">
+                                          TextColor="{x:DynamicResource Color0}" FontAttributes="Bold">
                                         <Span.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="RedirectToSignupPageTrigger"/>
                                         </Span.GestureRecognizers>

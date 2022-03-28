@@ -9,22 +9,22 @@
             <StackLayout Margin="0,0,0,10">
                 <Label Margin="5,0,0,0" Text="Username" FontSize="Medium" TextColor="Black"/>
                 <Frame BackgroundColor="#F9F7F7" BorderColor="#C4C4C4" Padding="10,0,0,0" HorizontalOptions="FillAndExpand" CornerRadius="10">
-                    <customattr:CustomEntry Text="username_sekarang"  TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="EditUsername"/>
+                    <customattr:CustomEntry Text="username_sekarang"  TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="EditUsername"/>
                 </Frame>
             </StackLayout>
             <StackLayout Margin="0,0,0,10">
                 <Label Margin="5,0,0,0" Text="Nama" FontSize="Medium" TextColor="Black"/>
                 <Frame BackgroundColor="#F9F7F7" BorderColor="#C4C4C4" Padding="10,0,0,0" HorizontalOptions="FillAndExpand" CornerRadius="10">
-                    <customattr:CustomEntry Text="nama sekarang"  TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="EditName"/>
+                    <customattr:CustomEntry Text="nama sekarang"  TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="EditName"/>
                 </Frame>
             </StackLayout>
             <StackLayout Margin="0,0,0,10">
                 <Label Margin="5,0,0,0" Text="Email" FontSize="Medium" TextColor="Black"/>
                 <Frame BackgroundColor="#F9F7F7" BorderColor="#C4C4C4" Padding="10,0,0,0" HorizontalOptions="FillAndExpand" CornerRadius="10">
-                    <customattr:CustomEntry Text="email_sekarang@email.com"  TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="EditEmail"/>
+                    <customattr:CustomEntry Text="email_sekarang@email.com"  TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="EditEmail"/>
                 </Frame>
             </StackLayout>
-            <Button Text="Simpan Perubahan" BackgroundColor="#3F72AF" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="10,40,10,0" HorizontalOptions="Center" Padding="30,0,30,0" Clicked="SaveEditProfile"/>
+            <Button Text="Simpan Perubahan" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="10,40,10,0" HorizontalOptions="Center" Padding="30,0,30,0" Clicked="SaveEditProfile"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -12,7 +12,7 @@
                 </Frame>
                 <ImageButton Source="search_icon.png" BackgroundColor="Transparent" Padding="4" WidthRequest="40" HeightRequest="40" VerticalOptions="CenterAndExpand" Margin="5,0,0,0" Clicked="SearchButtonClicked" x:Name="SearchButton" />
             </StackLayout>
-            <Label Text="History Pencarian :" x:Name="MessageText" FontSize="Medium" TextColor="#3F72AF" Margin="0,5,0,5" />
+            <Label Text="History Pencarian :" x:Name="MessageText" FontSize="Medium" TextColor="{x:DynamicResource Color0}" Margin="0,5,0,5" />
             <StackLayout VerticalOptions="FillAndExpand">
                 <ListView x:Name="VideosListView" HasUnevenRows="True" ItemTapped="VideoSelected">
                     <ListView.ItemTemplate>
@@ -23,7 +23,7 @@
                                         <Image Source="{Binding ThumbnailSource}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                         <StackLayout Orientation="Vertical" Padding="10,0,10,10" >
                                             <Label Text="{Binding AuthorTitle}" FontSize="Small" TextColor="Black" MaxLines="2" />
-                                            <Label Text="{Binding VideoInfo}" FontSize="Micro" TextColor="#3F72AF"/>
+                                            <Label Text="{Binding VideoInfo}" FontSize="Micro" TextColor="{x:DynamicResource Color0}"/>
                                          </StackLayout>
                                     </StackLayout>
                                 </Frame>

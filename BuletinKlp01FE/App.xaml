@@ -6,7 +6,7 @@
         <ResourceDictionary>
             <Style TargetType="NavigationPage" >
                 <Setter Property="BarBackgroundColor" Value="#FFFFFF"/>
-                <Setter Property="BarTextColor" Value="#3F72AF" />
+                <Setter Property="BarTextColor" Value="{x:DynamicResource Color0}" />
                 
             </Style>
             <Style TargetType="Label">

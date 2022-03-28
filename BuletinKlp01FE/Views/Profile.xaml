@@ -18,7 +18,7 @@
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <StackLayout>
                     <Button x:Name="btnBerita"  Text="Berita Saya" TextColor="{x:DynamicResource Color0}" BackgroundColor="Transparent" Margin="20,0,20,-5" FontSize="Medium" Clicked="BeritaSayaClicked"/>
-                    <BoxView x:Name="lineBerita" BackgroundColor="#3F72AF" HeightRequest="1" VerticalOptions="EndAndExpand"/>
+                    <BoxView x:Name="lineBerita" BackgroundColor="{x:DynamicResource Color0}" HeightRequest="1" VerticalOptions="EndAndExpand"/>
                 </StackLayout>
                 <StackLayout>
                     <Button x:Name="btnPengaturan" Text="Pengaturan" TextColor="#ABABAB" BackgroundColor="Transparent" Margin="20,0,20,0" FontSize="Medium" Clicked="PengaturanClicked"/>

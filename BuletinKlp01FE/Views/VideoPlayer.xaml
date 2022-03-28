@@ -7,7 +7,7 @@
     <StackLayout>
         <StackLayout MinimumHeightRequest="400" >
             <fullWebView:FullScreenEnabledWebView Grid.Row="0" Source="https://www.youtube.com/embed/_tEw-Him7ho" HeightRequest="233"  x:Name="VideoWebView" />
-            <Label Text="#Politics #News" FontSize="Caption" TextColor="#3F72AF" Margin="10, 0, 10, 0" x:Name="categoryText" />
+            <Label Text="#Politics #News" FontSize="Caption" TextColor="{x:DynamicResource Color0}" Margin="10, 0, 10, 0" x:Name="categoryText" />
             <Label Text="Tutorial Xamarin untuk Pemula" FontSize="Small" TextColor="Black" Margin="10,0,10,10" x:Name="titleText" />
         </StackLayout>
         <BoxView HeightRequest="1" Color="Black" />
@@ -15,8 +15,8 @@
             <ScrollView>
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Source: " TextColor="#3F72AF" FontSize="Small" />
-                        <Label Text="CNN Indonesia" TextColor="#3F72AF" FontSize="Small" x:Name="sourceText"/>
+                        <Label Text="Source: " TextColor="{x:DynamicResource Color0}" FontSize="Small" />
+                        <Label Text="CNN Indonesia" TextColor="{x:DynamicResource Color0}" FontSize="Small" x:Name="sourceText"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Author: " FontSize="Small" />
