@@ -34,7 +34,7 @@ namespace BuletinKlp01FE.Views
             pengaturan.IsVisible = false;
 
             var beritasaya = this.FindByName<StackLayout>("beritasaya");
-            beritasaya.IsVisible = true;      
+            beritasaya.IsVisible = true;
         }
 
         public void PengaturanClicked(object sender, EventArgs args)
@@ -54,7 +54,7 @@ namespace BuletinKlp01FE.Views
             beritasaya.IsVisible = false;
 
             var pengaturan = this.FindByName<StackLayout>("pengaturan");
-            pengaturan.IsVisible = true; 
+            pengaturan.IsVisible = true;
         }
 
         public async void UbahDataDiriClicked(object sender, EventArgs args)
@@ -71,49 +71,8 @@ namespace BuletinKlp01FE.Views
             var answer = await DisplayAlert("Logout", "Apa anda yakin untuk keluar?", "Ya", "Tidak");
             if (answer)
             {
-                App.Current.MainPage = new SignupPage();
+                Application.Current.MainPage = new LoginPage();
             }
         }
-
-        // for navbar
-        private void HomePic_OnClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                //Navigation.PushAsync(new MainPage());
-                Application.Current.MainPage = new NavigationPage(new Homepage())
-                {
-                    BarTextColor = Color.FromHex("#3F72AF"),
-                    BarBackgroundColor = Color.White,
-                };
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        private void SearchPic_OnClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                Navigation.PushAsync(new MainPage());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        private void SubPic_OnClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                Navigation.PushAsync(new MainPage());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
     }
 }

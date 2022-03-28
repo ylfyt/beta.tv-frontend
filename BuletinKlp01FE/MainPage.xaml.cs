@@ -19,10 +19,5 @@ namespace BuletinKlp01FE
             InitializeComponent();
             this.Title = "Beta.TV";
         }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new HomePage());
-        }
     }
 }

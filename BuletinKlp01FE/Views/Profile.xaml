@@ -75,22 +75,8 @@
                     <Label Text="Keluar" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
                     <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="25" HeightRequest="25" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="LogoutClicked"/>
                 </StackLayout>
-                
+
             </StackLayout>
-            <!-- navbar -->
-            <Frame HeightRequest="70" BorderColor="#CCCCCC" CornerRadius="15" Margin="10,0,10,5">
-                <Grid>
-                    <Grid ColumnDefinitions="*,*,*,*" Margin="0"/>
-
-                    <ImageButton x:Name="HomePic" Grid.Row="0" Grid.Column="0" AnchorX="0.8" Source="carbon_home" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" Clicked="HomePic_OnClicked" BackgroundColor="Transparent" HeightRequest="70"/>
-
-                    <ImageButton x:Name="SearchPic" Grid.Row="0" Grid.Column="1" AnchorX="0.55" Source="bx_search" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" Clicked="SearchPic_OnClicked" BackgroundColor="Transparent"/>
-
-                    <ImageButton x:Name="SubPic" Grid.Row="0" Grid.Column="2" AnchorX="0.35" Source="ic_sharp_subscriptions" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" Clicked="SubPic_OnClicked" BackgroundColor="Transparent"/>
-
-                    <ImageButton x:Name="ProfilePic" Grid.Row="0" Grid.Column="3" AnchorX="0.2" Source="Vector_blue" Grid.ColumnSpan="1" ScaleX="1" ScaleY="1" BackgroundColor="Transparent"/>
-                </Grid>
-            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

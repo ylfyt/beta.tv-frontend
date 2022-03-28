@@ -6,22 +6,10 @@ namespace BuletinKlp01FE.Models
 {
     public class User
     {
-        public string Username { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-
-
-        // constructors
-        public User() { }
-
-        public User(string name, string username, string email, string pass)
-        {
-            this.Username = username;
-            this.Name = name;
-            this.Email = email;
-            this.Password = pass;
-        }
+        public string Username { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
 
         public bool IsInputValid()
         {
