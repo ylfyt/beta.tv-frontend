@@ -1,8 +1,5 @@
 using System;
 using System.Net.Http;
-using System.Threading.Tasks;
-using BuletinKlp01FE.Models;
-using BuletinKlp01FE.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
@@ -35,7 +32,7 @@ namespace BuletinKlp01FE.Views
             string token = Preferences.Get("token", "");
             if (token != "")
             {
-                Application.Current.MainPage = new MainPage();
+                RedirectToHomePage();
                 return;
             }
         }
@@ -45,19 +42,15 @@ namespace BuletinKlp01FE.Views
             Application.Current.MainPage = new SignupPage();
         }
 
-        /*async*/
-        void SignInProcedure(object sender, EventArgs e)
+        void RedirectToHomePage()
         {
-            // coba2
-            Application.Current.MainPage = new NavigationPage(new Homepage())
-            {
-                BarTextColor = Color.FromHex("#3F72AF"),
-                BarBackgroundColor = Color.White,
-            };
+            Application.Current.MainPage = new NavigationPage(new SearchVideo());
+        }
 
-            // asli - ingat y sebenarnya ini async
-            /*
-            Button button = sender as Button;
+        public async void SignInProcedure(object sender, EventArgs e)
+        {
+            
+            Button button = (sender as Button)!;
             try
             {
                 string username = Entry_Username.Text;
@@ -77,45 +70,39 @@ namespace BuletinKlp01FE.Views
 
                 button.Text = "Please wait...";
 
-                HttpClient client = new HttpClient();
+                HttpClient client = HttpClientGetter.GetHttpClient();
 
                 var content = new StringContent(JsonConvert.SerializeObject(new { username, password }), Encoding.UTF8, "application/json");
                 string weburl = Constants.LOGIN_END_POINT;
                 HttpResponseMessage httpResponseMessage = await client.PostAsync(weburl, content);
 
-                if (httpResponseMessage.IsSuccessStatusCode)
-                {
-                    string token = "";
-                    foreach (var header in httpResponseMessage.Headers)
-                    {
-                        if (header.Key.ToLower() == "authorization")
-                        {
-                            token = header.Value.First();
-                            break;
-                        }
-                    }
-
-                    if (token == "")
-                    {
-                        DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
-                    }
-                    else
-                    {
-                        // TODO: Save token && redirect to home
-                        Preferences.Set("token", token);
-                        Application.Current.MainPage = new NavigationPage (new Homepage()){
-                            BarTextColor = Color.FromHex("#3F72AF"),
-                            BarBackgroundColor = Color.White,
-                        };
-                    }
-
-                }
-                else
+                if (!httpResponseMessage.IsSuccessStatusCode)
                 {
                     DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
+                    button.Text = "Login";
+                    return;
                 }
 
-                button.Text = "Login";
+                string token = "";
+                foreach (var header in httpResponseMessage.Headers)
+                {
+                    if (header.Key.ToLower() == "authorization")
+                    {
+                        token = header.Value.First();
+                        break;
+                    }
+                }
+
+                if (token == "")
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
+                    button.Text = "Login";
+                    return;
+                }
+                
+                Preferences.Set("token", token);
+                RedirectToHomePage();
+
             }
             catch (Exception ex)
             {
@@ -123,7 +110,7 @@ namespace BuletinKlp01FE.Views
                 DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
             }
-            */
+            
         }
     }
 }
