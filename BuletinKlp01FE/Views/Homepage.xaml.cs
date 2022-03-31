@@ -12,127 +12,91 @@ namespace BuletinKlp01FE.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Homepage : ContentPage
     {
+        String color0 = "#3F72AF";
+        String color1 = "#112D4E";
+        String color5 = "#DBE2EF";
+
         public Homepage()
         {
             InitializeComponent();
-            BindingContext = this;
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        public void AllVideosClicked(object sender, EventArgs args)
         {
-            try
-            {
-                Navigation.PushAsync(new MainPage());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var btnall = this.FindByName<Button>("all");
+            btnall.BackgroundColor = Color.FromHex(color0);
+            btnall.TextColor = Color.FromHex("#ffffff");
+
+            var btntech = this.FindByName<Button>("tech");
+            btntech.BackgroundColor = Color.FromHex(color5);
+            btntech.TextColor = Color.FromHex(color1);
+
+            var btndesain = this.FindByName<Button>("desain");
+            btndesain.BackgroundColor = Color.FromHex(color5);
+            btndesain.TextColor = Color.FromHex(color1);
+
+            var btnbisnis = this.FindByName<Button>("bisnis");
+            btnbisnis.BackgroundColor = Color.FromHex(color5);
+            btnbisnis.TextColor = Color.FromHex(color1);
         }
 
-        string homePicSource = "carbon_home_blue.png";
-        string homeBlack = "carbon_home.png";
-        string homeBlue = "carbon_home_blue.png";
-        public string HomePicSource
+        public void TechVideosClicked(object sender, EventArgs args)
         {
-            get => homePicSource;
-            set
-            {
-                if (value == homePicSource) return;
-                homePicSource = value;
-                OnPropertyChanged("HomePicSource");
-            }
+            var btnall = this.FindByName<Button>("all");
+            btnall.BackgroundColor = Color.FromHex(color5);
+            btnall.TextColor = Color.FromHex(color1);
+
+            var btntech = this.FindByName<Button>("tech");
+            btntech.BackgroundColor = Color.FromHex(color0);
+            btntech.TextColor = Color.FromHex("#ffffff");
+
+            var btndesain = this.FindByName<Button>("desain");
+            btndesain.BackgroundColor = Color.FromHex(color5);
+            btndesain.TextColor = Color.FromHex(color1);
+
+            var btnbisnis = this.FindByName<Button>("bisnis");
+            btnbisnis.BackgroundColor = Color.FromHex(color5);
+            btnbisnis.TextColor = Color.FromHex(color1);
         }
 
-        string searchPicSource = "bx_search.png";
-        string searchBlack = "bx_search.png";
-        string searchBlue = "bx_search_blue.png";
-        public string SearchPicSource
+        public void DesainVideosClicked(object sender, EventArgs args)
         {
-            get => searchPicSource;
-            set
-            {
-                if (value == searchPicSource) return;
-                searchPicSource = value;
-                OnPropertyChanged("SearchPicSource");
-            }
+            var btnall = this.FindByName<Button>("all");
+            btnall.BackgroundColor = Color.FromHex(color5);
+            btnall.TextColor = Color.FromHex(color1);
+
+            var btntech = this.FindByName<Button>("tech");
+            btntech.BackgroundColor = Color.FromHex(color5);
+            btntech.TextColor = Color.FromHex(color1);
+
+            var btndesain = this.FindByName<Button>("desain");
+            btndesain.BackgroundColor = Color.FromHex(color0);
+            btndesain.TextColor = Color.FromHex("#ffffff");
+
+            var btnbisnis = this.FindByName<Button>("bisnis");
+            btnbisnis.BackgroundColor = Color.FromHex(color5);
+            btnbisnis.TextColor = Color.FromHex(color1);
         }
 
-        string subPicSource = "ic_sharp_subscriptions.png";
-        string subBlack = "ic_sharp_subscriptions.png";
-        string subBlue = "ic_sharp_subscriptions_blue.png";
-        public string SubPicSource
+        public void BisnisVideosClicked(object sender, EventArgs args)
         {
-            get => subPicSource;
-            set
-            {
-                if (value == subPicSource) return;
-                subPicSource = value;
-                OnPropertyChanged("SubPicSource");
-            }
+            var btnall = this.FindByName<Button>("all");
+            btnall.BackgroundColor = Color.FromHex(color5);
+            btnall.TextColor = Color.FromHex(color1);
+
+            var btntech = this.FindByName<Button>("tech");
+            btntech.BackgroundColor = Color.FromHex(color5);
+            btntech.TextColor = Color.FromHex(color1);
+
+            var btndesain = this.FindByName<Button>("desain");
+            btndesain.BackgroundColor = Color.FromHex(color5);
+            btndesain.TextColor = Color.FromHex(color1);
+
+            var btnbisnis = this.FindByName<Button>("bisnis");
+            btnbisnis.BackgroundColor = Color.FromHex(color0);
+            btnbisnis.TextColor = Color.FromHex("#ffffff");
         }
 
-        string profilePicSource = "Vector.png";
-        string profileBlack = "Vector.png";
-        string profileBlue = "Vector_blue.png";
-        public string ProfilePicSource
-        {
-            get => profilePicSource;
-            set
-            {
-                if (value == profilePicSource) return;
-                profilePicSource = value;
-                OnPropertyChanged("ProfilePicSource");
-            }
-        }
-        private void HomePic_OnClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                Navigation.PushAsync(new MainPage());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        private void SearchPic_OnClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                Navigation.PushAsync(new MainPage());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        private void SubPic_OnClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                Navigation.PushAsync(new MainPage());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        private void ProfilePic_OnClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                //Navigation.PushAsync(new Profile());
-                Application.Current.MainPage = new NavigationPage(new Profile())
-                {
-                    BarTextColor = Color.FromHex("#3F72AF"),
-                    BarBackgroundColor = Color.White,
-                };
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        
     }
 }

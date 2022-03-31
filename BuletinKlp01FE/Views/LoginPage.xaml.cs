@@ -48,14 +48,14 @@ namespace BuletinKlp01FE.Views
         /*async*/ void SignInProcedure(object sender, EventArgs e)
         {
             // coba2
-            Application.Current.MainPage = new NavigationPage(new Homepage())
+            Application.Current.MainPage = new NavigationPage(new Profile())
             {
                 BarTextColor = Color.FromHex("#3F72AF"),
                 BarBackgroundColor = Color.White,
             };
-
-            // asli - ingat y sebenarnya ini async
+ 
             /*
+            // asli - ingat y sebenarnya ini async
             Button button = sender as Button;
             try
             {

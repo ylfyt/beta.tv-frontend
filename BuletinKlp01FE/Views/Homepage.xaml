@@ -2,39 +2,45 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BuletinKlp01FE.Views.Homepage"
-             Title="Beta.TV">
+             Title="Beta.TV"
+             xmlns:viewmodels="clr-namespace:BuletinKlp01FE.ViewModels"
+             xmlns:model="clr-namespace:BuletinKlp01FE.Models"
+             x:DataType="viewmodels:HomepageViewModel">
+    <ContentPage.BindingContext>
+        <viewmodels:HomepageViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Margin="0">
-            <Grid>
-                <Grid RowDefinitions="3*,3*,3*,3*,3*,3*,*,*"/>
-                <Grid ColumnDefinitions="*,*,*,*"/>
-                <Image Source="Banki1" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer
-                            Tapped="TapGestureRecognizer_Tapped"
-                            NumberOfTapsRequired="1"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Label Text="Welcome to Beta.TV!" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" HorizontalOptions="Center"></Label>
-                <Image Source="Banki1" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"/>
-                <Label Text="Welcome to Beta.TV!" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" HorizontalOptions="Center"></Label>
-                <Image Source="Banki1" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4"/>
-                <Label Text="Welcome to Beta.TV!" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="4" HorizontalOptions="Center"></Label>
-                <Button Text="Search Here" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4"
-                        HorizontalOptions="FillAndExpand"/>
-
-                <!-- navbar -->
-                <Rectangle Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Stroke="#CCCCCC" StrokeThickness='1.5' RadiusX="15" RadiusY="15" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="370" HeightRequest="70"/>
-
-                <ImageButton x:Name="HomePic" Grid.Row="7" Grid.Column="0" AnchorX="0.8" Source="{Binding HomePicSource}" Grid.ColumnSpan="1" ScaleX="0.4" ScaleY="0.4" Clicked="HomePic_OnClicked" BackgroundColor="Transparent"/>
-
-                <ImageButton x:Name="SearchPic" Grid.Row="7" Grid.Column="1" AnchorX="0.55" Source="{Binding SearchPicSource}" Grid.ColumnSpan="1" ScaleX="0.4" ScaleY="0.4" Clicked="SearchPic_OnClicked" BackgroundColor="Transparent"/>
-
-                <ImageButton x:Name="SubPic" Grid.Row="7" Grid.Column="2" AnchorX="0.35" Source="{Binding SubPicSource}" Grid.ColumnSpan="1" ScaleX="0.4" ScaleY="0.4" Clicked="SubPic_OnClicked" BackgroundColor="Transparent"/>
-
-                <ImageButton x:Name="ProfilePic" Grid.Row="7" Grid.Column="3" AnchorX="0.2" Source="{Binding ProfilePicSource}" Grid.ColumnSpan="1" ScaleX="0.4" ScaleY="0.4" Clicked="ProfilePic_OnClicked" BackgroundColor="Transparent"/>
-
-            </Grid>
+        <StackLayout Margin="10">
+            <ScrollView Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" >
+                    <Button x:Name="all" Text="Semua" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowAllVideos}" Clicked="AllVideosClicked"/>
+                    <Button x:Name="tech" Text="Teknologi" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowCategoryVideos}" CommandParameter="Tech" Clicked="TechVideosClicked" />
+                    <Button x:Name="desain" Text="Desain" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowCategoryVideos}" CommandParameter="Desain"  Clicked="DesainVideosClicked"/>
+                    <Button x:Name="bisnis" Text="Bisnis" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowCategoryVideos}" CommandParameter="Bisnis" Clicked="BisnisVideosClicked" />
+                </StackLayout>
+            </ScrollView>
+            <Label Text="{Binding errmsg}"/>
+            <StackLayout>
+                <ListView BackgroundColor="Transparent" 
+                          ItemsSource="{Binding Beritasaya}" HasUnevenRows="True">
+                    <ListView.ItemTemplate >
+                        <DataTemplate x:DataType="model:Video">
+                            <!--TextCell Text="{Binding Name}"/-->
+                            <ViewCell>
+                                <Frame CornerRadius="7" BackgroundColor="White" Padding="0" Margin="0,0,0,10" MinimumHeightRequest="275" BorderColor="LightGray">
+                                    <StackLayout Orientation="Vertical" HeightRequest="275">
+                                        <Image Source="{Binding ThumbnailSource}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
+                                        <StackLayout Orientation="Vertical" Padding="10,0,10,10" >
+                                            <Label Text="{Binding AuthorTitle}" FontSize="Small" TextColor="Black" MaxLines="2" />
+                                            <Label Text="{Binding VideoInfo}" FontSize="Micro" TextColor="#3F72AF"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </StackLayout>
-    </ContentPage.Content>
+    </ContentPage.Content> 
 </ContentPage>

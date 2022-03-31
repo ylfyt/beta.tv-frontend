@@ -6,8 +6,7 @@
              Title="Profil"          
              xmlns:viewmodels="clr-namespace:BuletinKlp01FE.ViewModels"
              xmlns:model="clr-namespace:BuletinKlp01FE.Models"
-             x:DataType="viewmodels:UserBookmarkViewModel"
-             >
+             x:DataType="viewmodels:UserBookmarkViewModel">
     <ContentPage.BindingContext>
         <viewmodels:UserBookmarkViewModel/>
     </ContentPage.BindingContext>
@@ -36,8 +35,8 @@
                                         <StackLayout Orientation="Horizontal" >
                                             <Image Source="sampleVideo" WidthRequest="100"/>
                                             <StackLayout Margin="10,0,0,0">
-                                                <Label VerticalOptions="Center" FontSize="Small" Text="{Binding Name}" TextColor="black"/>
-                                                <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding Channel}" TextColor="black"/>
+                                                <Label VerticalOptions="Center" FontSize="Small" Text="{Binding VideoInfo}" TextColor="black"/>
+                                                <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding AuthorTitle}" TextColor="black"/>
                                             </StackLayout>
                                         </StackLayout>
                                     </Frame>

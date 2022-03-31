@@ -13,13 +13,13 @@ namespace BuletinKlp01FE.ViewModels
         {
             Beritasaya = new ObservableRangeCollection<Video>();
 
-            Beritasaya.Add(new Video { Name = "tutorial xamarin nomor 1 cepat", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "hihihiahiha ihaiasihdiehi csdcudg web", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "contoh video", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "contoh video", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "contoh video", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "contoh video", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
-            Beritasaya.Add(new Video { Name = "contoh video", Channel = "channel contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs" });
+            Beritasaya.Add(new Video { VideoInfo = "tutorial xamarin nomor 1 cepat", AuthorTitle = "ChannelAuthorTitle contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailUrl = "sampleVideo" });
+            Beritasaya.Add(new Video { VideoInfo = "hihihiahiha ihaiasihdiehi csdcudg web", AuthorTitle = "ChannelAuthorTitle contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailUrl = "sampleVideo" });
+            Beritasaya.Add(new Video { VideoInfo = "contoh video", AuthorTitle = "ChannelAuthorTitle contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailUrl = "sampleVideo" });
+            Beritasaya.Add(new Video { VideoInfo = "contoh video", AuthorTitle = "ChannelAuthorTitle contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailUrl = "sampleVideo" });
+            Beritasaya.Add(new Video { VideoInfo = "contoh video", AuthorTitle = "ChannelAuthorTitle contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailUrl = "sampleVideo" });
+            Beritasaya.Add(new Video { VideoInfo = "contoh video", AuthorTitle = "ChannelAuthorTitle contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailUrl = "sampleVideo" });
+            Beritasaya.Add(new Video { VideoInfo = "contoh video", AuthorTitle = "ChannelAuthorTitle contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailUrl = "sampleVideo" });
 
         }
     }
