@@ -18,11 +18,11 @@ namespace BuletinKlp01FE.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Homepage : ContentPage
     {
-        String color0 = "#3F72AF";
-        String color1 = "#112D4E";
-        String color5 = "#DBE2EF";
+        readonly string color0 = "#3F72AF";
+        readonly string color1 = "#112D4E";
+        readonly string color5 = "#DBE2EF";
 
-        private List<Button> catButtons;
+        private readonly List<Button> catButtons;
 
         public Homepage()
         {
@@ -33,7 +33,7 @@ namespace BuletinKlp01FE.Views
             catButtons.Add(ButtonTech);
             catButtons.Add(ButtonDesain);
             catButtons.Add(ButtonBisnis);
-            GetVideos();
+            _ = GetVideos();
         }
 
         public async void VideoSelected(object sender, ItemTappedEventArgs e)
@@ -49,7 +49,7 @@ namespace BuletinKlp01FE.Views
             await Navigation.PushAsync(new VideoPlayer(video));
         }
 
-        public async void GetVideos(string? category = null)
+        async Task GetVideos(string? category = null)
         {
             try
             {
@@ -138,25 +138,25 @@ namespace BuletinKlp01FE.Views
         async void AllVideosClicked(object sender, EventArgs args)
         {
             ChangeActiveCatButton("all");
-            GetVideos();
+            await GetVideos();
         }
 
         async void TechVideosClicked(object sender, EventArgs args)
         {
             ChangeActiveCatButton("tech");
-            GetVideos("tech");
+            await GetVideos("tech");
         }
 
         async void DesainVideosClicked(object sender, EventArgs args)
         {
             ChangeActiveCatButton("desain");
-            GetVideos("desain");
+            await GetVideos("desain");
         }
 
         async void BisnisVideosClicked(object sender, EventArgs args)
         {
             ChangeActiveCatButton("bisnis");
-            GetVideos("bisnis");
+            await GetVideos("bisnis");
         }
 
 

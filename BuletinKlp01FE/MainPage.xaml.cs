@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-
-using BuletinKlp01FE.Models;
-using BuletinKlp01FE.Services;
-using BuletinKlp01FE.Views;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace BuletinKlp01FE
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MainPage : TabbedPage
     {
         public MainPage()
         {
             InitializeComponent();
-            this.Title = "Beta.TV";
         }
     }
 }

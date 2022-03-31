@@ -10,7 +10,7 @@ namespace BuletinKlp01FE
         {
             InitializeComponent();
             Preferences.Remove("token");
-            MainPage = new NavigationPage(new Homepage());
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

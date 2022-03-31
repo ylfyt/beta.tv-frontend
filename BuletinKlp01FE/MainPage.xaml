@@ -1,10 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BuletinKlp01FE.MainPage">
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+            xmlns:Page="clr-namespace:BuletinKlp01FE.Views"
+            x:Class="BuletinKlp01FE.MainPage"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            SelectedTabColor="Blue"
+            >
 
-    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"> 
-        <Label Text="Welcome to Beta.TV!" HorizontalOptions="Center" VerticalOptions="Center"></Label>
-    </StackLayout>
+    <NavigationPage IconImageSource="carbon_home.png">
+        <x:Arguments>
+            <Page:Homepage />
+        </x:Arguments>
+    </NavigationPage>
 
-</ContentPage>
+    <NavigationPage IconImageSource="search_icon.png">
+        <x:Arguments>
+            <Page:SearchVideo />
+        </x:Arguments>
+    </NavigationPage>
+
+    <NavigationPage IconImageSource="Vector.png">
+        <x:Arguments>
+            <Page:Profile />
+        </x:Arguments>
+    </NavigationPage>
+
+</TabbedPage>
