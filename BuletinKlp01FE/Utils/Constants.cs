@@ -13,6 +13,7 @@ namespace BuletinKlp01FE.Utils
         public static string ME_END_POINT { get; } = BASE_URL + "/User/me";
         public static string CHANGE_PROFILE_DATA_END_POINT { get; } = BASE_URL + "/User/changeProfile";
         public static string HOMEPAGE_ALL_VIDEO_ENDPOINT { get; } = BASE_URL + "/Video";
+        public static string VIDEO_ENDPOINT { get; } = BASE_URL + "/video";
         public static string NotInternetText { get; } = "No internet, please reconnect!";
     }
 }

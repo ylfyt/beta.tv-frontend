@@ -1,4 +1,10 @@
-﻿using System;
+﻿using BuletinKlp01FE.Dtos;
+using BuletinKlp01FE.Dtos.video;
+using BuletinKlp01FE.Models;
+using BuletinKlp01FE.Services;
+using BuletinKlp01FE.Utils;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,87 +22,172 @@ namespace BuletinKlp01FE.Views
         String color1 = "#112D4E";
         String color5 = "#DBE2EF";
 
+        private List<Button> catButtons;
+
         public Homepage()
         {
             InitializeComponent();
+
+            catButtons = new List<Button>();
+            catButtons.Add(ButtonAll);
+            catButtons.Add(ButtonTech);
+            catButtons.Add(ButtonDesain);
+            catButtons.Add(ButtonBisnis);
+            GetVideos();
         }
 
-        public void AllVideosClicked(object sender, EventArgs args)
+        public async void VideoSelected(object sender, ItemTappedEventArgs e)
         {
-            var btnall = this.FindByName<Button>("all");
-            btnall.BackgroundColor = Color.FromHex(color0);
-            btnall.TextColor = Color.FromHex("#ffffff");
+            var video = e.Item as Video;
 
-            var btntech = this.FindByName<Button>("tech");
-            btntech.BackgroundColor = Color.FromHex(color5);
-            btntech.TextColor = Color.FromHex(color1);
+            if (video == null)
+            {
+                Console.WriteLine("Something wrong!!");
+                return;
+            }
 
-            var btndesain = this.FindByName<Button>("desain");
-            btndesain.BackgroundColor = Color.FromHex(color5);
-            btndesain.TextColor = Color.FromHex(color1);
-
-            var btnbisnis = this.FindByName<Button>("bisnis");
-            btnbisnis.BackgroundColor = Color.FromHex(color5);
-            btnbisnis.TextColor = Color.FromHex(color1);
+            await Navigation.PushAsync(new VideoPlayer(video));
         }
 
-        public void TechVideosClicked(object sender, EventArgs args)
+        public async void GetVideos(string? category = null)
         {
-            var btnall = this.FindByName<Button>("all");
-            btnall.BackgroundColor = Color.FromHex(color5);
-            btnall.TextColor = Color.FromHex(color1);
+            try
+            {
+                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
+                if (client == null)
+                {
+                    Console.WriteLine("client null");
+                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
+                    return;
+                }
 
-            var btntech = this.FindByName<Button>("tech");
-            btntech.BackgroundColor = Color.FromHex(color0);
-            btntech.TextColor = Color.FromHex("#ffffff");
+                string weburl = Constants.VIDEO_ENDPOINT;
 
-            var btndesain = this.FindByName<Button>("desain");
-            btndesain.BackgroundColor = Color.FromHex(color5);
-            btndesain.TextColor = Color.FromHex(color1);
+                if (category != null)
+                {
+                    weburl += "/category/" + category;
+                }
 
-            var btnbisnis = this.FindByName<Button>("bisnis");
-            btnbisnis.BackgroundColor = Color.FromHex(color5);
-            btnbisnis.TextColor = Color.FromHex(color1);
+                VideosListView.ItemsSource = null;
+                SetMessage("Loading...");
+                var httpResponseMessage = await client.GetAsync(weburl);
+
+                if (!httpResponseMessage.IsSuccessStatusCode)
+                {
+                    SetMessage();
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to get video!");
+                    return;
+                }
+
+                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataVideos>>(responseBody);
+
+                if (responseVideo == null)
+                {
+                    SetMessage();
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to get video!");
+                    return;
+                }
+
+                if (!responseVideo.Success)
+                {
+                    SetMessage();
+                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                    return;
+                }
+
+                if (responseVideo.Data?.Videos.Count == 0)
+                {
+                    SetMessage("No Videos Found!");
+                    DependencyService.Get<IMessage>().ShortAlert("No Videos Found!");
+                    return;
+                }
+
+                responseVideo.Data?.Videos.ForEach(video =>
+                {
+                    var dt = DateTimeOffset.FromUnixTimeSeconds(int.Parse(video.CreateAt)).LocalDateTime;
+
+                    video.ChannelName = video.ChannelName;
+                    video.VideoInfo = video.ChannelName + " • " + dt.ToString("MMMM dd, yyyy");
+                    video.ThumbnailSource = ImageSource.FromUri(new Uri(video.ThumbnailUrl));
+                });
+
+                VideosListView.ItemsSource = responseVideo.Data?.Videos;
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                Console.WriteLine(ex.Message);
+            }
+
+            SetMessage();
         }
 
-        public void DesainVideosClicked(object sender, EventArgs args)
+        void SetMessage(string? message=null)
         {
-            var btnall = this.FindByName<Button>("all");
-            btnall.BackgroundColor = Color.FromHex(color5);
-            btnall.TextColor = Color.FromHex(color1);
+            if (message == null || message == "")
+            {
+                ErrorMessage.IsVisible = false;
+                return;
+            }
 
-            var btntech = this.FindByName<Button>("tech");
-            btntech.BackgroundColor = Color.FromHex(color5);
-            btntech.TextColor = Color.FromHex(color1);
-
-            var btndesain = this.FindByName<Button>("desain");
-            btndesain.BackgroundColor = Color.FromHex(color0);
-            btndesain.TextColor = Color.FromHex("#ffffff");
-
-            var btnbisnis = this.FindByName<Button>("bisnis");
-            btnbisnis.BackgroundColor = Color.FromHex(color5);
-            btnbisnis.TextColor = Color.FromHex(color1);
+            ErrorMessage.IsVisible = true;
+            ErrorMessage.Text = message;
         }
 
-        public void BisnisVideosClicked(object sender, EventArgs args)
+        async void AllVideosClicked(object sender, EventArgs args)
         {
-            var btnall = this.FindByName<Button>("all");
-            btnall.BackgroundColor = Color.FromHex(color5);
-            btnall.TextColor = Color.FromHex(color1);
-
-            var btntech = this.FindByName<Button>("tech");
-            btntech.BackgroundColor = Color.FromHex(color5);
-            btntech.TextColor = Color.FromHex(color1);
-
-            var btndesain = this.FindByName<Button>("desain");
-            btndesain.BackgroundColor = Color.FromHex(color5);
-            btndesain.TextColor = Color.FromHex(color1);
-
-            var btnbisnis = this.FindByName<Button>("bisnis");
-            btnbisnis.BackgroundColor = Color.FromHex(color0);
-            btnbisnis.TextColor = Color.FromHex("#ffffff");
+            ChangeActiveCatButton("all");
+            GetVideos();
         }
 
+        async void TechVideosClicked(object sender, EventArgs args)
+        {
+            ChangeActiveCatButton("tech");
+            GetVideos("tech");
+        }
+
+        async void DesainVideosClicked(object sender, EventArgs args)
+        {
+            ChangeActiveCatButton("desain");
+            GetVideos("desain");
+        }
+
+        async void BisnisVideosClicked(object sender, EventArgs args)
+        {
+            ChangeActiveCatButton("bisnis");
+            GetVideos("bisnis");
+        }
+
+
+        void ChangeActiveCatButton(string cat)
+        {
+            catButtons.ForEach(but => {
+                but.BackgroundColor = Color.FromHex(color5);
+                but.TextColor = Color.FromHex(color1);
+            });
+
+            if (cat == "tech")
+            {
+                ButtonTech.BackgroundColor = Color.FromHex(color0);
+                ButtonTech.TextColor = Color.FromHex("#ffffff");
+            }
+            else if (cat == "bisnis")
+            {
+                ButtonBisnis.BackgroundColor = Color.FromHex(color0);
+                ButtonBisnis.TextColor = Color.FromHex("#ffffff");
+            }
+            else if (cat == "desain")
+            {
+                ButtonDesain.BackgroundColor = Color.FromHex(color0);
+                ButtonDesain.TextColor = Color.FromHex("#ffffff");
+            }
+            else
+            {
+                ButtonAll.BackgroundColor = Color.FromHex(color0);
+                ButtonAll.TextColor = Color.FromHex("#ffffff");
+            }
+        }
         
     }
 }

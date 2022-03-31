@@ -21,7 +21,7 @@ namespace BuletinKlp01FE.Services
         {
             Declare();
 
-            var token = Preferences.Get("token", "");
+            var token = Preferences.Get("token", "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImFkbWluIn0.WoTKCtz0wyHdS3vFW0EbjcMaP_5WnCcW1X3gXSvW5lo18xo7BDcwCl_rThQCM92yyObHVXXfTvAk3XFtsH7XLg");
 
             if (token.Length < 5)
             {

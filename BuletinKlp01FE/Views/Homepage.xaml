@@ -13,29 +13,28 @@
         <StackLayout Margin="10">
             <ScrollView Orientation="Horizontal">
                 <StackLayout Orientation="Horizontal" >
-                    <Button x:Name="all" Text="Semua" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowAllVideos}" Clicked="AllVideosClicked"/>
-                    <Button x:Name="tech" Text="Teknologi" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowCategoryVideos}" CommandParameter="Tech" Clicked="TechVideosClicked" />
-                    <Button x:Name="desain" Text="Desain" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowCategoryVideos}" CommandParameter="Desain"  Clicked="DesainVideosClicked"/>
-                    <Button x:Name="bisnis" Text="Bisnis" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowCategoryVideos}" CommandParameter="Bisnis" Clicked="BisnisVideosClicked" />
+                    <Button x:Name="ButtonAll" Text="Semua" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Clicked="AllVideosClicked"/>
+                    <Button x:Name="ButtonTech" Text="Teknologi" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  CommandParameter="Tech" Clicked="TechVideosClicked" />
+                    <Button x:Name="ButtonDesain" Text="Desain" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  CommandParameter="Desain"  Clicked="DesainVideosClicked"/>
+                    <Button x:Name="ButtonBisnis" Text="Bisnis" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35"  CommandParameter="Bisnis" Clicked="BisnisVideosClicked" />
                 </StackLayout>
             </ScrollView>
-            <Label Text="{Binding errmsg}"/>
+            <Label Text="Loading..." x:Name="ErrorMessage" TextColor="{x:DynamicResource Color0}" />
             <StackLayout>
-                <ListView BackgroundColor="Transparent" 
-                          ItemsSource="{Binding Beritasaya}" HasUnevenRows="True">
-                    <ListView.ItemTemplate >
+                <ListView x:Name="VideosListView" HasUnevenRows="True" ItemTapped="VideoSelected" >
+                    <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:Video">
-                            <!--TextCell Text="{Binding Name}"/-->
                             <ViewCell>
                                 <Frame CornerRadius="7" BackgroundColor="White" Padding="0" Margin="0,0,0,10" MinimumHeightRequest="275" BorderColor="LightGray">
                                     <StackLayout Orientation="Vertical" HeightRequest="275">
                                         <Image Source="{Binding ThumbnailSource}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                         <StackLayout Orientation="Vertical" Padding="10,0,10,10" >
                                             <Label Text="{Binding AuthorTitle}" FontSize="Small" TextColor="Black" MaxLines="2" />
-                                            <Label Text="{Binding VideoInfo}" FontSize="Micro" TextColor="#3F72AF"/>
+                                            <Label Text="{Binding VideoInfo}" FontSize="Micro" TextColor="{x:DynamicResource Color0}"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
+
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -15,16 +15,17 @@ namespace BuletinKlp01FE.ViewModels
 {
     class HomepageViewModel : BindableObject
     {
-        public ObservableRangeCollection<Video> Beritasaya { get; set; }
-        public string errmsg { get; set; }
+        public ObservableRangeCollection<Video>? Beritasaya { get; set; }
+        public string errmsg { get; set; } = String.Empty;
 
         public HomepageViewModel()
         {
+            /*
             Beritasaya = new ObservableRangeCollection<Video>();
             IShowAllVideos = new Command(ShowAllVideos);
 
             ShowAllVideos();
-
+            */
         }
 
         public void getBeritaSaya()
@@ -32,7 +33,7 @@ namespace BuletinKlp01FE.ViewModels
             //Beritasaya.Add(new Video { VideoInfo = "tutorial xamarin nomor 1 cepat", AuthorTitle = "ChannelAuthorTitle contoh", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
         }
 
-        public ICommand IShowAllVideos { get; }
+        public ICommand IShowAllVideos { get; } = null!;
         public ICommand IShowCategoryVideos
         {
             get
@@ -45,101 +46,124 @@ namespace BuletinKlp01FE.ViewModels
         {
             try
             {
-                var client = HttpClientGetter.GetHttpClient();
+                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
+                if (client == null)
+                {
+                    Console.WriteLine("client null");
+                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
+                    return;
+                }
 
+                Beritasaya.Clear();
+                
                 string weburl = Constants.HOMEPAGE_ALL_VIDEO_ENDPOINT;
-                client.BaseAddress = new Uri(weburl);
-                //Beritasaya.Add(new Video { VideoInfo = "sini1", AuthorTitle = "sini1", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
-                var httpResponseMessage = await client.GetAsync("");
-                //Beritasaya.Add(new Video { VideoInfo = "sini", AuthorTitle = "sini", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
+                var httpResponseMessage = await client.GetAsync(weburl);
 
-                if (httpResponseMessage.IsSuccessStatusCode)
+                if (!httpResponseMessage.IsSuccessStatusCode)
                 {
-                    //Beritasaya.Add(new Video { VideoInfo = "semua", AuthorTitle = "semua", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
-                    string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-                    //Beritasaya.Add(new Video { VideoInfo = "semua1", AuthorTitle = "semua1", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
-                    var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataVideos>>(responseBody);
-                    errmsg = "menampilkan hasil";
-
-                    foreach (Video v in responseVideo.Data.Videos){
-                        Beritasaya.Add(new Video { VideoInfo = "nih", AuthorTitle = "semuaasrtdggkj", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
-                    }
-
-                    responseVideo.Data.Videos.ForEach(video =>
-                    {
-                        var dt = DateTimeOffset.FromUnixTimeSeconds(int.Parse(video.CreateAt)).LocalDateTime;
-
-                        video.ChannelName = "hasil";//video.ChannelName;
-                        video.VideoInfo = video.ChannelName + " • " + dt.ToString("MMMM dd, yyyy");
-                        video.ThumbnailSource = "sampleVideo";//ImageSource.FromUri(new Uri(video.ThumbnailUrl));
-                        Beritasaya.Add(video);
-                        Beritasaya.Add(new Video { VideoInfo = video.ChannelName, AuthorTitle = "semuaasrtdggkj", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
-                    });
-
-                    Beritasaya.Add(new Video { VideoInfo = responseVideo.Message, AuthorTitle = responseVideo.Data.ToString(), Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
-
-
-                }
-                else
-                {
-                    errmsg = "gagal";
-                    Beritasaya.Add(new Video { VideoInfo = "ggal", AuthorTitle = "gagal", Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to get video!");
+                    return;
                 }
 
+                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataVideos>>(responseBody);
+
+                if (responseVideo == null)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to get video!");
+                    return;
+                }
+
+                if (!responseVideo.Success)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to get video!");
+                    return;
+                }
+
+                if (responseVideo.Data?.Videos.Count == 0)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Videos is empty");
+                    return;
+                }
+
+                responseVideo.Data?.Videos.ForEach(video =>
+                {
+                    var dt = DateTimeOffset.FromUnixTimeSeconds(int.Parse(video.CreateAt)).LocalDateTime;
+
+                    video.ChannelName = video.ChannelName;
+                    video.VideoInfo = video.ChannelName + " • " + dt.ToString("MMMM dd, yyyy");
+                    video.ThumbnailSource = ImageSource.FromUri(new Uri(video.ThumbnailUrl));
+                    
+                    Beritasaya.Add(video);
+                });
             }
             catch (Exception ex)
             {
+                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
-                errmsg = ex.Message;
-                Beritasaya.Add(new Video { VideoInfo = "exception", AuthorTitle = ex.Message, Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
             }
 
         }
 
         async void ShowCategoryVideos(String x)
         {
-            //Beritasaya.Add(new Video { VideoInfo = x, AuthorTitle = x, Url = "https://www.youtube.com/watch?v=JH8ekYJrFHs", ThumbnailSource = "sampleVideo" });
-
             try
             {
-                var client = HttpClientGetter.GetHttpClient();
-
-                string weburl = Constants.HOMEPAGE_ALL_VIDEO_ENDPOINT + "/"+x;
-                client.BaseAddress = new Uri(weburl);
-                var httpResponseMessage = await client.GetAsync("");
-
-                if (httpResponseMessage.IsSuccessStatusCode)
+                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
+                if (client == null)
                 {
-                    
-                    string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-                    var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataVideos>>(responseBody);
-
-                    responseVideo.Data?.Videos.ForEach(video =>
-                    {
-                        var dt = DateTimeOffset.FromUnixTimeSeconds(int.Parse(video.CreateAt)).LocalDateTime;
-
-                        video.ChannelName = video.ChannelName;
-                        video.VideoInfo = video.ChannelName + " • " + dt.ToString("MMMM dd, yyyy");
-                        video.ThumbnailSource = ImageSource.FromUri(new Uri(video.ThumbnailUrl));
-                    });
-
-                    foreach (Video video in responseVideo.Data?.Videos)
-                    {
-                        Beritasaya.Add(video);
-                    }
-
-                    errmsg = "menampilkan hasil";
-                }
-                else
-                {
-                    errmsg = "Gagal memperbarui daftar video. Coba lagi nanti";
+                    Console.WriteLine("client null");
+                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
+                    return;
                 }
 
+                Beritasaya.Clear();
+
+                string weburl = Constants.VIDEO_ENDPOINT + "/" + x;
+                var httpResponseMessage = await client.GetAsync(weburl);
+
+                if (!httpResponseMessage.IsSuccessStatusCode)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to get video!");
+                    return;
+                }
+
+                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataVideos>>(responseBody);
+
+                if (responseVideo == null)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to get video!");
+                    return;
+                }
+
+                if (!responseVideo.Success)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to get video!");
+                    return;
+                }
+
+                if (responseVideo.Data?.Videos.Count == 0)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Videos is empty");
+                    return;
+                }
+
+                responseVideo.Data?.Videos.ForEach(video =>
+                {
+                    var dt = DateTimeOffset.FromUnixTimeSeconds(int.Parse(video.CreateAt)).LocalDateTime;
+
+                    video.ChannelName = video.ChannelName;
+                    video.VideoInfo = video.ChannelName + " • " + dt.ToString("MMMM dd, yyyy");
+                    video.ThumbnailSource = ImageSource.FromUri(new Uri(video.ThumbnailUrl));
+
+                    Beritasaya.Add(video);
+                });
             }
             catch (Exception ex)
             {
+                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
-                errmsg = ex.Message;
             }
         }
     }
