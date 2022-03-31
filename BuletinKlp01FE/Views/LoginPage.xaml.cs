@@ -51,7 +51,7 @@ namespace BuletinKlp01FE.Views
 
         public async void SignInProcedure(object sender, EventArgs e)
         {
-            
+
             Button button = (sender as Button)!;
             try
             {
@@ -80,7 +80,7 @@ namespace BuletinKlp01FE.Views
                 HttpResponseMessage httpResponseMessage = await client.PostAsync(weburl, content);
                 var responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
                 var responseDto = JsonConvert.DeserializeObject<ResponseDto<DataUser>>(responseBody);
-                
+
                 if (responseDto == null || !(responseDto.Success))
                 {
                     DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
@@ -104,7 +104,8 @@ namespace BuletinKlp01FE.Views
                 DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
             }
-            
+
+
         }
     }
 }

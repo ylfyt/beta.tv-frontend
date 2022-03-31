@@ -33,7 +33,7 @@ namespace BuletinKlp01FE.Services
             {
                 instance.DefaultRequestHeaders.Add("Authorization", token);
             }
-            
+
             return instance;
         }
 

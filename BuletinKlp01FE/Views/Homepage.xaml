@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BuletinKlp01FE.Views.Homepage"
+             Title="Beta.TV"
+             xmlns:viewmodels="clr-namespace:BuletinKlp01FE.ViewModels"
+             xmlns:model="clr-namespace:BuletinKlp01FE.Models"
+             x:DataType="viewmodels:HomepageViewModel">
+    <ContentPage.BindingContext>
+        <viewmodels:HomepageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <ScrollView Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" >
+                    <Button x:Name="all" Text="Semua" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowAllVideos}" Clicked="AllVideosClicked"/>
+                    <Button x:Name="tech" Text="Teknologi" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowCategoryVideos}" CommandParameter="Tech" Clicked="TechVideosClicked" />
+                    <Button x:Name="desain" Text="Desain" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowCategoryVideos}" CommandParameter="Desain"  Clicked="DesainVideosClicked"/>
+                    <Button x:Name="bisnis" Text="Bisnis" BackgroundColor="{x:DynamicResource Color5}" TextColor="{x:DynamicResource Color1}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Command="{Binding IShowCategoryVideos}" CommandParameter="Bisnis" Clicked="BisnisVideosClicked" />
+                </StackLayout>
+            </ScrollView>
+            <Label Text="{Binding errmsg}"/>
+            <StackLayout>
+                <ListView BackgroundColor="Transparent" 
+                          ItemsSource="{Binding Beritasaya}" HasUnevenRows="True">
+                    <ListView.ItemTemplate >
+                        <DataTemplate x:DataType="model:Video">
+                            <!--TextCell Text="{Binding Name}"/-->
+                            <ViewCell>
+                                <Frame CornerRadius="7" BackgroundColor="White" Padding="0" Margin="0,0,0,10" MinimumHeightRequest="275" BorderColor="LightGray">
+                                    <StackLayout Orientation="Vertical" HeightRequest="275">
+                                        <Image Source="{Binding ThumbnailSource}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
+                                        <StackLayout Orientation="Vertical" Padding="10,0,10,10" >
+                                            <Label Text="{Binding AuthorTitle}" FontSize="Small" TextColor="Black" MaxLines="2" />
+                                            <Label Text="{Binding VideoInfo}" FontSize="Micro" TextColor="#3F72AF"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content> 
+</ContentPage>

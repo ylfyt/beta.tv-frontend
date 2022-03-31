@@ -6,8 +6,7 @@
              Title="Profil"          
              xmlns:viewmodels="clr-namespace:BuletinKlp01FE.ViewModels"
              xmlns:model="clr-namespace:BuletinKlp01FE.Models"
-             x:DataType="viewmodels:UserBookmarkViewModel"
-             >
+             x:DataType="viewmodels:UserBookmarkViewModel">
     <ContentPage.BindingContext>
         <viewmodels:UserBookmarkViewModel/>
     </ContentPage.BindingContext>
