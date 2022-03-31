@@ -10,7 +10,7 @@
         <viewmodels:HomepageViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Margin="10">
+        <StackLayout Margin="10,10,10,0">
             <ScrollView Orientation="Horizontal">
                 <StackLayout Orientation="Horizontal" >
                     <Button x:Name="ButtonAll" Text="Semua" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Clicked="AllVideosClicked"/>
