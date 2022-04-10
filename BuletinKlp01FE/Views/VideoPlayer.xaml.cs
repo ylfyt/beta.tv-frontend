@@ -1,4 +1,6 @@
 ﻿using BuletinKlp01FE.Models;
+using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,6 +16,14 @@ namespace BuletinKlp01FE.Views
             InitializeComponent();
             _video = video;
             LoadVideo();
+
+            var cs = new List<string>(4)
+            {
+                "woww",
+                "woww",
+                "woww"
+            };
+            CommentsListView.ItemsSource = cs;
         }
 
         private void LoadVideo()

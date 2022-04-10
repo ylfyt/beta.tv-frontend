@@ -3,28 +3,127 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BuletinKlp01FE.Views.VideoPlayer"
              xmlns:fullWebView="clr-namespace:BuletinKlp01FE.Views.CustomRenderer"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              >
     <StackLayout>
         <StackLayout MinimumHeightRequest="400" >
-            <fullWebView:FullScreenEnabledWebView Grid.Row="0" Source="https://www.youtube.com/embed/_tEw-Him7ho" HeightRequest="233"  x:Name="VideoWebView" />
-            <Label Text="#Politics #News" FontSize="Caption" TextColor="{x:DynamicResource Color0}" Margin="10, 0, 10, 0" x:Name="categoryText" />
-            <Label Text="Tutorial Xamarin untuk Pemula" FontSize="Small" TextColor="Black" Margin="10,0,10,10" x:Name="titleText" />
+            <fullWebView:FullScreenEnabledWebView 
+                Grid.Row="0" 
+                Source="https://www.youtube.com/embed/_tEw-Him7ho" 
+                HeightRequest="233"  
+                x:Name="VideoWebView"
+                />
         </StackLayout>
-        <BoxView HeightRequest="1" Color="Black" />
-        <StackLayout Padding="10, 10, 10, 10">
-            <ScrollView>
-                <StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Source: " TextColor="{x:DynamicResource Color0}" FontSize="Small" />
-                        <Label Text="CNN Indonesia" TextColor="{x:DynamicResource Color0}" FontSize="Small" x:Name="sourceText"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Author: " FontSize="Small" />
-                        <Label Text="Budi Santoso" FontAttributes="Italic"  FontSize="Small" x:Name="authorNameText"/>
-                    </StackLayout>
-                    <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet augue ultricies sapien faucibus commodo. Duis ultricies, mauris et rhoncus scelerisque, enim augue varius velit, at sollicitudin arcu diam at lectus. &#10;&#10;Curabitur orci lacus, elementum ut maximus at, mollis ut felis. Vestibulum placerat velit placerat dui rhoncus imperdiet. Morbi a dui sit amet massa ultrices condimentum quis a dolor. Ut vel ex sem. Cras laoreet leo vitae finibus convallis. Suspendisse nec tortor in nisl ullamcorper porttitor sed id nunc. &#10;&#10;Ut vitae pellentesque felis, a accumsan turpis. Pellentesque sit amet sem tincidunt, viverra neque sit amet, consequat arcu. Etiam elementum felis sed lorem sollicitudin, quis luctus orci semper. Nam maximus convallis tortor ac dapibus. Donec molestie erat a semper suscipit." TextColor="Black" FontSize="Small" x:Name="descriptionText" />
+        <Grid VerticalOptions="FillAndExpand" IsVisible="False">
+            <StackLayout>
+                <StackLayout Margin="10,0" HeightRequest="70">
+                    <Label 
+                        Text="#Politics #News" 
+                        FontSize="Caption" 
+                        TextColor="{x:DynamicResource Color0}" 
+                        x:Name="categoryText"
+                        VerticalOptions="CenterAndExpand"
+                        />
+                    <Label 
+                        Text="Tutorial Xamarin untuk Pemula" 
+                        FontSize="Small" 
+                        TextColor="Black" 
+                        x:Name="titleText" 
+                        VerticalOptions="CenterAndExpand"
+                        />
                 </StackLayout>
-            </ScrollView>
+                <BoxView HeightRequest="1" Color="Black" />
+                <ScrollView Margin="10,0">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Source: " TextColor="{x:DynamicResource Color0}" FontSize="Small" />
+                            <Label Text="CNN Indonesia" TextColor="{x:DynamicResource Color0}" FontSize="Small" x:Name="sourceText"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Author: " FontSize="Small" />
+                            <Label Text="Budi Santoso" FontAttributes="Italic"  FontSize="Small" x:Name="authorNameText"/>
+                        </StackLayout>
+                        <Label 
+                            Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet augue ultricies sapien faucibus commodo. Duis ultricies, mauris et rhoncus scelerisque, enim augue varius velit, at sollicitudin arcu diam at lectus. &#10;&#10;Curabitur orci lacus, elementum ut maximus at, mollis ut felis. Vestibulum placerat velit placerat dui rhoncus imperdiet. Morbi a dui sit amet massa ultrices condimentum quis a dolor. Ut vel ex sem. Cras laoreet leo vitae finibus convallis. Suspendisse nec tortor in nisl ullamcorper porttitor sed id nunc. &#10;&#10;Ut vitae pellentesque felis, a accumsan turpis. Pellentesque sit amet sem tincidunt, viverra neque sit amet, consequat arcu. Etiam elementum felis sed lorem sollicitudin, quis luctus orci semper. Nam maximus convallis tortor ac dapibus. Donec molestie erat a semper suscipit." 
+                            TextColor="Black" 
+                            FontSize="Small" 
+                            x:Name="descriptionText" 
+                            />
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+            <Button 
+                Grid.Column="0" 
+                Grid.Row="0"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="EndAndExpand"
+                Margin="0,0,20,20"
+                HeightRequest="60"
+                WidthRequest="60"
+                CornerRadius="30"
+                ImageSource="arrow_up.png"
+                android:Button.UseDefaultShadow="True"
+                BackgroundColor="{DynamicResource Color0}"
+                />
+        </Grid>
+
+        <StackLayout Margin="10,0">
+            <ListView x:Name="CommentsListView" HasUnevenRows="True" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame 
+                                CornerRadius="7" 
+                                BackgroundColor="White" 
+                                Padding="0" 
+                                Margin="0,0,0,10" 
+                                BorderColor="LightGray">
+                                <StackLayout Margin="10">
+                                    <StackLayout>
+                                        <Label 
+                                            FontSize="Caption"
+                                            TextColor="{DynamicResource Color0}"
+                                            Text="Budi · 4 hours ago" />
+                                        <Label 
+                                            Text="Lorem ipsum dolor sit amet. Eum molestiae impedit sed autem unde eos totam facilis cum internos voluptates et alias ratione aut repellat nemo vel repudiandae nisi. Sit accusamus facilis hic voluptatem tempora aut ipsum beatae." />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <ImageButton
+                                            Source="thumb_blue.png" 
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="20" 
+                                            HeightRequest="20"/>
+                                        <Label 
+                                            VerticalOptions="CenterAndExpand"
+                                            FontSize="Small"
+                                            FontAttributes="Bold"
+                                            MinimumWidthRequest="40"
+                                            Text="526"/>
+                                        <Frame 
+                                            CornerRadius="5"
+                                            Padding="0,5"
+                                            Margin="5,0,0,0"
+                                            HorizontalOptions="FillAndExpand"
+                                            BackgroundColor="{DynamicResource Color0}"
+                                            >
+                                            <Label 
+                                                Text="Setuju gan aut repellat nemo vel repudiandae nisi. Sit accusamus facilis hic voluptatem tempora aut ipsum beatae."
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
+                                                Margin="5,0"
+                                                TextColor="White"
+                                                VerticalOptions="Center"
+                                            />    
+                                        </Frame>
+                                        
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </StackLayout>
 </ContentPage>

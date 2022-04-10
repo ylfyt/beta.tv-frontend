@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
-namespace BuletinKlp01FE.Utils
-{
+
     public class Constants
     {
         public static string BASE_URL { get; } = "http://10.0.2.2:5000/api";
@@ -15,5 +15,7 @@ namespace BuletinKlp01FE.Utils
         public static string HOMEPAGE_ALL_VIDEO_ENDPOINT { get; } = BASE_URL + "/Video";
         public static string VIDEO_ENDPOINT { get; } = BASE_URL + "/video";
         public static string NotInternetText { get; } = "No internet, please reconnect!";
+
+        public static Color color0 = Color.FromHex("3F72AF");
     }
-}
+
