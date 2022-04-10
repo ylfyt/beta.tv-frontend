@@ -26,6 +26,18 @@ namespace BuletinKlp01FE.Views
             CommentsListView.ItemsSource = cs;
         }
 
+        public void SwitchToCommentSection(object sender, EventArgs args)
+        {
+            DescriptionSection.IsVisible = false;
+            CommentSection.IsVisible = true;
+        }
+
+        public void SwitchToDescriptionSection(object sender, EventArgs args)
+        {
+            CommentSection.IsVisible = false;
+            DescriptionSection.IsVisible = true;
+        }
+
         private void LoadVideo()
         {
             if (_video.Categories.Count == 0)
