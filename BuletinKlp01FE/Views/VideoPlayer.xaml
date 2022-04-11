@@ -5,6 +5,7 @@
              xmlns:fullWebView="clr-namespace:BuletinKlp01FE.Views.CustomRenderer"
              xmlns:CusEnt="clr-namespace:BuletinKlp01FE.Views.CustomRenderer"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:Model ="clr-namespace:BuletinKlp01FE.Models"
              >
     <StackLayout>
         <StackLayout MinimumHeightRequest="400" >
@@ -73,7 +74,7 @@
             <Button Text="&#10005;" HeightRequest="40" HorizontalOptions="FillAndExpand" Clicked="SwitchToDescriptionSection" />
                 <ListView x:Name="CommentsListView" HasUnevenRows="True" Margin="5,0">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="Model:Comment">
                         <ViewCell>
                             <Frame 
                                 CornerRadius="7" 
@@ -86,9 +87,9 @@
                                         <Label 
                                             FontSize="Caption"
                                             TextColor="{DynamicResource Color0}"
-                                            Text="Budi · 4 hours ago" />
+                                            Text="{Binding UserId}" />
                                         <Label 
-                                            Text="Lorem ipsum dolor sit amet. Eum molestiae impedit sed autem unde eos totam facilis cum internos voluptates et alias ratione aut repellat nemo vel repudiandae nisi. Sit accusamus facilis hic voluptatem tempora aut ipsum beatae." />
+                                            Text="{Binding Text}" />
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" >
                                         <ImageButton
