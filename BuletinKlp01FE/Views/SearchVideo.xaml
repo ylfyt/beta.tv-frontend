@@ -14,7 +14,7 @@
             </StackLayout>
             <Label Text="History Pencarian :" x:Name="MessageText" FontSize="Medium" TextColor="{x:DynamicResource Color0}" Margin="0,5,0,5" />
             <StackLayout VerticalOptions="FillAndExpand">
-                <ListView x:Name="VideosListView" HasUnevenRows="True" ItemTapped="VideoSelected">
+                <ListView x:Name="VideosListView" HasUnevenRows="True" ItemTapped="VideoSelected" SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

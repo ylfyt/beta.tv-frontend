@@ -21,7 +21,7 @@
             </ScrollView>
             <Label Text="Loading..." x:Name="ErrorMessage" TextColor="{x:DynamicResource Color0}" />
             <StackLayout>
-                <ListView x:Name="VideosListView" HasUnevenRows="True" ItemTapped="VideoSelected" >
+                <ListView x:Name="VideosListView" HasUnevenRows="True" ItemTapped="VideoSelected" SeparatorVisibility="None" >
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:Video">
                             <ViewCell>

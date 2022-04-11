@@ -127,7 +127,7 @@ namespace BuletinKlp01FE.Views
         {
             try
             {
-                if (CommentField.Text == "")
+                if (CommentField.Text == null || CommentField.Text == "")
                 {
                     DependencyService.Get<IMessage>().ShortAlert("Please type something!");
                     return;

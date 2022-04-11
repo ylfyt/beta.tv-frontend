@@ -5,22 +5,22 @@
             x:Class="BuletinKlp01FE.MainPage"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
-            SelectedTabColor="Blue"
+            SelectedTabColor="{DynamicResource Color0}"
             >
 
-    <NavigationPage IconImageSource="carbon_home.png">
+    <NavigationPage IconImageSource="carbon_home.png" Title="Home">
         <x:Arguments>
             <Page:Homepage />
         </x:Arguments>
     </NavigationPage>
 
-    <NavigationPage IconImageSource="search_icon.png">
+    <NavigationPage IconImageSource="search_icon.png" Title="Search">
         <x:Arguments>
             <Page:SearchVideo />
         </x:Arguments>
     </NavigationPage>
 
-    <NavigationPage IconImageSource="Vector.png">
+    <NavigationPage IconImageSource="Vector.png" Title="Profile">
         <x:Arguments>
             <Page:Profile />
         </x:Arguments>
