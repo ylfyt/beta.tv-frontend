@@ -109,14 +109,15 @@
                                         <Label 
                                             FontSize="Caption"
                                             TextColor="{DynamicResource Color0}"
-                                            Text="Budi · 4 hours ago" />
+                                            Text="{Binding CreatorInfo}" />
                                         <Label 
                                             Text="{Binding Text}"
+                                            TextColor="Black"
                                             />
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" >
                                         <ImageButton
-                                            Source="thumb_blue.png" 
+                                            Source="thumb_black.png" 
                                             VerticalOptions="CenterAndExpand"
                                             WidthRequest="20" 
                                             HeightRequest="20"/>
@@ -125,7 +126,7 @@
                                             FontSize="Small"
                                             FontAttributes="Bold"
                                             MinimumWidthRequest="40"
-                                            Text="526"/>
+                                            Text="{Binding CountLikes}"/>
                                         <Frame 
                                             CornerRadius="5"
                                             Padding="0,1"

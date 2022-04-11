@@ -49,8 +49,8 @@ namespace BuletinKlp01FE.Views
                     return;
                 }
 
-                string weburl = Constants.VIDEO_ENDPOINT;
-                weburl += $"/{_video.Id}/comments";
+                string weburl = Constants.COMMENT_ENDPOINT;
+                weburl += $"?videoId={_video.Id}";
 
                 DependencyService.Get<IMessage>().ShortAlert("Loading...");
                 var httpResponseMessage = await client.GetAsync(weburl);
@@ -84,6 +84,7 @@ namespace BuletinKlp01FE.Views
 
                 comments.AddRange(responseVideo.Data?.Comments);
                 CommentsListView.ItemsSource = comments;
+                Console.WriteLine(comments[0].CreatorInfo);
             }
             catch (Exception ex)
             {
