@@ -37,6 +37,55 @@ namespace BuletinKlp01FE.Views
             }
         }
 
+        public async void LikeButtonClicked(object sender, EventArgs args)
+        {
+            try
+            {
+                var btn = sender as ImageButton;
+                var comment = btn!.CommandParameter as Comment;
+
+                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
+                if (client == null)
+                {
+                    Console.WriteLine("client null");
+                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
+                    return;
+                }
+
+                string weburl = Constants.COMMENT_LIKE_ENDPOINT;
+
+                DependencyService.Get<IMessage>().ShortAlert("Loading...");
+                
+                HttpResponseMessage httpResponseMessage;
+
+                if (comment!.IsLiked)
+                {
+                    httpResponseMessage = await client.DeleteAsync(weburl + $"?commentId={comment.Id}");
+                }
+                else
+                {
+                    var content = new StringContent(JsonConvert.SerializeObject(new { commentId = comment.Id }), Encoding.UTF8, "application/json");
+                    httpResponseMessage = await client.PostAsync(weburl, content);
+                }
+
+
+                if (!httpResponseMessage.IsSuccessStatusCode)
+                {
+                    Console.WriteLine(await httpResponseMessage.Content.ReadAsStringAsync() + " | " + comment!.Id.ToString());
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to send like");
+                    return;
+                }
+
+                DependencyService.Get<IMessage>().ShortAlert("Success!");
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+
         private async void FetchVideoComments()
         {
             try

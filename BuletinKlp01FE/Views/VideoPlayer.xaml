@@ -117,10 +117,14 @@
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" >
                                         <ImageButton
-                                            Source="thumb_black.png" 
+                                            Source="{Binding ImageButtonSource}" 
                                             VerticalOptions="CenterAndExpand"
                                             WidthRequest="20" 
-                                            HeightRequest="20"/>
+                                            HeightRequest="20"
+                                            CommandParameter="{Binding .}"
+                                            Clicked="LikeButtonClicked"
+                                            BackgroundColor="Transparent"
+                                            />
                                         <Label 
                                             VerticalOptions="CenterAndExpand"
                                             FontSize="Small"
