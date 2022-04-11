@@ -138,6 +138,7 @@
                         HeightRequest="50"
                         VerticalOptions="Center"
                         TextColor="{DynamicResource Color1}"
+                        Clicked="SubmitComment"
                         Text="Send"/>
                 </StackLayout>
 
@@ -148,6 +149,7 @@
                     Grid.ColumnSpan="4"
                     FontSize="Small"
                     Placeholder="Type here..."
+                    x:Name="CommentField"
                     />
             </Grid>
         </StackLayout>

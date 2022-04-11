@@ -5,6 +5,8 @@ using BuletinKlp01FE.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -119,6 +121,69 @@ namespace BuletinKlp01FE.Views
             descriptionText.Text = _video.Description;
             VideoWebView.Source = _video.Url;
             this.Title = "Video";
+        }
+
+        public async void SubmitComment(object send, EventArgs args)
+        {
+            try
+            {
+                if (CommentField.Text == "")
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Please type something!");
+                    return;
+                }
+
+                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
+                if (client == null)
+                {
+                    Console.WriteLine("client null");
+                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
+                    return;
+                }
+
+                string weburl = Constants.COMMENT_ENDPOINT;
+
+                var content = new StringContent(JsonConvert.SerializeObject(new { videoId = _video.Id, text = CommentField.Text }), Encoding.UTF8, "application/json");
+
+                DependencyService.Get<IMessage>().ShortAlert("Loading...");
+                var httpResponseMessage = await client.PostAsync(weburl, content);
+
+                if (!httpResponseMessage.IsSuccessStatusCode)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to send comment");
+                    return;
+                }
+
+                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataComment>>(responseBody);
+
+                if (responseVideo == null)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to send comment");
+                    return;
+                }
+
+                if (!responseVideo.Success)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                    return;
+                }
+
+                if (responseVideo.Data?.Comment == null)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                    return;
+                }
+                CommentField.Text = "";
+                comments.Insert(0, responseVideo.Data?.Comment!);
+                CommentsListView.ItemsSource = null;
+                CommentsListView.ItemsSource = comments;
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
