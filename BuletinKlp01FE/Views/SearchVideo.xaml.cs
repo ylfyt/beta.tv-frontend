@@ -91,16 +91,6 @@ namespace BuletinKlp01FE.Views
                     return;
                 }
 
-                responseVideo.Data?.Videos.ForEach(video =>
-                {
-                    var dt = DateTimeOffset.FromUnixTimeSeconds(int.Parse(video.CreateAt)).LocalDateTime;
-
-                    video.ChannelName = video.ChannelName;
-                    video.VideoInfo = video.ChannelName + " • " + dt.ToString("MMMM dd, yyyy");
-                    video.ThumbnailSource = ImageSource.FromUri(new Uri(video.ThumbnailUrl));
-                });
-
-
                 VideosListView.ItemsSource = responseVideo.Data?.Videos;
 
                 SetUI(false, "Hasil pencarian: ", false);

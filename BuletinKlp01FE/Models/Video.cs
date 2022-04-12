@@ -16,12 +16,12 @@ namespace BuletinKlp01FE.Models
         public string Url { get; set; } = string.Empty;
         public List<string> Categories { get; set; } = new List<string>();
         public string Description { get; set; } = string.Empty;
-        public string CreateAt { get; set; } = DateTime.Today.ToString();
+        public long CreateAt { get; set; }
         public string AuthorDescription { get; set; } = string.Empty;
         public string AuthorTitle { get; set; } = string.Empty;
         public int AuthorId { get; set; }
         public string AuthorName { get; set; } = string.Empty;
-        public string VideoInfo { get; set; } = string.Empty;
-        public ImageSource ThumbnailSource { get; set; } = null!;
+        public string VideoInfo => ChannelName + " • " + DateTimeOffset.FromUnixTimeSeconds(CreateAt).LocalDateTime.ToString("MMMM dd, yyyy");
+        public ImageSource ThumbnailSource => ImageSource.FromUri(new Uri(ThumbnailUrl));
     }
 }

@@ -60,7 +60,7 @@ namespace BuletinKlp01FE.Views
                     DependencyService.Get<IMessage>().ShortAlert("Client is null!");
                     return;
                 }
-
+                
                 string weburl = Constants.VIDEO_ENDPOINT;
 
                 if (category != null)
@@ -72,6 +72,7 @@ namespace BuletinKlp01FE.Views
                 SetMessage("Loading...");
                 var httpResponseMessage = await client.GetAsync(weburl);
 
+
                 if (!httpResponseMessage.IsSuccessStatusCode)
                 {
                     SetMessage();
@@ -81,7 +82,7 @@ namespace BuletinKlp01FE.Views
 
                 string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
                 var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataVideos>>(responseBody);
-
+                
                 if (responseVideo == null)
                 {
                     SetMessage();
@@ -102,15 +103,6 @@ namespace BuletinKlp01FE.Views
                     DependencyService.Get<IMessage>().ShortAlert("No Videos Found!");
                     return;
                 }
-
-                responseVideo.Data?.Videos.ForEach(video =>
-                {
-                    var dt = DateTimeOffset.FromUnixTimeSeconds(int.Parse(video.CreateAt)).LocalDateTime;
-
-                    video.ChannelName = video.ChannelName;
-                    video.VideoInfo = video.ChannelName + " • " + dt.ToString("MMMM dd, yyyy");
-                    video.ThumbnailSource = ImageSource.FromUri(new Uri(video.ThumbnailUrl));
-                });
 
                 VideosListView.ItemsSource = responseVideo.Data?.Videos;
             }
