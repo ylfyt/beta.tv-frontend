@@ -5,8 +5,7 @@
              xmlns:fullWebView="clr-namespace:BuletinKlp01FE.Views.CustomRenderer"
              xmlns:CusEnt="clr-namespace:BuletinKlp01FE.Views.CustomRenderer"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-             xmlns:Model ="clr-namespace:BuletinKlp01FE.Models"
-             >
+             xmlns:Model ="clr-namespace:BuletinKlp01FE.Models" xmlns:viewmodels="clr-namespace:BuletinKlp01FE.ViewModels" x:DataType="viewmodels:VideoCommentsViewModel">
     <StackLayout Spacing="0">
         <StackLayout MinimumHeightRequest="400" >
             <fullWebView:FullScreenEnabledWebView 
@@ -94,7 +93,12 @@
                         Clicked="SwitchToDescriptionSection" />
                 </StackLayout>
             </Frame>
-            <ListView x:Name="CommentsListView" HasUnevenRows="True" Margin="5,0" SeparatorVisibility="None">
+            <ListView 
+                x:Name="CommentsListView" 
+                ItemsSource="{Binding Comments}"
+                HasUnevenRows="True" 
+                Margin="5,0" 
+                SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="Model:Comment">
                         <ViewCell>
@@ -115,31 +119,47 @@
                                             TextColor="Black"
                                             />
                                     </StackLayout>
-                                    <StackLayout Orientation="Horizontal" >
-                                        <ImageButton
-                                            Source="{Binding ImageButtonSource}" 
-                                            VerticalOptions="CenterAndExpand"
-                                            WidthRequest="20" 
-                                            HeightRequest="20"
-                                            CommandParameter="{Binding .}"
-                                            Clicked="LikeButtonClicked"
-                                            BackgroundColor="Transparent"
+                                    <StackLayout 
+                                        Orientation="Horizontal" 
+                                        HorizontalOptions="FillAndExpand" 
+                                        Spacing="5" 
+                                        HeightRequest="20" >
+                                        <Grid 
+                                            HorizontalOptions="Start"
+                                            ColumnSpacing="0">
+                                            <ImageButton
+                                                Source="{Binding ImageButtonSource}" 
+                                                VerticalOptions="Center"
+                                                CommandParameter="{Binding .}"
+                                                Clicked="LikeButtonClicked"
+                                                BackgroundColor="Transparent"
+                                                IsVisible="{Binding NotIsFetching}"
                                             />
+                                            <ActivityIndicator 
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                IsVisible="{Binding IsFetching}"
+                                                Color="Orange" 
+                                                IsRunning="{Binding IsFetching}"
+                                                WidthRequest="20"
+                                                />
+                                        </Grid>
                                         <Label 
                                             VerticalOptions="CenterAndExpand"
                                             FontSize="Small"
                                             FontAttributes="Bold"
-                                            MinimumWidthRequest="40"
+                                            MinimumWidthRequest="60"
                                             Text="{Binding CountLikes}"/>
                                         <Frame 
                                             CornerRadius="5"
                                             Padding="0,1"
-                                            Margin="5,0,0,0"
-                                            HorizontalOptions="FillAndExpand"
+                                            Margin="10,0,0,0"
+                                            WidthRequest="250"
+                                            HorizontalOptions="EndAndExpand"
                                             BackgroundColor="{DynamicResource Color0}"
                                             >
                                             <Label 
-                                                Text="Setuju gan aut repellat nemo vel repudiandae nisi. Sit accusamus facilis hic voluptatem tempora aut ipsum beatae."
+                                                Text="{Binding LastReply}"
                                                 LineBreakMode="TailTruncation"
                                                 MaxLines="1"
                                                 Margin="5,0"

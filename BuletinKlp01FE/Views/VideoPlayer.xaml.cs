@@ -2,6 +2,7 @@
 using BuletinKlp01FE.Dtos.comment;
 using BuletinKlp01FE.Models;
 using BuletinKlp01FE.Services;
+using BuletinKlp01FE.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,34 +17,31 @@ namespace BuletinKlp01FE.Views
     public partial class VideoPlayer : ContentPage
     {
         private readonly Video _video;
-        private List<Comment> comments;
+        private VideoCommentsViewModel commentsViewModel;
 
         public VideoPlayer(Video video)
         {
             InitializeComponent();
             _video = video;
             LoadVideo();
+            commentsViewModel = new VideoCommentsViewModel();
+            BindingContext = commentsViewModel;
         }
 
         public void SwitchToCommentSection(object sender, EventArgs args)
         {
             DescriptionSection.IsVisible = false;
             CommentSection.IsVisible = true;
-
-            if (comments == null)
-            {
-                comments = new List<Comment>();
-                FetchVideoComments();
-            }
+            FetchVideoComments();
         }
 
         public async void LikeButtonClicked(object sender, EventArgs args)
         {
+            var btn = sender as ImageButton;
+            var comment = btn!.CommandParameter as Comment;
+            
             try
             {
-                var btn = sender as ImageButton;
-                var comment = btn!.CommandParameter as Comment;
-
                 var client = HttpClientGetter.GetHttpClientWithTokenHeader();
                 if (client == null)
                 {
@@ -52,14 +50,16 @@ namespace BuletinKlp01FE.Views
                     return;
                 }
 
+                SetFetching(comment.Id, true);
+
                 string weburl = Constants.COMMENT_LIKE_ENDPOINT;
 
-                DependencyService.Get<IMessage>().ShortAlert("Loading...");
-                
                 HttpResponseMessage httpResponseMessage;
+                bool adding = true;
 
                 if (comment!.IsLiked)
                 {
+                    adding = false;
                     httpResponseMessage = await client.DeleteAsync(weburl + $"?commentId={comment.Id}");
                 }
                 else
@@ -71,19 +71,50 @@ namespace BuletinKlp01FE.Views
 
                 if (!httpResponseMessage.IsSuccessStatusCode)
                 {
+                    Console.WriteLine("==========================================================");
                     Console.WriteLine(await httpResponseMessage.Content.ReadAsStringAsync() + " | " + comment!.Id.ToString());
                     DependencyService.Get<IMessage>().ShortAlert("Failed to send like");
+                    SetFetching(comment.Id, false);
                     return;
                 }
-
-                DependencyService.Get<IMessage>().ShortAlert("Success!");
+                UpdateCommentLike(comment.Id, adding);
+                SetFetching(comment.Id, false);
             }
             catch (Exception ex)
             {
                 DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
+                SetFetching(comment.Id, false);
             }
 
+        }
+
+        public void UpdateCommentLike(int id, bool adding)
+        {
+            for (int i = 0; i < commentsViewModel.Comments.Count; i++)
+            {
+                if (commentsViewModel.Comments[i].Id == id)
+                {
+                    var temp = commentsViewModel.Comments[i];
+                    temp.IsFetching = false;
+                    temp.IsLiked = adding;
+                    temp.CountLikes += adding ? 1 : -1;
+                    commentsViewModel.Comments[i] = temp;
+                }
+            }
+        }
+
+        public void SetFetching(int id, bool val)
+        {
+            for (int i = 0; i < commentsViewModel.Comments.Count; i++)
+            {
+                if (commentsViewModel.Comments[i].Id == id)
+                {
+                    var temp = commentsViewModel.Comments[i];
+                    temp.IsFetching = val;
+                    commentsViewModel.Comments[i] = temp;
+                }
+            }
         }
 
         private async void FetchVideoComments()
@@ -131,9 +162,8 @@ namespace BuletinKlp01FE.Views
                     return;
                 }
 
-                comments.AddRange(responseVideo.Data?.Comments);
-                CommentsListView.ItemsSource = comments;
-                Console.WriteLine(comments[0].CreatorInfo);
+                commentsViewModel.Comments.Clear();
+                responseVideo.Data?.Comments.ForEach(c => commentsViewModel.Comments.Add(c));
             }
             catch (Exception ex)
             {
@@ -225,9 +255,7 @@ namespace BuletinKlp01FE.Views
                     return;
                 }
                 CommentField.Text = "";
-                comments.Insert(0, responseVideo.Data?.Comment!);
-                CommentsListView.ItemsSource = null;
-                CommentsListView.ItemsSource = comments;
+                commentsViewModel.Comments.Insert(0, responseVideo.Data?.Comment!);
             }
             catch (Exception ex)
             {
