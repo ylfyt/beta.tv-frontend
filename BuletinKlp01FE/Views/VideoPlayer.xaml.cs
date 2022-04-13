@@ -187,10 +187,9 @@ namespace BuletinKlp01FE.Views
             else
             {
                 var temp = "";
-                _video.Categories.ForEach(cat =>
+                _video.Categories.ForEach(c =>
                 {
-                    cat = cat.Length == 1 ? cat.ToUpper() : (char.ToUpper(cat[0]) + cat[1..]);
-                    temp += $"#{cat}  ";
+                    temp += $"#{c.Label}  ";
                 });
                 categoryText.Text = temp;
             }
