@@ -111,10 +111,6 @@
                                 <StackLayout Margin="10">
                                     <StackLayout Spacing="0" Margin="0,0,0,5">
                                         <Label 
-                                            FontSize="Caption"
-                                            TextColor="{DynamicResource Color0}"
-                                            Text="{Binding CreatorInfo}" />
-                                        <Label 
                                             Text="{Binding Text}"
                                             TextColor="Black"
                                             />
@@ -124,8 +120,34 @@
                                         HorizontalOptions="FillAndExpand" 
                                         Spacing="5" 
                                         HeightRequest="20" >
-                                        <Grid 
+                                        <Frame 
+                                            CornerRadius="5"
+                                            Padding="0,1"
+                                            Margin="0,0,10,0"
+                                            WidthRequest="250"
                                             HorizontalOptions="Start"
+                                            BackgroundColor="{DynamicResource Color0}"
+                                            >
+                                            <Label 
+                                                Text="{Binding CreatorInfo}"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
+                                                Margin="5,0"
+                                                TextColor="White"
+                                                VerticalOptions="Center"
+                                                FontSize="Caption"
+                                            />
+                                        </Frame>
+                                        <Label 
+                                            VerticalOptions="CenterAndExpand"
+                                            FontSize="Small"
+                                            FontAttributes="Bold"
+                                            MinimumWidthRequest="60"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding CountLikes}"/>
+                                        <Grid 
+                                            HorizontalOptions="End"
+                                            Margin="5,0"
                                             ColumnSpacing="0">
                                             <ImageButton
                                                 Source="{Binding ImageButtonSource}" 
@@ -144,31 +166,6 @@
                                                 WidthRequest="20"
                                                 />
                                         </Grid>
-                                        <Label 
-                                            VerticalOptions="CenterAndExpand"
-                                            FontSize="Small"
-                                            FontAttributes="Bold"
-                                            MinimumWidthRequest="60"
-                                            Text="{Binding CountLikes}"/>
-                                        <Frame 
-                                            CornerRadius="5"
-                                            Padding="0,1"
-                                            Margin="10,0,0,0"
-                                            WidthRequest="250"
-                                            HorizontalOptions="EndAndExpand"
-                                            BackgroundColor="{DynamicResource Color0}"
-                                            >
-                                            <Label 
-                                                Text="{Binding LastReply}"
-                                                LineBreakMode="TailTruncation"
-                                                MaxLines="1"
-                                                Margin="5,0"
-                                                TextColor="White"
-                                                VerticalOptions="Center"
-                                                FontSize="Caption"
-                                            />
-                                        </Frame>
-
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>

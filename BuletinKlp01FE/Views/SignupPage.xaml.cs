@@ -12,6 +12,7 @@ namespace BuletinKlp01FE.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignupPage : ContentPage
     {
+        public bool isBusy = false;
         public SignupPage()
         {
             InitializeComponent();
@@ -40,6 +41,9 @@ namespace BuletinKlp01FE.Views
         {
             try
             {
+                if (isBusy)
+                    return;
+
                 if (!IsValidInput())
                 {
                     DependencyService.Get<IMessage>().ShortAlert("Input not valid");
@@ -81,9 +85,15 @@ namespace BuletinKlp01FE.Views
         void SetLoading(bool loading = false)
         {
             if (loading)
+            {
+                isBusy = true;
                 RegisterButton.Text = "Please wait...";
+            }
             else
+            {
+                isBusy = false;
                 RegisterButton.Text = "Login";
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ namespace BuletinKlp01FE.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        public bool isBusy = false;
         public LoginPage()
         {
             InitializeComponent();
@@ -49,6 +50,9 @@ namespace BuletinKlp01FE.Views
         {
             try
             {
+                if (isBusy)
+                    return;
+                
                 string username = Entry_Username.Text;
                 string password = Entry_Password.Text;
 
@@ -87,9 +91,15 @@ namespace BuletinKlp01FE.Views
         void SetLoading(bool loading = false)
         {
             if (loading)
+            {
+                isBusy = true;
                 LoginButton.Text = "Please wait...";
+            }
             else
+            {
+                isBusy = false;
                 LoginButton.Text = "Login";
+            }
         }
     }
 }
