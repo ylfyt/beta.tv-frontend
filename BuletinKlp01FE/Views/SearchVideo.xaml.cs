@@ -47,7 +47,6 @@ namespace BuletinKlp01FE.Views
         {
             try
             {
-                SetUI(true, "Loading...", false);
 
                 if (QueryTextInput.Text == null || QueryTextInput.Text == "")
                 { 
@@ -57,41 +56,27 @@ namespace BuletinKlp01FE.Views
 
                 VideosListView.ItemsSource = null;
 
+                SetUI(true, "Loading...", false);
 
-                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
-                if (client == null)
-                {
-                    SetUI(false, "Silahkan login terlebih dahulu");
-                    return;
-                }
+                var response = await APIRequest.Send<DataVideos>(
+                    endpoint: Constants.ENDPOINT_VIDEO_SEARCH,
+                    method: "POST",
+                    data: new { query = QueryTextInput.Text }
+                    );
 
-                var content = new StringContent(JsonConvert.SerializeObject(new { query = QueryTextInput.Text }), Encoding.UTF8, "application/json");
-                string weburl = Constants.SEARCH_VIDEO_ENDPOINT;
-                var httpResponseMessage = await client.PostAsync(weburl, content);
-
-                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-                var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataVideos>>(responseBody);
-
-                if (responseVideo == null)
+                if (!response.Success)
                 {
                     SetUI(false, "Gagal mendapatkan video!");
                     return;
                 }
 
-                if (!responseVideo.Success)
-                {
-                    SetUI(false, "Gagal mendapatkan video!");
-                    Console.WriteLine(responseBody);
-                    return;
-                }
-
-                if (responseVideo.Data?.Videos.Count == 0)
+                if (response.Data?.Videos.Count == 0)
                 {
                     SetUI(false, "Tidak ada video yang ditemukan!");
                     return;
                 }
 
-                VideosListView.ItemsSource = responseVideo.Data?.Videos;
+                VideosListView.ItemsSource = response.Data?.Videos;
 
                 SetUI(false, "Hasil pencarian: ", false);
             }

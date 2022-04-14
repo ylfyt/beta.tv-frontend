@@ -65,10 +65,11 @@ namespace BuletinKlp01FE.Views
 
                 SetLoading(true);
 
-                var response = await APIRequest.PostAuth<DataUser>(endpoint: "/user/login", data: new
-                {
-                    username, password,
-                }, token: false);
+                var response = await APIRequest.Send<DataUser>(
+                    endpoint: Constants.ENDPOINT_USER_LOGIN, 
+                    method: "POST", 
+                    data: new { username, password}, 
+                    token: false);
 
                 if (!response.Success)
                 {

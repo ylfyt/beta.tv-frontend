@@ -45,47 +45,52 @@ namespace BuletinKlp01FE.Views
 
         public async void Button_Clicked(object sender, EventArgs e)
         {
-            Button button = (sender as Button)!;
             try
             {
-                button.Text = "Please Wait...";
-
                 if (!IsValidInput())
                 {
-                    button.Text = "Register";
                     DependencyService.Get<IMessage>().ShortAlert("Input not valid");
                     return;
                 }
 
-                var client = HttpClientGetter.GetHttpClient();
-                var postData = new List<KeyValuePair<string, string>>();
+                string name = SignupEntryName.Text;
+                string username = SignupEntryUsername.Text;
+                string email = SignupEntryEmail.Text;
+                string password = SignupEntryPassword.Text;
 
-                var content1 = new StringContent(JsonConvert.SerializeObject(new { name = SignupEntryName.Text, username = SignupEntryUsername.Text, email = SignupEntryEmail.Text, password = SignupEntryPassword.Text }), Encoding.UTF8, "application/json");
+                SetLoading(true);
 
-                var content = new FormUrlEncodedContent(postData);
-                string weburl = Constants.REGISTER_END_POINT;
+                var response = await APIRequest.Send<DataUser>(
+                    endpoint: Constants.ENDPOINT_USER_REGISTER, 
+                    method: "POST", 
+                    data: new { name, email, username, password}, 
+                    token: false);
 
-                var response = await client.PostAsync(weburl, content1);
-                var responseBody = await response.Content.ReadAsStringAsync();
-                var responseDto = JsonConvert.DeserializeObject<ResponseDto<DataUser>>(responseBody);
-
-                if (responseDto == null || !(responseDto.Success) || responseDto.Data?.token == "")
+                if (!response.Success)
                 {
-                    DependencyService.Get<IMessage>().ShortAlert("Register failed!");
-                    button.Text = "Login";
+                    DependencyService.Get<IMessage>().ShortAlert(response.Message);
+                    SetLoading();
                     return;
                 }
 
-                Preferences.Set("token", responseDto.Data?.token);
+                Preferences.Set("token", response.Data?.token);
                 Redirects.ToHomePage();
             }
             catch (Exception ex)
             {
-                button.Text = "Register";
                 DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
+                SetLoading();
             }
 
+        }
+
+        void SetLoading(bool loading = false)
+        {
+            if (loading)
+                RegisterButton.Text = "Please wait...";
+            else
+                RegisterButton.Text = "Login";
         }
     }
 }

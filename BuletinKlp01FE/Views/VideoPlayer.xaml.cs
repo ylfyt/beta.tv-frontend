@@ -3,11 +3,7 @@ using BuletinKlp01FE.Dtos.comment;
 using BuletinKlp01FE.Models;
 using BuletinKlp01FE.Services;
 using BuletinKlp01FE.ViewModels;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,7 +13,7 @@ namespace BuletinKlp01FE.Views
     public partial class VideoPlayer : ContentPage
     {
         private readonly Video _video;
-        private VideoCommentsViewModel commentsViewModel;
+        private readonly VideoCommentsViewModel commentsViewModel;
 
         public VideoPlayer(Video video)
         {
@@ -41,42 +37,36 @@ namespace BuletinKlp01FE.Views
             var comment = btn!.CommandParameter as Comment;
             
             try
-            {
-                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
-                if (client == null)
-                {
-                    Console.WriteLine("client null");
-                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
-                    return;
-                }
-
-                SetFetching(comment.Id, true);
-
-                string weburl = Constants.COMMENT_LIKE_ENDPOINT;
-
-                HttpResponseMessage httpResponseMessage;
+            { 
                 bool adding = true;
+
+                SetFetching(comment!.Id, true);
+                ResponseDto<DataCommetLike> response;
 
                 if (comment!.IsLiked)
                 {
                     adding = false;
-                    httpResponseMessage = await client.DeleteAsync(weburl + $"?commentId={comment.Id}");
+                    response = await APIRequest.Send<DataCommetLike>(
+                        endpoint:Constants.ENDPOINT_COMMENT_LIKE + $"?commentId={comment.Id}", 
+                        method: "DELETE");
                 }
                 else
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(new { commentId = comment.Id }), Encoding.UTF8, "application/json");
-                    httpResponseMessage = await client.PostAsync(weburl, content);
+                    response = await APIRequest.Send<DataCommetLike>(
+                        endpoint: Constants.ENDPOINT_COMMENT_LIKE,
+                        method: "POST",
+                        data: new { commentId = comment.Id }
+                        );
                 }
 
 
-                if (!httpResponseMessage.IsSuccessStatusCode)
+                if (!response.Success)
                 {
-                    Console.WriteLine("==========================================================");
-                    Console.WriteLine(await httpResponseMessage.Content.ReadAsStringAsync() + " | " + comment!.Id.ToString());
                     DependencyService.Get<IMessage>().ShortAlert("Failed to send like");
                     SetFetching(comment.Id, false);
                     return;
                 }
+
                 UpdateCommentLike(comment.Id, adding);
                 SetFetching(comment.Id, false);
             }
@@ -84,7 +74,7 @@ namespace BuletinKlp01FE.Views
             {
                 DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
-                SetFetching(comment.Id, false);
+                SetFetching(comment!.Id, false);
             }
 
         }
@@ -121,49 +111,22 @@ namespace BuletinKlp01FE.Views
         {
             try
             {
-                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
-                if (client == null)
-                {
-                    Console.WriteLine("client null");
-                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
-                    return;
-                }
+                var response = await APIRequest.Send<DataComments>(Constants.ENDPOINT_COMMENT + $"?videoId={_video.Id}");
 
-                string weburl = Constants.COMMENT_ENDPOINT;
-                weburl += $"?videoId={_video.Id}";
-
-                DependencyService.Get<IMessage>().ShortAlert("Loading...");
-                var httpResponseMessage = await client.GetAsync(weburl);
-
-                if (!httpResponseMessage.IsSuccessStatusCode)
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Failed to get comments");
-                    return;
-                }
-
-                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-                var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataComments>>(responseBody);
-
-                if (responseVideo == null)
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Failed to get comments");
-                    return;
-                }
-
-                if (!responseVideo.Success)
+                if (!response.Success)
                 {
                     DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                     return;
                 }
 
-                if (responseVideo.Data?.Comments.Count == 0)
+                if (response.Data?.Comments.Count == 0)
                 {
                     DependencyService.Get<IMessage>().ShortAlert("This video has no any comment yet!");
                     return;
                 }
 
                 commentsViewModel.Comments.Clear();
-                responseVideo.Data?.Comments.ForEach(c => commentsViewModel.Comments.Add(c));
+                response.Data?.Comments.ForEach(c => commentsViewModel.Comments.Add(c));
             }
             catch (Exception ex)
             {
@@ -212,49 +175,20 @@ namespace BuletinKlp01FE.Views
                     return;
                 }
 
-                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
-                if (client == null)
-                {
-                    Console.WriteLine("client null");
-                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
-                    return;
-                }
 
-                string weburl = Constants.COMMENT_ENDPOINT;
+                var response = await APIRequest.Send<DataComment>(
+                    endpoint: Constants.ENDPOINT_COMMENT,
+                    method: "POST",
+                    data: new { videoId = _video.Id, text = CommentField.Text });
 
-                var content = new StringContent(JsonConvert.SerializeObject(new { videoId = _video.Id, text = CommentField.Text }), Encoding.UTF8, "application/json");
-
-                DependencyService.Get<IMessage>().ShortAlert("Loading...");
-                var httpResponseMessage = await client.PostAsync(weburl, content);
-
-                if (!httpResponseMessage.IsSuccessStatusCode)
+                if (!response.Success)
                 {
                     DependencyService.Get<IMessage>().ShortAlert("Failed to send comment");
                     return;
                 }
 
-                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-                var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataComment>>(responseBody);
-
-                if (responseVideo == null)
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Failed to send comment");
-                    return;
-                }
-
-                if (!responseVideo.Success)
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
-                    return;
-                }
-
-                if (responseVideo.Data?.Comment == null)
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
-                    return;
-                }
                 CommentField.Text = "";
-                commentsViewModel.Comments.Insert(0, responseVideo.Data?.Comment!);
+                commentsViewModel.Comments.Insert(0, response.Data?.Comment!);
             }
             catch (Exception ex)
             {

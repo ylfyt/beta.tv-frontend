@@ -49,7 +49,7 @@ namespace BuletinKlp01FE.Views
 
             string endpoint = category == null ? "/video" : "/video/category/" + category;
 
-            var response = await APIRequest.GetAuth<DataVideos>(endpoint);
+            var response = await APIRequest.Send<DataVideos>(endpoint);
 
             if (!response.Success)
             {
