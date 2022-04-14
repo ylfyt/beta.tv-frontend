@@ -1,18 +1,7 @@
-﻿using BuletinKlp01FE.Dtos;
-using BuletinKlp01FE.Dtos.video;
+﻿using BuletinKlp01FE.Dtos.video;
 using BuletinKlp01FE.Models;
-using BuletinKlp01FE.Services;
-using BuletinKlp01FE.Utils;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

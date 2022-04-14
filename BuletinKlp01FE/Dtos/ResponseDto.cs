@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BuletinKlp01FE.Dtos
+﻿namespace BuletinKlp01FE.Dtos
 {
     public class ResponseDto<T>
     {

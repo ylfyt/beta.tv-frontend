@@ -1,5 +1,6 @@
 ﻿using BuletinKlp01FE.Dtos;
 using BuletinKlp01FE.Dtos.comment;
+using BuletinKlp01FE.Dtos.commentLike;
 using BuletinKlp01FE.Models;
 using BuletinKlp01FE.Services;
 using BuletinKlp01FE.ViewModels;
@@ -41,18 +42,18 @@ namespace BuletinKlp01FE.Views
                 bool adding = true;
 
                 SetFetching(comment!.Id, true);
-                ResponseDto<DataCommetLike> response;
+                ResponseDto<DataCommentLike> response;
 
                 if (comment!.IsLiked)
                 {
                     adding = false;
-                    response = await APIRequest.Send<DataCommetLike>(
+                    response = await APIRequest.Send<DataCommentLike>(
                         endpoint:Constants.ENDPOINT_COMMENT_LIKE + $"?commentId={comment.Id}", 
                         method: "DELETE");
                 }
                 else
                 {
-                    response = await APIRequest.Send<DataCommetLike>(
+                    response = await APIRequest.Send<DataCommentLike>(
                         endpoint: Constants.ENDPOINT_COMMENT_LIKE,
                         method: "POST",
                         data: new { commentId = comment.Id }

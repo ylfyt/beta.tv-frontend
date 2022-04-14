@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BuletinKlp01FE.Services
+﻿namespace BuletinKlp01FE.Services
 {
     public interface IMessage
     {

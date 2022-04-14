@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Net.Http;
-using BuletinKlp01FE.Models;
-using Newtonsoft.Json;
 using Xamarin.Essentials;
 
 using BuletinKlp01FE.Utils;
 using BuletinKlp01FE.Services;
-using BuletinKlp01FE.Dtos;
 using BuletinKlp01FE.Dtos.user;
 
 namespace BuletinKlp01FE.Views
