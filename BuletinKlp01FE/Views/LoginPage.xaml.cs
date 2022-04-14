@@ -29,12 +29,18 @@ namespace BuletinKlp01FE.Views
             Entry_Password.Completed += (s, e) => SignInProcedure(s, e);
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             string token = Preferences.Get("token", "");
             if (token != "")
             {
-                Redirects.ToHomePage();
+                SetLoading(true);
+                var user = await APIRequest.MeQuery();
+                if (user != null)
+                {
+                    Redirects.ToHomePage();
+                }
+                SetLoading();
                 return;
             }
         }
@@ -44,68 +50,50 @@ namespace BuletinKlp01FE.Views
             Application.Current.MainPage = new SignupPage();
         }
 
-        void RedirectToHomePage()
-        {
-            Application.Current.MainPage = new NavigationPage(new SearchVideo());
-        }
-
         public async void SignInProcedure(object sender, EventArgs e)
         {
-
-            Button button = (sender as Button)!;
             try
             {
                 string username = Entry_Username.Text;
                 string password = Entry_Password.Text;
 
-                if (username == null || password == null)
+                if (username == null || password == null || username == "" || password == "")
                 {
                     DependencyService.Get<IMessage>().ShortAlert("Input not valid");
                     return;
                 }
 
-                if (username == "" || password == "")
+                SetLoading(true);
+
+                var response = await APIRequest.PostAuth<DataUser>(endpoint: "/user/login", data: new
                 {
-                    DependencyService.Get<IMessage>().ShortAlert("Input not valid");
+                    username, password,
+                }, token: false);
+
+                if (!response.Success)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Username or password is wrong!");
+                    SetLoading();
                     return;
                 }
 
-                button.Text = "Please wait...";
-
-                HttpClient client = HttpClientGetter.GetHttpClient();
-
-                var content = new StringContent(JsonConvert.SerializeObject(new { username, password }), Encoding.UTF8, "application/json");
-                string weburl = Constants.LOGIN_END_POINT;
-
-                HttpResponseMessage httpResponseMessage = await client.PostAsync(weburl, content);
-                var responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-                var responseDto = JsonConvert.DeserializeObject<ResponseDto<DataUser>>(responseBody);
-
-                if (responseDto == null || !(responseDto.Success))
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
-                    button.Text = "Login";
-                    return;
-                }
-
-                if (responseDto.Data?.token == "")
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Username or password incorrect");
-                    button.Text = "Login";
-                    return;
-                }
-
-                Preferences.Set("token", responseDto.Data?.token);
+                Preferences.Set("token", response.Data?.token);
                 Redirects.ToHomePage();
             }
             catch (Exception ex)
             {
-                button.Text = "Login";
                 DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
                 Console.WriteLine(ex.Message);
+                SetLoading();
             }
+        }
 
-
+        void SetLoading(bool loading = false)
+        {
+            if (loading)
+                LoginButton.Text = "Please wait...";
+            else
+                LoginButton.Text = "Login";
         }
     }
 }

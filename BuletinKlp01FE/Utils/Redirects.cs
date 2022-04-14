@@ -13,6 +13,7 @@ namespace BuletinKlp01FE.Utils
 
         public static void ToLoginPage()
         {
+            Preferences.Remove("token");
             Application.Current.MainPage = new LoginPage();
         }
     }

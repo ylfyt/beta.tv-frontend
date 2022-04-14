@@ -1,13 +1,7 @@
-﻿using BuletinKlp01FE.Dtos;
-using BuletinKlp01FE.Dtos.video;
+﻿using BuletinKlp01FE.Dtos.video;
 using BuletinKlp01FE.Models;
-using BuletinKlp01FE.Services;
-using BuletinKlp01FE.Utils;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -51,67 +45,25 @@ namespace BuletinKlp01FE.Views
 
         async Task GetVideos(string? category = null)
         {
-            try
+            SetMessage("Please wait...");
+
+            string endpoint = category == null ? "/video" : "/video/category/" + category;
+
+            var response = await APIRequest.GetAuth<DataVideos>(endpoint);
+
+            if (!response.Success)
             {
-                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
-                if (client == null)
-                {
-                    Console.WriteLine("client null");
-                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
-                    return;
-                }
-                
-                string weburl = Constants.VIDEO_ENDPOINT;
-
-                if (category != null)
-                {
-                    weburl += "/category/" + category;
-                }
-
-                VideosListView.ItemsSource = null;
-                SetMessage("Loading...");
-                var httpResponseMessage = await client.GetAsync(weburl);
-
-
-                if (!httpResponseMessage.IsSuccessStatusCode)
-                {
-                    SetMessage();
-                    DependencyService.Get<IMessage>().ShortAlert("Failed to get video!");
-                    return;
-                }
-
-                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-                var responseVideo = JsonConvert.DeserializeObject<ResponseDto<DataVideos>>(responseBody);
-                
-                if (responseVideo == null)
-                {
-                    SetMessage();
-                    DependencyService.Get<IMessage>().ShortAlert("Failed to get video!");
-                    return;
-                }
-
-                if (!responseVideo.Success)
-                {
-                    SetMessage();
-                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
-                    return;
-                }
-
-                if (responseVideo.Data?.Videos.Count == 0)
-                {
-                    SetMessage("No Videos Found!");
-                    DependencyService.Get<IMessage>().ShortAlert("No Videos Found!");
-                    return;
-                }
-
-                VideosListView.ItemsSource = responseVideo.Data?.Videos;
-            }
-            catch (Exception ex)
-            {
-                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
-                Console.WriteLine(ex.Message);
+                SetMessage("Failed to get videos");
+                return;
             }
 
+            if (response.Data!.Videos.Count == 0)
+            {
+                SetMessage("No videos found!");
+                return;
+            }
+
+            VideosListView.ItemsSource = response.Data!.Videos;
             SetMessage();
         }
 
