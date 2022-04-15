@@ -1,15 +1,12 @@
-using BuletinKlp01FE.Dtos;
 using BuletinKlp01FE.Dtos.category;
 using BuletinKlp01FE.Dtos.video;
 using BuletinKlp01FE.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BuletinKlp01FE.Services;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Newtonsoft.Json;
 
 namespace BuletinKlp01FE.Views
 {
@@ -27,11 +24,11 @@ namespace BuletinKlp01FE.Views
             InitializeComponent();
 
             catButtons = new List<Button>();
-            createCatButton();
+            CreateCatButton();
             _ = GetVideos();
         }
 
-        public async void createCatButton()
+        public async void CreateCatButton()
         {
             catButtons.Add(ButtonAll);
             List<Category> categories = await GetCategories();
@@ -95,62 +92,13 @@ namespace BuletinKlp01FE.Views
 
         async Task<List<Category>> GetCategories()
         {
-            try
+            var response = await APIRequest.Send<DataCategories>(Constants.ENDPOINT_CATEGORY);
+            if (!response.Success)
             {
-                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
-                if (client == null)
-                {
-                    Console.WriteLine("client null");
-                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
-                    return new List<Category>();
-                }
-
-                string weburl = Constants.CATEGORY_ENDPOINT;
-
-                SetMessage("Loading...");
-                var httpResponseMessage = await client.GetAsync(weburl);
-
-
-                if (!httpResponseMessage.IsSuccessStatusCode)
-                {
-                    SetMessage();
-                    DependencyService.Get<IMessage>().ShortAlert("Failed to get category!");
-                    return new List<Category>();
-                }
-
-                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
-                var responseCategory = JsonConvert.DeserializeObject<ResponseDto<DataCategories>>(responseBody);
-
-                if (responseCategory == null)
-                {
-                    SetMessage();
-                    DependencyService.Get<IMessage>().ShortAlert("Failed to get category!");
-                    return new List<Category>();
-                }
-
-                if (!responseCategory.Success)
-                {
-                    SetMessage();
-                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
-                    return new List<Category>();
-                }
-
-                if (responseCategory.Data?.Categories.Count == 0)
-                {
-                    SetMessage("No Categories Found!");
-                    DependencyService.Get<IMessage>().ShortAlert("No Videos Found!");
-                    return new List<Category>();
-                }
-                return responseCategory.Data!.Categories;
-            }
-            catch (Exception ex)
-            {
-                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
-                Console.WriteLine(ex.Message);
                 return new List<Category>();
             }
 
-            //SetMessage();
+            return response.Data!.Categories;
         }
 
         void SetMessage(string? message = null)

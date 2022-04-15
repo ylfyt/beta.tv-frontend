@@ -26,6 +26,7 @@ public class Constants
     public static string ENDPOINT_VIDEO_SEARCH = "/video/search";
     public static string ENDPOINT_COMMENT = "/comment";
     public static string ENDPOINT_COMMENT_LIKE = "/commentlike";
+    public static string ENDPOINT_CATEGORY = "/category";
 
     public static string NotInternetText { get; } = "No internet, please reconnect!";
 
