@@ -19,8 +19,8 @@ public class Constants
     public static string COMMENT_ENDPOINT { get; } = BASE_URL + "/comment";
     public static string COMMENT_LIKE_ENDPOINT { get; } = BASE_URL + "/commentlike";
     public static string CATEGORY_ENDPOINT { get; } = BASE_URL + "/Category";
-    public static string BOOKMARK_END_POINT { get; } = BASE_URL + "/Bookmark";
-    public static string IS_BOOKMARKED_END_POINT { get; } = BASE_URL + "/Bookmark/isBookmarked";
+
+    public static string BOOKMARK_END_POINT { get; } = "/bookmark";
 
     public static string ENDPOINT_USER_ME = "/user/me";
     public static string ENDPOINT_USER_LOGIN = "/user/login";
@@ -31,6 +31,8 @@ public class Constants
     public static string ENDPOINT_COMMENT = "/comment";
     public static string ENDPOINT_COMMENT_LIKE = "/commentlike";
     public static string ENDPOINT_CATEGORY = "/category";
+    public static string ENDPOINT_BOOKMARK = "/bookmark";
+    public static string ENDPOINT_BOOKMARK_CHECK { get; } = "/bookmark/check";
 
     public static string NotInternetText { get; } = "No internet, please reconnect!";
 

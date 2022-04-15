@@ -1,10 +1,14 @@
 using BuletinKlp01FE.Dtos;
+using BuletinKlp01FE.Dtos.bookmark;
 using BuletinKlp01FE.Dtos.comment;
 using BuletinKlp01FE.Dtos.commentLike;
 using BuletinKlp01FE.Models;
 using BuletinKlp01FE.Services;
 using BuletinKlp01FE.ViewModels;
+using Newtonsoft.Json;
 using System;
+using System.Net.Http;
+using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +19,7 @@ namespace BuletinKlp01FE.Views
     {
         private readonly Video _video;
         private readonly VideoCommentsViewModel commentsViewModel;
+        private bool isBookmarked = false;
 
         public VideoPlayer(Video video)
         {
@@ -23,7 +28,105 @@ namespace BuletinKlp01FE.Views
             LoadVideo();
             commentsViewModel = new VideoCommentsViewModel();
             BindingContext = commentsViewModel;
+            CheckIsBookmarked();
         }
+
+        public async void CheckIsBookmarked()
+        {
+            try
+            {
+                var endpoint = Constants.ENDPOINT_BOOKMARK_CHECK + $"/{_video.Id}";
+                var response = await APIRequest.Send<DataBookmark>(
+                    endpoint: endpoint,
+                    method: "GET"
+                    );
+                if (!response.Success)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                    return;
+                }
+                isBookmarked = response.Data != null; 
+                SetBookmarkUI();
+                return;
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public async void BookmarkButtonClicked(object sender, EventArgs args)
+        {
+            if (!isBookmarked) // means this video will be added to bookmark
+            {
+                try
+                {
+                    var response = await APIRequest.Send<DataBookmark>(
+                        endpoint: Constants.BOOKMARK_END_POINT,
+                        method: "POST",
+                        data: new { videoId = _video.Id }
+                        );
+
+                    if (!response.Success)
+                    {
+                        DependencyService.Get<IMessage>().ShortAlert("Failed to add this video!");
+                        return;
+                    }
+
+                    isBookmarked = true;
+                    SetBookmarkUI();
+                }
+                catch (Exception ex)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            else  // this video will be deleted from bookmark
+            {
+                try
+                {
+                    var response = await APIRequest.Send<DataBookmark>(
+                        endpoint: Constants.ENDPOINT_BOOKMARK + $"/video/{_video.Id}",
+                        method: "DELETE"
+                        );
+                    if (!response.Success)
+                    {
+                        DependencyService.Get<IMessage>().ShortAlert("Failed to delete this video!");
+                        return;
+                    }
+
+                    isBookmarked = false;
+                    SetBookmarkUI();
+                }
+                catch (Exception ex)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+        }
+
+        private void SetBookmarkUI()
+        {
+            var btn = this.FindByName<ImageButton>("bookmarkBtn");
+            var txt = this.FindByName<Label>("bookmarkText");
+
+            if (isBookmarked)
+            {
+                btn.Source = "bookmark_blue";
+                txt.Text = "Added to bookmark";
+            }
+            else
+            {
+                btn.Source = "bookmark_white";
+                txt.Text = "Add to bookmark";
+            }
+        }
+
+
 
         public void SwitchToCommentSection(object sender, EventArgs args)
         {
@@ -175,7 +278,6 @@ namespace BuletinKlp01FE.Views
                     DependencyService.Get<IMessage>().ShortAlert("Please type something!");
                     return;
                 }
-
 
                 var response = await APIRequest.Send<DataComment>(
                     endpoint: Constants.ENDPOINT_COMMENT,

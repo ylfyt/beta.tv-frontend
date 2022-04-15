@@ -35,6 +35,10 @@
                         MaxLines="2"
                         VerticalOptions="CenterAndExpand"
                         />
+                    <StackLayout  HorizontalOptions="EndAndExpand" Orientation="Horizontal" >
+                        <Label x:Name="bookmarkText" VerticalOptions="Center" FontSize="Micro" TextColor="{x:DynamicResource Color0}"/>
+                        <ImageButton x:Name="bookmarkBtn" VerticalOptions="Center" WidthRequest="15" HeightRequest="15" Clicked="BookmarkButtonClicked" BackgroundColor="Transparent"/>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
             <ScrollView Margin="10,0">
