@@ -1,4 +1,5 @@
 ﻿using BuletinKlp01FE.Dtos;
+using BuletinKlp01FE.Dtos.bookmark;
 using BuletinKlp01FE.Dtos.comment;
 using BuletinKlp01FE.Models;
 using BuletinKlp01FE.Services;
@@ -18,6 +19,7 @@ namespace BuletinKlp01FE.Views
     {
         private readonly Video _video;
         private VideoCommentsViewModel commentsViewModel;
+        private bool isBookmarked = false;
 
         public VideoPlayer(Video video)
         {
@@ -26,6 +28,162 @@ namespace BuletinKlp01FE.Views
             LoadVideo();
             commentsViewModel = new VideoCommentsViewModel();
             BindingContext = commentsViewModel;
+            checkIsBookmarked();
+        }
+
+        public async void checkIsBookmarked()
+        {
+            try
+            {
+                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
+                if (client == null)
+                {
+                    Console.WriteLine("client null");
+                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
+                    return;
+                }
+
+                string weburl = Constants.IS_BOOKMARKED_END_POINT;
+
+                var httpResponseMessage = await client.GetAsync(weburl);
+
+                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                var responseDto = JsonConvert.DeserializeObject<ResponseDto<bool>>(responseBody);
+
+                if (responseDto != null)
+                {
+                    isBookmarked = responseDto.Data;
+                    DisplayAlert("asai", "aduh", "ok");
+                    setBookmarkUI();
+                    return;
+                }
+                else
+                {
+                    DisplayAlert("asai", "response null", "ok");
+                }
+                isBookmarked = false;
+                setBookmarkUI();
+                return;
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public async void BookmarkButtonClicked(object sender, EventArgs args)
+        {
+            if (!isBookmarked) // means this video will be added to bookmark
+            {
+                try
+                {
+                    var client = HttpClientGetter.GetHttpClientWithTokenHeader();
+                    if (client == null)
+                    {
+                        Console.WriteLine("client null");
+                        DependencyService.Get<IMessage>().ShortAlert("Client is null!");
+                        return;
+                    }
+
+                    string weburl = Constants.BOOKMARK_END_POINT;
+                    var content = new StringContent(JsonConvert.SerializeObject(new { videoId = _video.Id }), Encoding.UTF8, "application/json");
+
+                    DependencyService.Get<IMessage>().ShortAlert("Loading...");
+
+                    var httpResponseMessage = await client.PostAsync(weburl, content);
+
+                    if (!httpResponseMessage.IsSuccessStatusCode)
+                    {
+                        DependencyService.Get<IMessage>().ShortAlert("Failed to add to bookmark");
+                        return;
+                    }
+
+                    string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                    var responseDto = JsonConvert.DeserializeObject<ResponseDto<DataBookmark>>(responseBody);
+
+                    if (responseDto != null && responseDto.Success)
+                    {
+                        //await Application.Current.MainPage.DisplayAlert("Ganti data berhasil", "Selamat, data Anda berhasil diupdate", "Ok");
+                        DependencyService.Get<IMessage>().ShortAlert("Successfully added to bookmark");
+                        isBookmarked = true;
+                        setBookmarkUI();
+                        return;
+                    }
+                    else
+                    {
+                        DependencyService.Get<IMessage>().ShortAlert("Failed to add to bookmark");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            else  // this video will be deleted from bookmark
+            {
+                try
+                {
+                    var client = HttpClientGetter.GetHttpClientWithTokenHeader();
+                    if (client == null)
+                    {
+                        Console.WriteLine("client null");
+                        DependencyService.Get<IMessage>().ShortAlert("Client is null!");
+                        return;
+                    }
+
+                    string weburl = Constants.BOOKMARK_END_POINT + "/" + _video.Id.ToString();
+
+                    var httpResponseMessage = await client.DeleteAsync(weburl);
+
+                    if (!httpResponseMessage.IsSuccessStatusCode)
+                    {
+                        DependencyService.Get<IMessage>().ShortAlert("Failed to delete from bookmark");
+                        return;
+                    }
+
+                    string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                    var responseDto = JsonConvert.DeserializeObject<ResponseDto<DataBookmark>>(responseBody);
+
+                    if (responseDto != null && responseDto.Success)
+                    {
+                        //await Application.Current.MainPage.DisplayAlert("Ganti data berhasil", "Selamat, data Anda berhasil diupdate", "Ok");
+                        DependencyService.Get<IMessage>().ShortAlert("Successfully deleted from bookmark");
+                        isBookmarked = false;
+                        setBookmarkUI();
+                        return;
+                    }
+                    else
+                    {
+                        DependencyService.Get<IMessage>().ShortAlert(responseDto.Message);
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            
+        }
+
+        private void setBookmarkUI()
+        {
+            var btn = this.FindByName<ImageButton>("bookmarkBtn");
+            var txt = this.FindByName<Label>("bookmarkText");
+
+            if (isBookmarked)
+            {
+                btn.Source = "bookmark_blue";
+                txt.Text = "Added to bookmark";
+            }
+            else
+            {
+                btn.Source = "bookmark_white";
+                txt.Text = "Add to bookmark";
+            }
         }
 
         public void SwitchToCommentSection(object sender, EventArgs args)

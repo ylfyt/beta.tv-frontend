@@ -1,75 +1,63 @@
 ﻿using BuletinKlp01FE.Dtos;
-using BuletinKlp01FE.Models;
+using BuletinKlp01FE.Dtos.user;
 using BuletinKlp01FE.Services;
 using BuletinKlp01FE.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
-using BuletinKlp01FE.Dtos.user;
 
 namespace BuletinKlp01FE.ViewModels
 {
-    class ProfileChangeDataViewModel : BindableObject
+    class ProfileChangePassViewModel : BindableObject
     {
-        string oldUsername;
-        public string OldUsername
+        string oldUsername = "";
+
+        string oldPass = "pass lama";
+        public string OldPass
         {
-            get => oldUsername;
+            get => oldPass;
             set
             {
-                if (value == oldUsername)
+                if (value == oldPass)
                 {
                     return;
                 }
-                oldUsername = value;
-                OnPropertyChanged(nameof(OldUsername));
+                oldPass = value;
+                OnPropertyChanged(nameof(OldPass));
             }
         }
-        string usernameDisplay = "username";
-        public string UsernameDisplay
+
+        string newPass = "";
+        public string NewPass
         {
-            get => usernameDisplay;
+            get => newPass;
             set
             {
-                if (value == usernameDisplay)
+                if (value == newPass)
                 {
                     return;
                 }
-                usernameDisplay = value;
-                OnPropertyChanged(nameof(UsernameDisplay));
+                newPass = value;
+                OnPropertyChanged(nameof(NewPass));
             }
         }
-        string nameDisplay = "name";
-        public string NameDisplay
+
+        string confirmPass = "";
+        public string ConfirmPass
         {
-            get => nameDisplay;
+            get => confirmPass;
             set
             {
-                if (value == nameDisplay)
+                if (value == confirmPass)
                 {
                     return;
                 }
-                nameDisplay = value;
-                OnPropertyChanged(nameof(NameDisplay));
-            }
-        }
-        string emailDisplay = "email";
-        public string EmailDisplay
-        {
-            get => emailDisplay;
-            set
-            {
-                if (value == emailDisplay)
-                {
-                    return;
-                }
-                emailDisplay = value;
-                OnPropertyChanged(nameof(EmailDisplay));
+                confirmPass = value;
+                OnPropertyChanged(nameof(ConfirmPass));
             }
         }
 
@@ -88,22 +76,7 @@ namespace BuletinKlp01FE.ViewModels
             }
         }
 
-        int inputIsValid = 0;
-        public int InputIsValid
-        {
-            get => inputIsValid;
-            set
-            {
-                if (value == inputIsValid)
-                {
-                    return;
-                }
-                inputIsValid = value;
-                OnPropertyChanged(nameof(InputIsValid));
-            }
-        }
-
-        public ProfileChangeDataViewModel()
+        public ProfileChangePassViewModel()
         {
             getMEdata();
             SaveChanges = new Command(Save);
@@ -128,10 +101,8 @@ namespace BuletinKlp01FE.ViewModels
                     string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
                     var response = JsonConvert.DeserializeObject<ResponseDto<DataUser>>(responseBody);
 
-                    NameDisplay = response.Data.user.Name;
-                    UsernameDisplay = response.Data.user.Username;
-                    EmailDisplay = response.Data.user.Email;
-                    OldUsername = response.Data.user.Username;
+                    oldUsername = response.Data.user.Username;
+                    DependencyService.Get<IMessage>().ShortAlert(oldUsername);
                 }
                 else
                 {
@@ -152,25 +123,12 @@ namespace BuletinKlp01FE.ViewModels
         {
             ButtonTxt = "Harap tunggu";
 
-            // check whether the input is true/not
-            if (string.IsNullOrEmpty(NameDisplay) || NameDisplay.Any(char.IsDigit))
+            // check if NewPass != ConfirmPass
+            if (NewPass != ConfirmPass)
             {
-                await Application.Current.MainPage.DisplayAlert("Input salah", "Masukan nama yang baru belum benar", "Ok");
+                await Application.Current.MainPage.DisplayAlert("Input salah", "Password baru dan konfirmasinya belum sama", "Ok");
                 return;
             }
-            if (string.IsNullOrEmpty(UsernameDisplay))
-            {
-                await Application.Current.MainPage.DisplayAlert("Input salah", "Masukan username yang baru belum benar", "Ok");
-                return;
-            }
-            if (string.IsNullOrEmpty(EmailDisplay) || !IsValidEmail(EmailDisplay))
-            {
-                await Application.Current.MainPage.DisplayAlert("Input salah", "Masukan email yang baru belum benar", "Ok");
-                return;
-            }
-
-            // confirm with password
-            string password = await Application.Current.MainPage.DisplayPromptAsync("Konfirmasi", "Masukkan password Anda");
 
             try
             {
@@ -181,10 +139,10 @@ namespace BuletinKlp01FE.ViewModels
                 }
 
                 var postData = new List<KeyValuePair<string, string>>();
-                var content1 = new StringContent(JsonConvert.SerializeObject(new { OldUsername = OldUsername, Name = NameDisplay, Username = UsernameDisplay, Email = EmailDisplay, Password = password }), Encoding.UTF8, "application/json");
+                var content1 = new StringContent(JsonConvert.SerializeObject(new { Username = oldUsername, OldPassword = OldPass, NewPassword = NewPass }), Encoding.UTF8, "application/json");
 
                 var content = new FormUrlEncodedContent(postData);
-                string weburl = Constants.CHANGE_PROFILE_DATA_END_POINT;
+                string weburl = Constants.CHANGE_PASS_END_POINT;
 
                 var response = await client.PostAsync(weburl, content1);
                 string responseBody = await response.Content.ReadAsStringAsync();
@@ -192,34 +150,21 @@ namespace BuletinKlp01FE.ViewModels
                 if (responseDto != null && responseDto.Success)
                 {
                     //await Application.Current.MainPage.DisplayAlert("Ganti data berhasil", "Selamat, data Anda berhasil diupdate", "Ok");
-                    DependencyService.Get<IMessage>().ShortAlert("Ganti data berhasil");
+                    DependencyService.Get<IMessage>().ShortAlert("Ganti password berhasil");
                 }
                 else
                 {
                     await Application.Current.MainPage.DisplayAlert("Ganti data gagal", responseDto.Message, "Ok");
                 }
-                ButtonTxt = "Simpan Perubahan";
+                buttonTxt = "Simpan Perubahan";
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 await Application.Current.MainPage.DisplayAlert("Ups", "Data Anda gagal diupdate. Pastikan Anda terhubung ke internet", "Ok");
-                ButtonTxt = "Simpan Perubahan";
             }
+            buttonTxt = "Simpan Perubahan";
 
-        }
-
-        bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }

@@ -26,17 +26,17 @@
             </StackLayout>
             <!-- menu berita saya-->
             <StackLayout x:Name="beritasaya" Margin="40,0,40,0">
-                <ListView BackgroundColor="Transparent" ItemsSource="{Binding Beritasaya}" HasUnevenRows="True">
+                <ListView BackgroundColor="Transparent" ItemsSource="{Binding Beritasaya}" HasUnevenRows="True" ItemTapped="VideoSelected">
                     <ListView.ItemTemplate >
                         <DataTemplate x:DataType="model:Video">
                             <ViewCell>
                                 <Grid>
                                     <Frame>
                                         <StackLayout Orientation="Horizontal" >
-                                            <Image Source="sampleVideo" WidthRequest="100"/>
+                                            <Image Source="{Binding ThumbnailSource}" WidthRequest="100"/>
                                             <StackLayout Margin="10,0,0,0">
-                                                <Label VerticalOptions="Center" FontSize="Small" Text="{Binding Title}" TextColor="black"/>
-                                                <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding ChannelName}" TextColor="black"/>
+                                                <Label VerticalOptions="Center" FontSize="13"  Text="{Binding Title}" TextColor="black"/>
+                                                <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding ChannelName}" TextColor="{x:DynamicResource Color0}"/>
                                             </StackLayout>
                                         </StackLayout>
                                     </Frame>
@@ -48,31 +48,25 @@
             </StackLayout>
             <!-- menu pengaturan -->
             <StackLayout x:Name="pengaturan"  Margin="30,0,40,20" IsVisible="false" Padding="0,10,0,0">
-                <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
-                    <CI:CircleImage WidthRequest="60" HeightRequest="60" Aspect="AspectFill" Source="userprofile"/>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <!--CI:CircleImage WidthRequest="40" HeightRequest="40" Aspect="AspectFill" Source="userprofile" BackgroundColor="Transparent"/-->
                     <Label Text="Ubah foto profil" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
-                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="25" HeightRequest="25" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" Margin="0,0,20,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="ChangeImageClicked"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
-                    <Frame CornerRadius="30" BackgroundColor="#C4C4C4" Padding="15">
-                        <Image WidthRequest="30" HeightRequest="30" Aspect="AspectFit"  Source="checklist"/>
-                    </Frame>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <!--CI:CircleImage WidthRequest="40" HeightRequest="40" Aspect="AspectFit" Source="checklist" BackgroundColor="Transparent"/-->
                     <Label Text="Perbarui data diri" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
-                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="25" HeightRequest="25" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="UbahDataDiriClicked"/>
+                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" Margin="0,0,20,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="UbahDataDiriClicked"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
-                    <Frame CornerRadius="30" BackgroundColor="#C4C4C4" Padding="15">
-                        <Image BackgroundColor="Transparent" WidthRequest="25" HeightRequest="25" Aspect="AspectFit"  Source="padlock"/>
-                    </Frame>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <!--CI:CircleImage WidthRequest="40" HeightRequest="40" Aspect="AspectFit" Source="padlock" BackgroundColor="Transparent"/-->
                     <Label Text="Ubah kata sandi" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
-                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="25" HeightRequest="25" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="EditPasswordClicked"/>
+                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" Margin="0,0,20,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="ChangePassClicked"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
-                    <Frame CornerRadius="30" BackgroundColor="#C4C4C4" Padding="15">
-                        <Image WidthRequest="30" HeightRequest="30" Aspect="AspectFit"  Source="poweroff"/>
-                    </Frame>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <!--CI:CircleImage WidthRequest="40" HeightRequest="40" Aspect="Fill" Source="poweroff" BackgroundColor="Transparent"/-->
                     <Label Text="Keluar" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
-                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="25" HeightRequest="25" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="LogoutClicked"/>
+                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" Margin="0,0,20,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="LogoutClicked"/>
                 </StackLayout>
 
             </StackLayout>

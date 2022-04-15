@@ -1,31 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BuletinKlp01FE.Views.ProfileChangePersonalData"
+             x:Class="BuletinKlp01FE.Views.ProfileChangePass"
              xmlns:customattr="clr-namespace:BuletinKlp01FE.Views.CustomRenderer"
-             Title="Perbarui Data Diri"
+             Title="Perbarui Kata Sandi"
              xmlns:viewmodels="clr-namespace:BuletinKlp01FE.ViewModels">
     <ContentPage.BindingContext>
-        <viewmodels:ProfileChangeDataViewModel/>
+        <viewmodels:ProfileChangePassViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Margin="20">
             <StackLayout Margin="0,0,0,10">
-                <Label Margin="5,0,0,0" Text="Username" FontSize="Medium" TextColor="Black"/>
+                <Label Margin="5,0,0,0" Text="Kata sandi yang lama" FontSize="Medium" TextColor="Black"/>
                 <Frame BackgroundColor="#F9F7F7" BorderColor="#C4C4C4" Padding="10,0,0,0" HorizontalOptions="FillAndExpand" CornerRadius="10">
-                    <customattr:CustomEntry Text="{Binding UsernameDisplay}" TextColor="{x:DynamicResource Color0}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="EditUsername"/>
+                    <customattr:CustomEntry IsPassword="True" TextColor="#3F72AF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Text="{Binding OldPass}"/>
                 </Frame>
             </StackLayout>
             <StackLayout Margin="0,0,0,10">
-                <Label Margin="5,0,0,0" Text="Nama" FontSize="Medium" TextColor="Black"/>
+                <Label Margin="5,0,0,0" Text="Kata sandi yang baru" FontSize="Medium" TextColor="Black"/>
                 <Frame BackgroundColor="#F9F7F7" BorderColor="#C4C4C4" Padding="10,0,0,0" HorizontalOptions="FillAndExpand" CornerRadius="10">
-                    <customattr:CustomEntry Text="{Binding NameDisplay}"  TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="EditName"/>
+                    <customattr:CustomEntry IsPassword="True" TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Text="{Binding NewPass}"/>
                 </Frame>
             </StackLayout>
             <StackLayout Margin="0,0,0,10">
-                <Label Margin="5,0,0,0" Text="Email" FontSize="Medium" TextColor="Black"/>
-                <Frame BackgroundColor="#F9F7F7" BorderColor="#C4C4C4" Padding="10,0,0,0" HorizontalOptions="FillAndExpand" CornerRadius="10">
-                    <customattr:CustomEntry Text="{Binding EmailDisplay}"  TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="EditEmail"/>
+                <Label Margin="5,0,0,0" Text="Ulangi kata sandi yang baru" FontSize="Medium" TextColor="Black"/>
+                <Frame BackgroundColor="#F9F7F7" BorderColor="#C4C4C4" Padding="10,0,0,0" HorizontalOptions="FillAndExpand" CornerRadius="10" >
+                    <customattr:CustomEntry IsPassword="True" TextColor="{x:DynamicResource Color0}"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Text="{Binding ConfirmPass}"/>
                 </Frame>
             </StackLayout>
             <Button Text="{Binding ButtonTxt}" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" Margin="10,40,10,0" HorizontalOptions="Center" Padding="30,0,30,0" Command="{Binding SaveChanges}"/>

@@ -4,10 +4,10 @@ using System.Text;
 
 namespace BuletinKlp01FE.Models
 {
-    public class Category
+    public class Bookmark
     {
         public int Id { get; set; }
-        public string Slug { get; set; } = string.Empty;
-        public string Label { get; set; } = string.Empty;
+        public int VideoId { get; set; }
+        public int UserId { get; set; }
     }
 }

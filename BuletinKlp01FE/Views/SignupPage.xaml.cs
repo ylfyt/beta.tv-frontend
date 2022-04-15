@@ -71,7 +71,7 @@ namespace BuletinKlp01FE.Views
 
                 if (responseDto == null || !(responseDto.Success) || responseDto.Data?.token == "")
                 {
-                    DependencyService.Get<IMessage>().ShortAlert("Register failed!");
+                    DependencyService.Get<IMessage>().ShortAlert(responseDto.Message);
                     button.Text = "Login";
                     return;
                 }
