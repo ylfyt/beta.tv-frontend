@@ -1,11 +1,15 @@
-﻿using BuletinKlp01FE.Dtos.video;
+using BuletinKlp01FE.Dtos;
+using BuletinKlp01FE.Dtos.category;
+using BuletinKlp01FE.Dtos.video;
 using BuletinKlp01FE.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BuletinKlp01FE.Services;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Newtonsoft.Json;
 
 namespace BuletinKlp01FE.Views
 {
@@ -23,11 +27,33 @@ namespace BuletinKlp01FE.Views
             InitializeComponent();
 
             catButtons = new List<Button>();
-            catButtons.Add(ButtonAll);
-            catButtons.Add(ButtonTech);
-            catButtons.Add(ButtonDesain);
-            catButtons.Add(ButtonBisnis);
+            createCatButton();
             _ = GetVideos();
+        }
+
+        public async void createCatButton()
+        {
+            catButtons.Add(ButtonAll);
+            List<Category> categories = await GetCategories();
+            foreach (Category category in categories)
+            {
+                Console.WriteLine(category.Label);
+                Button catButton = new Button
+                {
+                    Text = category.Label,
+                    BackgroundColor = Color.FromHex(color5),
+                    TextColor = Color.FromHex(color1),
+                    FontAttributes = FontAttributes.Bold,
+                    CornerRadius = 20,
+                    HorizontalOptions = LayoutOptions.Center,
+                    Padding = new Thickness(20, 0),
+                    HeightRequest = 35,
+                };
+                catButton.Clicked += async (sender, args) => await catButtonClicked(sender, args);
+                catButton.CommandParameter = category.Slug;
+                catButtons.Add(catButton);
+                CatButtonContainer.Children.Add(catButton);
+            }
         }
 
         public async void VideoSelected(object sender, ItemTappedEventArgs e)
@@ -67,7 +93,67 @@ namespace BuletinKlp01FE.Views
             SetMessage();
         }
 
-        void SetMessage(string? message=null)
+        async Task<List<Category>> GetCategories()
+        {
+            try
+            {
+                var client = HttpClientGetter.GetHttpClientWithTokenHeader();
+                if (client == null)
+                {
+                    Console.WriteLine("client null");
+                    DependencyService.Get<IMessage>().ShortAlert("Client is null!");
+                    return new List<Category>();
+                }
+
+                string weburl = Constants.CATEGORY_ENDPOINT;
+
+                SetMessage("Loading...");
+                var httpResponseMessage = await client.GetAsync(weburl);
+
+
+                if (!httpResponseMessage.IsSuccessStatusCode)
+                {
+                    SetMessage();
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to get category!");
+                    return new List<Category>();
+                }
+
+                string responseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                var responseCategory = JsonConvert.DeserializeObject<ResponseDto<DataCategories>>(responseBody);
+
+                if (responseCategory == null)
+                {
+                    SetMessage();
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to get category!");
+                    return new List<Category>();
+                }
+
+                if (!responseCategory.Success)
+                {
+                    SetMessage();
+                    DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                    return new List<Category>();
+                }
+
+                if (responseCategory.Data?.Categories.Count == 0)
+                {
+                    SetMessage("No Categories Found!");
+                    DependencyService.Get<IMessage>().ShortAlert("No Videos Found!");
+                    return new List<Category>();
+                }
+                return responseCategory.Data!.Categories;
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Something wrong!");
+                Console.WriteLine(ex.Message);
+                return new List<Category>();
+            }
+
+            //SetMessage();
+        }
+
+        void SetMessage(string? message = null)
         {
             if (message == null || message == "")
             {
@@ -85,53 +171,39 @@ namespace BuletinKlp01FE.Views
             await GetVideos();
         }
 
-        async void TechVideosClicked(object sender, EventArgs args)
+        async Task catButtonClicked(object sender, EventArgs args)
         {
-            ChangeActiveCatButton("tech");
-            await GetVideos("tech");
-        }
-
-        async void DesainVideosClicked(object sender, EventArgs args)
-        {
-            ChangeActiveCatButton("desain");
-            await GetVideos("desain");
-        }
-
-        async void BisnisVideosClicked(object sender, EventArgs args)
-        {
-            ChangeActiveCatButton("bisnis");
-            await GetVideos("bisnis");
+            Button? receiver = sender! as Button;
+            string catName = receiver!.Text;
+            string slug = receiver!.CommandParameter.ToString();
+            ChangeActiveCatButton(catName);
+            await GetVideos(slug);
+            Console.WriteLine("Success");
         }
 
 
         void ChangeActiveCatButton(string cat)
         {
-            catButtons.ForEach(but => {
-                but.BackgroundColor = Color.FromHex(color5);
-                but.TextColor = Color.FromHex(color1);
+            catButtons.ForEach(but =>
+            {
+                if (but.Text == cat)
+                {
+                    but.BackgroundColor = Color.FromHex(color0);
+                    but.TextColor = Color.FromHex("#ffffff");
+                }
+                else
+                {
+                    but.BackgroundColor = Color.FromHex(color5);
+                    but.TextColor = Color.FromHex(color1);
+                }
             });
 
-            if (cat == "tech")
-            {
-                ButtonTech.BackgroundColor = Color.FromHex(color0);
-                ButtonTech.TextColor = Color.FromHex("#ffffff");
-            }
-            else if (cat == "bisnis")
-            {
-                ButtonBisnis.BackgroundColor = Color.FromHex(color0);
-                ButtonBisnis.TextColor = Color.FromHex("#ffffff");
-            }
-            else if (cat == "desain")
-            {
-                ButtonDesain.BackgroundColor = Color.FromHex(color0);
-                ButtonDesain.TextColor = Color.FromHex("#ffffff");
-            }
-            else
+            if (cat == "all")
             {
                 ButtonAll.BackgroundColor = Color.FromHex(color0);
                 ButtonAll.TextColor = Color.FromHex("#ffffff");
             }
         }
-        
+
     }
 }

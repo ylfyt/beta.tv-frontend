@@ -16,6 +16,7 @@ public class Constants
     public static string VIDEO_ENDPOINT { get; } = BASE_URL + "/video";
     public static string COMMENT_ENDPOINT { get; } = BASE_URL + "/comment";
     public static string COMMENT_LIKE_ENDPOINT { get; } = BASE_URL + "/commentlike";
+    public static string CATEGORY_ENDPOINT { get; } = BASE_URL + "/Category";
 
     public static string ENDPOINT_USER_ME = "/user/me";
     public static string ENDPOINT_USER_LOGIN = "/user/login";
