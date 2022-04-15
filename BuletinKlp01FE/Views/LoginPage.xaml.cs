@@ -52,7 +52,7 @@ namespace BuletinKlp01FE.Views
             {
                 if (isBusy)
                     return;
-                
+
                 string username = Entry_Username.Text;
                 string password = Entry_Password.Text;
 
@@ -65,9 +65,9 @@ namespace BuletinKlp01FE.Views
                 SetLoading(true);
 
                 var response = await APIRequest.Send<DataUser>(
-                    endpoint: Constants.ENDPOINT_USER_LOGIN, 
-                    method: "POST", 
-                    data: new { username, password}, 
+                    endpoint: Constants.ENDPOINT_USER_LOGIN,
+                    method: "POST",
+                    data: new { username, password },
                     token: false);
 
                 if (!response.Success)

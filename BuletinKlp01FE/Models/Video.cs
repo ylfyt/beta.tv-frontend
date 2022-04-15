@@ -23,5 +23,7 @@ namespace BuletinKlp01FE.Models
         public string AuthorName { get; set; } = string.Empty;
         public string VideoInfo => ChannelName + " • " + DateTimeOffset.FromUnixTimeSeconds(CreateAt).LocalDateTime.ToString("MMMM dd, yyyy");
         public ImageSource ThumbnailSource => ImageSource.FromUri(new Uri(ThumbnailUrl));
+
+        public bool IsBookmarked { get; set; }
     }
 }

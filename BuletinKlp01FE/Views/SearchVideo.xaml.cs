@@ -1,4 +1,4 @@
-﻿using BuletinKlp01FE.Dtos.video;
+using BuletinKlp01FE.Dtos.video;
 using BuletinKlp01FE.Models;
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace BuletinKlp01FE.Views
         public async void VideoSelected(object sender, ItemTappedEventArgs e)
         {
             var video = e.Item as Video;
-            
+
             if (video == null)
             {
                 Console.WriteLine("Something wrong!!");
@@ -38,7 +38,7 @@ namespace BuletinKlp01FE.Views
             {
 
                 if (QueryTextInput.Text == null || QueryTextInput.Text == "")
-                { 
+                {
                     SetUI(false, "Tolong masukan kata pencarian!");
                     return;
                 }
@@ -74,7 +74,7 @@ namespace BuletinKlp01FE.Views
                 SetUI(false, "Gagal mendapatkan video!");
                 Console.WriteLine(ex.Message);
             }
-            
+
         }
 
         public void SetUI(bool fetching, string message, bool error = true)

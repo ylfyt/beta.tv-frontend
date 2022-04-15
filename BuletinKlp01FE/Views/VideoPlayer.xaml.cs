@@ -1,4 +1,4 @@
-﻿using BuletinKlp01FE.Dtos;
+using BuletinKlp01FE.Dtos;
 using BuletinKlp01FE.Dtos.comment;
 using BuletinKlp01FE.Dtos.commentLike;
 using BuletinKlp01FE.Models;
@@ -36,9 +36,9 @@ namespace BuletinKlp01FE.Views
         {
             var btn = sender as ImageButton;
             var comment = btn!.CommandParameter as Comment;
-            
+
             try
-            { 
+            {
                 bool adding = true;
 
                 SetFetching(comment!.Id, true);
@@ -48,7 +48,7 @@ namespace BuletinKlp01FE.Views
                 {
                     adding = false;
                     response = await APIRequest.Send<DataCommentLike>(
-                        endpoint:Constants.ENDPOINT_COMMENT_LIKE + $"?commentId={comment.Id}", 
+                        endpoint: Constants.ENDPOINT_COMMENT_LIKE + $"?commentId={comment.Id}",
                         method: "DELETE");
                 }
                 else

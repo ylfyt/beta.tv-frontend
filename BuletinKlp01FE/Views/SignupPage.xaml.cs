@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
@@ -58,9 +58,9 @@ namespace BuletinKlp01FE.Views
                 SetLoading(true);
 
                 var response = await APIRequest.Send<DataUser>(
-                    endpoint: Constants.ENDPOINT_USER_REGISTER, 
-                    method: "POST", 
-                    data: new { name, email, username, password}, 
+                    endpoint: Constants.ENDPOINT_USER_REGISTER,
+                    method: "POST",
+                    data: new { name, email, username, password },
                     token: false);
 
                 if (!response.Success)

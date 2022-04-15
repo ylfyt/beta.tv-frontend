@@ -1,4 +1,4 @@
-﻿namespace BuletinKlp01FE.Models
+namespace BuletinKlp01FE.Models
 {
     public class Category
     {

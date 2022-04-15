@@ -1,4 +1,4 @@
-﻿using BuletinKlp01FE.Views;
+using BuletinKlp01FE.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

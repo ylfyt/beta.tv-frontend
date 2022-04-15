@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BuletinKlp01FE.Views.ProfileChangeImage"
+             xmlns:CI="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             Title="Perbarui Foto Profil"
+             xmlns:viewmodels="clr-namespace:BuletinKlp01FE.ViewModels">
+    <ContentPage.BindingContext>
+        <viewmodels:ProfileChangeImage/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Image WidthRequest="400" HeightRequest="400" Aspect="AspectFit" Source="{Binding UserProfileImg}" Margin="0,40,0,10"/>
+            <Button Text="Upload dari galeri" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Command="{Binding UploadImage}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

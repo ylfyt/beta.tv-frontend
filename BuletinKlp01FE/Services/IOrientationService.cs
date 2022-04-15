@@ -1,4 +1,4 @@
-﻿namespace BuletinKlp01FE.Services
+namespace BuletinKlp01FE.Services
 {
     public interface IOrientationService
     {

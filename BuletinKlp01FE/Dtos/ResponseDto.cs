@@ -1,4 +1,4 @@
-﻿namespace BuletinKlp01FE.Dtos
+namespace BuletinKlp01FE.Dtos
 {
     public class ResponseDto<T>
     {

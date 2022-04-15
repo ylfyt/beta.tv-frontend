@@ -10,16 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace BuletinKlp01FE.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ProfileChangePersonalData : ContentPage
+    public partial class ProfileChangeImage : ContentPage
     {
-        public ProfileChangePersonalData()
+        public ProfileChangeImage()
         {
             InitializeComponent();
-        }
-
-        public void SaveEditProfile(object sender, EventArgs args)
-        {
-            DisplayAlert("Edit profil", "Edit profil berhasil", "Oke");
         }
     }
 }
