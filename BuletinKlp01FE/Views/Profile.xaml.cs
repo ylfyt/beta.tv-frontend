@@ -1,7 +1,9 @@
 ﻿using BuletinKlp01FE.Dtos;
+using BuletinKlp01FE.Dtos.user;
 using BuletinKlp01FE.Models;
 using BuletinKlp01FE.Services;
 using BuletinKlp01FE.Utils;
+using BuletinKlp01FE.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -93,33 +95,22 @@ namespace BuletinKlp01FE.Views
             {
                 try
                 {
-                    var client = HttpClientGetter.GetHttpClientWithTokenHeader();
-                    if (client == null)
+                    var response = await APIRequest.Send<DataUser>(
+                        endpoint: Constants.ENDPOINT_USER_LOGOUT,
+                        method: "POST");
+
+                    if (!response.Success)
                     {
+                        DependencyService.Get<IMessage>().ShortAlert("Failed to logout");
                         return;
                     }
 
-                    var postData = new List<KeyValuePair<string, string>>();
-                    string weburl = Constants.LOGOUT_END_POINT;
-
-                    var response = await client.PostAsync(weburl, null);
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    var responseDto = JsonConvert.DeserializeObject<ResponseDto<Dtos.user.DataUser>>(responseBody);
-                    if (responseDto != null && responseDto.Success)
-                    {
-                        DependencyService.Get<IMessage>().ShortAlert("Berhasil logout");
-                        Preferences.Set("token", "");
-                        Redirects.ToLoginPage();
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Ganti data gagal", responseDto.Message, "Ok");
-                    }
+                    Redirects.ToLoginPage();
                 }
                 catch (Exception ex)
                 {
+                    DependencyService.Get<IMessage>().ShortAlert("Failed to logout");
                     Console.WriteLine(ex.Message);
-                    await Application.Current.MainPage.DisplayAlert("Ups", "Data Anda gagal diupdate. Pastikan Anda terhubung ke internet", "Ok");
                 }
             }
         }

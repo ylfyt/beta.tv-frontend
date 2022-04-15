@@ -46,7 +46,7 @@ namespace BuletinKlp01FE.Views
                     Padding = new Thickness(20, 0),
                     HeightRequest = 35,
                 };
-                catButton.Clicked += async (sender, args) => await catButtonClicked(sender, args);
+                catButton.Clicked += async (sender, args) => await CatButtonClicked(sender, args);
                 catButton.CommandParameter = category.Slug;
                 catButtons.Add(catButton);
                 CatButtonContainer.Children.Add(catButton);
@@ -119,14 +119,13 @@ namespace BuletinKlp01FE.Views
             await GetVideos();
         }
 
-        async Task catButtonClicked(object sender, EventArgs args)
+        async Task CatButtonClicked(object sender, EventArgs args)
         {
             Button? receiver = sender! as Button;
             string catName = receiver!.Text;
             string slug = receiver!.CommandParameter.ToString();
             ChangeActiveCatButton(catName);
             await GetVideos(slug);
-            Console.WriteLine("Success");
         }
 
 

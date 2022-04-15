@@ -35,10 +35,8 @@ namespace BuletinKlp01FE.Views
         {
             try
             {
-                var endpoint = Constants.ENDPOINT_BOOKMARK_CHECK + $"/{_video.Id}";
                 var response = await APIRequest.Send<DataBookmark>(
-                    endpoint: endpoint,
-                    method: "GET"
+                    Constants.ENDPOINT_BOOKMARK_CHECK + $"/{_video.Id}"
                     );
                 if (!response.Success)
                 {

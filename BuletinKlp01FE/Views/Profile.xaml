@@ -11,10 +11,10 @@
         <viewmodels:UserBookmarkViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="10,0">
             <CI:CircleImage WidthRequest="130" HeightRequest="130" Aspect="AspectFit" Source="userprofile" Margin="0,40,0,10"/>
             <Label Text="Nama" HorizontalOptions="CenterAndExpand" FontSize="Large"  TextColor="{x:DynamicResource Color0}" FontAttributes="Bold"/>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10">
                 <StackLayout>
                     <Button x:Name="btnBerita"  Text="Berita Saya" TextColor="{x:DynamicResource Color0}" BackgroundColor="Transparent" Margin="20,0,20,-5" FontSize="Medium" Clicked="BeritaSayaClicked"/>
                     <BoxView x:Name="lineBerita" BackgroundColor="{x:DynamicResource Color0}" HeightRequest="1" VerticalOptions="EndAndExpand"/>
@@ -25,13 +25,18 @@
                 </StackLayout>
             </StackLayout>
             <!-- menu berita saya-->
-            <StackLayout x:Name="beritasaya" Margin="40,0,40,0">
+            <StackLayout x:Name="beritasaya">
                 <ListView BackgroundColor="Transparent" ItemsSource="{Binding Beritasaya}" HasUnevenRows="True" ItemTapped="VideoSelected">
                     <ListView.ItemTemplate >
                         <DataTemplate x:DataType="model:Video">
                             <ViewCell>
-                                <Grid>
-                                    <Frame>
+                                <Frame
+                                    CornerRadius="7" 
+                                    BackgroundColor="White" 
+                                    Padding="5, 10" 
+                                    Margin="0,0,0,5" 
+                                    BorderColor="LightGray"
+                                        >
                                         <StackLayout Orientation="Horizontal" >
                                             <Image Source="{Binding ThumbnailSource}" WidthRequest="100"/>
                                             <StackLayout Margin="10,0,0,0">
@@ -39,15 +44,14 @@
                                                 <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding ChannelName}" TextColor="{x:DynamicResource Color0}"/>
                                             </StackLayout>
                                         </StackLayout>
-                                    </Frame>
-                                </Grid>
+                                </Frame>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
             <!-- menu pengaturan -->
-            <StackLayout x:Name="pengaturan"  Margin="30,0,40,20" IsVisible="false" Padding="0,10,0,0">
+            <StackLayout x:Name="pengaturan" IsVisible="false">
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                     <!--CI:CircleImage WidthRequest="40" HeightRequest="40" Aspect="AspectFill" Source="userprofile" BackgroundColor="Transparent"/-->
                     <Label Text="Ubah foto profil" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>

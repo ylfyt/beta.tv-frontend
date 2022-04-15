@@ -25,6 +25,7 @@ public class Constants
     public static string ENDPOINT_USER_ME = "/user/me";
     public static string ENDPOINT_USER_LOGIN = "/user/login";
     public static string ENDPOINT_USER_REGISTER = "/user/register";
+    public static string ENDPOINT_USER_LOGOUT = "/user/logout";
 
     public static string ENDPOINT_VIDEO_GET = "/video";
     public static string ENDPOINT_VIDEO_SEARCH = "/video/search";
