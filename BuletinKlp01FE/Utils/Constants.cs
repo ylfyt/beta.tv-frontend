@@ -15,9 +15,10 @@ using Xamarin.Forms;
         public static string HOMEPAGE_ALL_VIDEO_ENDPOINT { get; } = BASE_URL + "/Video";
         public static string VIDEO_ENDPOINT { get; } = BASE_URL + "/video";
         public static string COMMENT_ENDPOINT { get; } = BASE_URL + "/comment";
-    public static string COMMENT_LIKE_ENDPOINT { get; } = BASE_URL + "/commentlike";
+        public static string COMMENT_LIKE_ENDPOINT { get; } = BASE_URL + "/commentlike";
+        public static string CATEGORY_ENDPOINT { get; } = BASE_URL + "/Category";
 
-    public static string NotInternetText { get; } = "No internet, please reconnect!";
+        public static string NotInternetText { get; } = "No internet, please reconnect!";
 
         public static Color color0 = Color.FromHex("3F72AF");
     }
