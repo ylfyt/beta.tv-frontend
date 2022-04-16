@@ -6,9 +6,6 @@
              xmlns:viewmodels="clr-namespace:BuletinKlp01FE.ViewModels"
              xmlns:model="clr-namespace:BuletinKlp01FE.Models"
              x:DataType="viewmodels:HomepageViewModel">
-    <ContentPage.BindingContext>
-        <viewmodels:HomepageViewModel/>
-    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Margin="10,10,10,0">
             <ScrollView Orientation="Horizontal">
@@ -16,9 +13,16 @@
                     <Button x:Name="ButtonAll" Text="Semua" BackgroundColor="{x:DynamicResource Color0}" TextColor="White" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Center" Padding="20, 0" HeightRequest="35" Clicked="AllVideosClicked"/>
                 </StackLayout>
             </ScrollView>
-            <Label Text="Loading..." x:Name="ErrorMessage" TextColor="{x:DynamicResource Color0}" />
             <StackLayout>
-                <ListView x:Name="VideosListView" HasUnevenRows="True" ItemTapped="VideoSelected" SeparatorVisibility="None" >
+                <ListView 
+                    x:Name="VideosListView" 
+                    IsPullToRefreshEnabled="True"
+                    ItemsSource="{Binding Videos}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                    HasUnevenRows="True" 
+                    ItemTapped="VideoSelected" 
+                    SeparatorVisibility="None" >
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:Video">
                             <ViewCell>
@@ -26,7 +30,7 @@
                                     <StackLayout Orientation="Vertical" HeightRequest="275">
                                         <Image Source="{Binding ThumbnailSource}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                         <StackLayout Orientation="Vertical" Padding="10,0,10,10" >
-                                            <Label Text="{Binding AuthorTitle}" FontSize="Small" TextColor="Black" MaxLines="2" />
+                                            <Label Text="{Binding Title}" FontSize="Small" TextColor="Black" MaxLines="2" />
                                             <Label Text="{Binding VideoInfo}" FontSize="Micro" TextColor="{x:DynamicResource Color0}"/>
                                         </StackLayout>
                                     </StackLayout>

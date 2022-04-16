@@ -1,6 +1,7 @@
 using BuletinKlp01FE.Dtos.category;
 using BuletinKlp01FE.Dtos.video;
 using BuletinKlp01FE.Models;
+using BuletinKlp01FE.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,14 +19,15 @@ namespace BuletinKlp01FE.Views
         readonly string color5 = "#DBE2EF";
 
         private readonly List<Button> catButtons;
+        private readonly HomepageViewModel homepageViewModel;
 
         public Homepage()
         {
             InitializeComponent();
-
             catButtons = new List<Button>();
             CreateCatButton();
-            _ = GetVideos();
+            homepageViewModel = new HomepageViewModel();
+            BindingContext = homepageViewModel;
         }
 
         public async void CreateCatButton()
@@ -35,7 +37,7 @@ namespace BuletinKlp01FE.Views
             foreach (Category category in categories)
             {
                 Console.WriteLine(category.Label);
-                Button catButton = new Button
+                Button catButton = new()
                 {
                     Text = category.Label,
                     BackgroundColor = Color.FromHex(color5),
@@ -46,7 +48,7 @@ namespace BuletinKlp01FE.Views
                     Padding = new Thickness(20, 0),
                     HeightRequest = 35,
                 };
-                catButton.Clicked += async (sender, args) => await CatButtonClicked(sender, args);
+                catButton.Clicked += (sender, args) => CatButtonClicked(sender, args);
                 catButton.CommandParameter = category.Slug;
                 catButtons.Add(catButton);
                 CatButtonContainer.Children.Add(catButton);
@@ -66,30 +68,6 @@ namespace BuletinKlp01FE.Views
             await Navigation.PushAsync(new VideoPlayer(video));
         }
 
-        async Task GetVideos(string? category = null)
-        {
-            SetMessage("Please wait...");
-
-            string endpoint = category == null ? "/video" : "/video/category/" + category;
-
-            var response = await APIRequest.Send<DataVideos>(endpoint);
-
-            if (!response.Success)
-            {
-                SetMessage("Failed to get videos");
-                return;
-            }
-
-            if (response.Data!.Videos.Count == 0)
-            {
-                SetMessage("No videos found!");
-                return;
-            }
-
-            VideosListView.ItemsSource = response.Data!.Videos;
-            SetMessage();
-        }
-
         async Task<List<Category>> GetCategories()
         {
             var response = await APIRequest.Send<DataCategories>(Constants.ENDPOINT_CATEGORY);
@@ -101,31 +79,19 @@ namespace BuletinKlp01FE.Views
             return response.Data!.Categories;
         }
 
-        void SetMessage(string? message = null)
-        {
-            if (message == null || message == "")
-            {
-                ErrorMessage.IsVisible = false;
-                return;
-            }
-
-            ErrorMessage.IsVisible = true;
-            ErrorMessage.Text = message;
-        }
-
-        async void AllVideosClicked(object sender, EventArgs args)
+        void AllVideosClicked(object sender, EventArgs args)
         {
             ChangeActiveCatButton("all");
-            await GetVideos();
+            homepageViewModel.GetVideo();
         }
 
-        async Task CatButtonClicked(object sender, EventArgs args)
+        void CatButtonClicked(object sender, EventArgs args)
         {
             Button? receiver = sender! as Button;
             string catName = receiver!.Text;
             string slug = receiver!.CommandParameter.ToString();
             ChangeActiveCatButton(catName);
-            await GetVideos(slug);
+            homepageViewModel.GetVideo(slug);
         }
 
 
