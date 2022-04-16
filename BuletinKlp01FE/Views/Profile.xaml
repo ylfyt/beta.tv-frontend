@@ -47,8 +47,8 @@
                                         <StackLayout Orientation="Horizontal" >
                                             <Image Source="{Binding ThumbnailSource}" WidthRequest="100"/>
                                             <StackLayout Margin="10,0,0,0">
-                                                <Label VerticalOptions="Center" FontSize="13"  Text="{Binding Title}" TextColor="black"/>
-                                                <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding ChannelName}" TextColor="{x:DynamicResource Color0}"/>
+                                                <Label VerticalOptions="Center" FontSize="13"  Text="{Binding AuthorTitle}" TextColor="black"/>
+                                                <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding VideoInfo}" TextColor="{x:DynamicResource Color0}"/>
                                             </StackLayout>
                                         </StackLayout>
                                 </Frame>

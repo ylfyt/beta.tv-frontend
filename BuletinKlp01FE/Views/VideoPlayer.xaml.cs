@@ -259,10 +259,10 @@ namespace BuletinKlp01FE.Views
                 categoryText.Text = temp;
             }
 
-            titleText.Text = _video.Title;
+            titleText.Text = _video.AuthorTitle;
             sourceText.Text = _video.ChannelName;
             authorNameText.Text = _video.AuthorName;
-            descriptionText.Text = _video.Description;
+            descriptionText.Text = _video.AuthorDescription;
             VideoWebView.Source = _video.Url;
             this.Title = "Video";
         }
