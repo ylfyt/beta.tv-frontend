@@ -5,34 +5,64 @@ using BuletinKlp01FE.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace BuletinKlp01FE.ViewModels
 {
-    class UserBookmarkViewModel
+    class UserBookmarkViewModel : BindableObject
     {
-        public ObservableRangeCollection<Video> Beritasaya { get; set; }
+        public ObservableCollection<Video> Beritasaya { get; set; }
+        bool _isRefreshing = false;
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set { 
+                _isRefreshing = value;
+                OnPropertyChanged(nameof(IsRefreshing));
+            }
+        }
         public UserBookmarkViewModel()
         {
-            Beritasaya = new ObservableRangeCollection<Video>();
-            GetBookmarks();
+            Beritasaya = new ObservableCollection<Video>();
+            _ = GetBookmarks();
 
         }
 
-        public async void GetBookmarks()
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    Beritasaya.Clear();
+                    RefreshData();
+                });
+            }
+        }
+
+        async void RefreshData()
+        {
+            IsRefreshing = true;
+            await GetBookmarks();
+            IsRefreshing = false;
+        }
+
+        public async Task GetBookmarks()
         {
             try
             {
                 var response = await APIRequest.Send<DataVideos>(Constants.ENDPOINT_BOOKMARK);
                 if (!response.Success)
                 {
-                    Beritasaya.Clear();
+                    DependencyService.Get<IMessage>().ShortAlert("Gagal mendapatkan bookmark");
                     return;
                 }
-
-                Beritasaya.AddRange(response.Data!.Videos);
+                response.Data!.Videos.ForEach(v => Beritasaya.Add(v));
             }
             catch (Exception ex)
             {

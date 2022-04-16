@@ -26,7 +26,14 @@
             </StackLayout>
             <!-- menu berita saya-->
             <StackLayout x:Name="beritasaya">
-                <ListView BackgroundColor="Transparent" ItemsSource="{Binding Beritasaya}" HasUnevenRows="True" ItemTapped="VideoSelected">
+                <ListView 
+                    BackgroundColor="Transparent" 
+                    IsPullToRefreshEnabled="True"
+                    ItemsSource="{Binding Beritasaya}" 
+                    IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    HasUnevenRows="True" 
+                    ItemTapped="VideoSelected">
                     <ListView.ItemTemplate >
                         <DataTemplate x:DataType="model:Video">
                             <ViewCell>
