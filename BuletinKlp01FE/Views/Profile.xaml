@@ -7,13 +7,13 @@
              xmlns:viewmodels="clr-namespace:BuletinKlp01FE.ViewModels"
              xmlns:model="clr-namespace:BuletinKlp01FE.Models"
              x:DataType="viewmodels:UserBookmarkViewModel">
-    <ContentPage.BindingContext>
+    <!-- ContentPage.BindingContext>
         <viewmodels:UserBookmarkViewModel/>
-    </ContentPage.BindingContext>
+    </-->
     <ContentPage.Content>
         <StackLayout Padding="10,0">
-            <CI:CircleImage WidthRequest="130" HeightRequest="130" Aspect="AspectFit" Source="userprofile" Margin="0,40,0,10"/>
-            <Label Text="Nama" HorizontalOptions="CenterAndExpand" FontSize="Large"  TextColor="{x:DynamicResource Color0}" FontAttributes="Bold"/>
+            <CI:CircleImage WidthRequest="130" HeightRequest="130" Aspect="AspectFit" Source="{Binding Userprofile}" Margin="0,40,0,10" BorderColor="{x:DynamicResource Color5}" BorderThickness="2"/>
+            <Label Text="{Binding UsernameDisplay}" HorizontalOptions="CenterAndExpand" FontSize="Large"  TextColor="{x:DynamicResource Color0}" FontAttributes="Bold"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10">
                 <StackLayout>
                     <Button x:Name="btnBerita"  Text="Berita Saya" TextColor="{x:DynamicResource Color0}" BackgroundColor="Transparent" Margin="20,0,20,-5" FontSize="Medium" Clicked="BeritaSayaClicked"/>

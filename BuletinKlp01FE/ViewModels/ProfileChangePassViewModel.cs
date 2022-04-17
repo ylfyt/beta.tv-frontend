@@ -16,7 +16,7 @@ namespace BuletinKlp01FE.ViewModels
     {
         string oldUsername = "";
 
-        string oldPass = "pass lama";
+        string oldPass = "";
         public string OldPass
         {
             get => oldPass;

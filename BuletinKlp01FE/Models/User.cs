@@ -8,6 +8,7 @@ namespace BuletinKlp01FE.Models
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public int Level { get; set; } = 5;
+        public string PhotoURL { get; set; } = string.Empty;
 
         public bool IsInputValid()
         {

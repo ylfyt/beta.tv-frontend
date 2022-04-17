@@ -19,9 +19,8 @@ public class Constants
     public static string COMMENT_ENDPOINT { get; } = BASE_URL + "/comment";
     public static string COMMENT_LIKE_ENDPOINT { get; } = BASE_URL + "/commentlike";
     public static string CATEGORY_ENDPOINT { get; } = BASE_URL + "/Category";
-
     public static string BOOKMARK_END_POINT { get; } = "/bookmark";
-
+    public static string CHANGE_PROFPIC_END_POINT { get; } = BASE_URL + "/User/changeProfilePic";
     public static string ENDPOINT_USER_ME = "/user/me";
     public static string ENDPOINT_USER_LOGIN = "/user/login";
     public static string ENDPOINT_USER_REGISTER = "/user/register";

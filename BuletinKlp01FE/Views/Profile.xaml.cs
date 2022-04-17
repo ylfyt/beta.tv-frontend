@@ -17,9 +17,19 @@ namespace BuletinKlp01FE.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Profile : ContentPage
     {
+        UserBookmarkViewModel userBookmarkViewModel;
+
         public Profile()
         {
             InitializeComponent();
+            userBookmarkViewModel = new UserBookmarkViewModel();
+            this.BindingContext = userBookmarkViewModel;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            userBookmarkViewModel.VModelActivate(this, EventArgs.Empty);
         }
 
         public void BeritaSayaClicked(object sender, EventArgs args)
