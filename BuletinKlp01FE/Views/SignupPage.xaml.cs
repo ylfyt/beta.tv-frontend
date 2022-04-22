@@ -66,6 +66,7 @@ namespace BuletinKlp01FE.Views
                 if (!response.Success)
                 {
                     DependencyService.Get<IMessage>().ShortAlert("Registrasi gagal");
+                    //DependencyService.Get<IMessage>().ShortAlert(response.Message);
                     SetLoading();
                     return;
                 }

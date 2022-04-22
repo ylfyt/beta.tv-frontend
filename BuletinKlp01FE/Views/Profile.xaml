@@ -12,8 +12,9 @@
     </-->
     <ContentPage.Content>
         <StackLayout Padding="10,0">
-            <CI:CircleImage WidthRequest="130" HeightRequest="130" Aspect="AspectFit" Source="{Binding Userprofile}" Margin="0,40,0,10" BorderColor="{x:DynamicResource Color5}" BorderThickness="2"/>
-            <Label Text="{Binding UsernameDisplay}" HorizontalOptions="CenterAndExpand" FontSize="Large"  TextColor="{x:DynamicResource Color0}" FontAttributes="Bold"/>
+            <CI:CircleImage WidthRequest="130" HeightRequest="130" Aspect="AspectFit" Source="{Binding Userprofile}" Margin="0,30,0,10" BorderColor="{x:DynamicResource Color5}" BorderThickness="2"/>
+            <Label Text="{Binding UsernameDisplay}" HorizontalOptions="CenterAndExpand" FontSize="Large"  TextColor="{x:DynamicResource Color0}" FontAttributes="Bold" Padding="0"/>
+            <Label Text="{Binding NameEmailDisplay}" HorizontalOptions="CenterAndExpand" FontSize="Small"  TextColor="Black" Padding="0"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,0,0,10">
                 <StackLayout>
                     <Button x:Name="btnBerita"  Text="Berita Saya" TextColor="{x:DynamicResource Color0}" BackgroundColor="Transparent" Margin="20,0,20,-5" FontSize="Medium" Clicked="BeritaSayaClicked"/>
@@ -39,9 +40,9 @@
                             <ViewCell>
                                 <Frame
                                     CornerRadius="7" 
-                                    BackgroundColor="White" 
+                                    BackgroundColor="{x:DynamicResource Color5}" 
                                     Padding="5, 10" 
-                                    Margin="0,0,0,5" 
+                                    Margin="40,0,40,5" 
                                     BorderColor="LightGray"
                                         >
                                         <StackLayout Orientation="Horizontal" >
@@ -59,27 +60,47 @@
             </StackLayout>
             <!-- menu pengaturan -->
             <StackLayout x:Name="pengaturan" IsVisible="false">
-                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
-                    <!--CI:CircleImage WidthRequest="40" HeightRequest="40" Aspect="AspectFill" Source="userprofile" BackgroundColor="Transparent"/-->
-                    <Label Text="Ubah foto profil" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
-                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" Margin="0,0,20,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="ChangeImageClicked"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
-                    <!--CI:CircleImage WidthRequest="40" HeightRequest="40" Aspect="AspectFit" Source="checklist" BackgroundColor="Transparent"/-->
-                    <Label Text="Perbarui data diri" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
-                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" Margin="0,0,20,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="UbahDataDiriClicked"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
-                    <!--CI:CircleImage WidthRequest="40" HeightRequest="40" Aspect="AspectFit" Source="padlock" BackgroundColor="Transparent"/-->
-                    <Label Text="Ubah kata sandi" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
-                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" Margin="0,0,20,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="ChangePassClicked"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
-                    <!--CI:CircleImage WidthRequest="40" HeightRequest="40" Aspect="Fill" Source="poweroff" BackgroundColor="Transparent"/-->
-                    <Label Text="Keluar" FontSize="Medium" TextColor="Black" VerticalOptions="Center" Margin="20,0,20,0"/>
-                    <ImageButton Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" Margin="0,0,20,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="LogoutClicked"/>
-                </StackLayout>
-
+                <!-- change profile pic -->
+                <Frame Margin="30,0,30,5" HeightRequest="25" Padding="10" CornerRadius="7" BackgroundColor="{x:DynamicResource Color5}">
+                    <StackLayout Orientation="Horizontal" Margin="0" VerticalOptions="Center">
+                        <Label Text="Ubah foto profil" FontSize="Medium" TextColor="Black" VerticalOptions="Center" />
+                        <Image Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ChangeImageClicked"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <!-- change profile -->
+                <Frame Margin="30,0,30,5" HeightRequest="25" Padding="10" CornerRadius="7" BackgroundColor="{x:DynamicResource Color5}">
+                    <StackLayout Orientation="Horizontal" Margin="0" VerticalOptions="Center">
+                        <Label Text="Perbarui data diri" FontSize="Medium" TextColor="Black" VerticalOptions="Center"/>
+                        <Image Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="UbahDataDiriClicked"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <!-- change password -->
+                <Frame Margin="30,0,30,5" HeightRequest="25" Padding="10" CornerRadius="7" BackgroundColor="{x:DynamicResource Color5}">
+                    <StackLayout Orientation="Horizontal" Margin="0">
+                        <Label Text="Ubah kata sandi" FontSize="Medium" TextColor="Black" VerticalOptions="Center"/>
+                        <Image Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped= "ChangePassClicked"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <!-- logout -->
+                <Frame Margin="30,0,30,5" HeightRequest="25" Padding="10" CornerRadius="7" BackgroundColor="{x:DynamicResource Color5}">
+                    <StackLayout Orientation="Horizontal" Margin="0">
+                        <!--CI:CircleImage WidthRequest="40" HeightRequest="40" Aspect="Fill" Source="poweroff" BackgroundColor="Transparent"/-->
+                        <Label Text="Keluar" FontSize="Medium" TextColor="Black" VerticalOptions="Center" />
+                        <Image Source="rightarrow" BackgroundColor="Transparent" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped= "LogoutClicked"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
