@@ -65,13 +65,13 @@ namespace BuletinKlp01FE.Views
 
                 if (!response.Success)
                 {
-                    DependencyService.Get<IMessage>().ShortAlert(response.Message);
+                    DependencyService.Get<IMessage>().ShortAlert("Registrasi gagal");
                     SetLoading();
                     return;
                 }
 
-                Preferences.Set("token", response.Data?.token);
-                Redirects.ToHomePage();
+                await DisplayAlert("Registrasi Berhasil!", "Silahkan periksa email anda untuk aktivasi akun.", "ok");
+                Redirects.ToLoginPage();
             }
             catch (Exception ex)
             {

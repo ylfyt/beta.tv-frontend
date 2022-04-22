@@ -5,6 +5,7 @@ using Xamarin.Essentials;
 using BuletinKlp01FE.Services;
 using BuletinKlp01FE.Utils;
 using BuletinKlp01FE.Dtos.user;
+using System.Threading.Tasks;
 
 namespace BuletinKlp01FE.Views
 {
@@ -32,10 +33,16 @@ namespace BuletinKlp01FE.Views
             {
                 SetLoading(true);
                 var user = await APIRequest.MeQuery();
-                if (user != null)
+                if (user != null && user.IsConfirmed)
                 {
                     Redirects.ToHomePage();
                 }
+
+                if (user != null && !user.IsConfirmed)
+                {
+                    await ShowNotConfirmedMessage();
+                }
+
                 SetLoading();
                 return;
             }
@@ -44,6 +51,11 @@ namespace BuletinKlp01FE.Views
         void RedirectToSignupPageTrigger(object sender, EventArgs e)
         {
             Application.Current.MainPage = new SignupPage();
+        }
+
+        async Task ShowNotConfirmedMessage()
+        {
+            await DisplayAlert("Login gagal!", "Akun anda belum aktif. Silahkan periksa email anda terlebih dahulu untuk melakukan aktivasi akun!", "ok");
         }
 
         public async void SignInProcedure(object sender, EventArgs e)
@@ -73,6 +85,13 @@ namespace BuletinKlp01FE.Views
                 if (!response.Success)
                 {
                     DependencyService.Get<IMessage>().ShortAlert("Username or password is wrong!");
+                    SetLoading();
+                    return;
+                }
+
+                if (!response.Data!.user!.IsConfirmed)
+                {
+                    await ShowNotConfirmedMessage();
                     SetLoading();
                     return;
                 }

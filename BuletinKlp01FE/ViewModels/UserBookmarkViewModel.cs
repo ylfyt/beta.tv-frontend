@@ -147,7 +147,7 @@ namespace BuletinKlp01FE.ViewModels
                     var response = JsonConvert.DeserializeObject<ResponseDto<DataUser>>(responseBody);
 
                     Id = response.Data.user.Id;
-                    UsernameDisplay = response.Data.user.Username;
+                    UsernameDisplay = response.Data.user.Name;
                     try {
                         var url = response.Data.user.PhotoURL;
                         if (url != String.Empty)
