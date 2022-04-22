@@ -102,7 +102,6 @@ namespace BuletinKlp01FE.ViewModels
                     var response = JsonConvert.DeserializeObject<ResponseDto<DataUser>>(responseBody);
 
                     oldUsername = response.Data.user.Username;
-                    DependencyService.Get<IMessage>().ShortAlert(oldUsername);
                 }
                 else
                 {

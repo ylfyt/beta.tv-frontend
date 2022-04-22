@@ -73,6 +73,22 @@ namespace BuletinKlp01FE.ViewModels
             }
         }
 
+
+        string nameEmailDisplay;
+        public string NameEmailDisplay
+        {
+            get => nameEmailDisplay;
+            set
+            {
+                if (value == nameEmailDisplay)
+                {
+                    return;
+                }
+                nameEmailDisplay = value;
+                OnPropertyChanged(nameof(NameEmailDisplay));
+            }
+        }
+
         public UserBookmarkViewModel()
         {
             Beritasaya = new ObservableCollection<Video>();
@@ -147,7 +163,9 @@ namespace BuletinKlp01FE.ViewModels
                     var response = JsonConvert.DeserializeObject<ResponseDto<DataUser>>(responseBody);
 
                     Id = response.Data.user.Id;
-                    UsernameDisplay = response.Data.user.Name;
+                    UsernameDisplay = response.Data.user.Username;
+                    NameEmailDisplay = response.Data.user.Name + " - " + response.Data.user.Email;
+
                     try {
                         var url = response.Data.user.PhotoURL;
                         if (url != String.Empty)
