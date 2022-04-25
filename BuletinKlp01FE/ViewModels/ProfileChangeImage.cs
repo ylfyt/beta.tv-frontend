@@ -118,7 +118,7 @@ namespace BuletinKlp01FE.ViewModels
 
         async void sendImage()
         {
-            var task = new FirebaseStorage("betatv-7ad1d.appspot.com", new FirebaseStorageOptions { ThrowOnCancel = true })
+            var task = new FirebaseStorage("betatv-app.appspot.com", new FirebaseStorageOptions { ThrowOnCancel = true })
                 .Child("UserProfilePicture").Child(Username).PutAsync(_mediaFile?.GetStream());
 
             downloadLink = await task;
