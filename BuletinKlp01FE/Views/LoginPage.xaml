@@ -9,7 +9,7 @@
         <Grid HeightRequest="230" >
             <Frame Grid.Row="0" BackgroundColor="{x:DynamicResource Color0}" CornerRadius="30" Margin="0,-35,0,0"/>
             <Frame Grid.Row="0" WidthRequest="80" HeightRequest="80" CornerRadius="40" Padding="0" Margin="0,0,0,20" HorizontalOptions="Center" VerticalOptions="Center">
-                <Image Source="logo.png" WidthRequest="80" HeightRequest="80" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Image Source="beta_logo.png" WidthRequest="80" HeightRequest="80" VerticalOptions="Center" HorizontalOptions="Center" />
             </Frame>
         </Grid>
         <StackLayout Margin="0,-50,0,0">

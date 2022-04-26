@@ -17,6 +17,11 @@ namespace BuletinKlp01FE.Services
             }
         }
 
+        public static void ResetHttpClient()
+        {
+            instance = null;
+        }
+
         public static HttpClient? GetHttpClientWithTokenHeader()
         {
             Declare();
